@@ -16,6 +16,7 @@ mousepad
 ristretto
 seahorse
 transmission
+pcp-selinux
 #lightdm
 #gdm
 -gdm
