@@ -88,5 +88,6 @@ EOF
 
 # this doesn't come up automatically. not sure why.
 systemctl enable sddm.service
+dnf config-manager --set-enabled powertools
 
 %end

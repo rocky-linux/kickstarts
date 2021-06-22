@@ -99,5 +99,6 @@ restorecon -R /
 EOF
 
 systemctl enable sddm.service
+dnf config-manager --set-enabled powertools
 
 %end
