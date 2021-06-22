@@ -2,6 +2,7 @@
 
 # Deps repo, there are some anaconda packages that are *not* available by default
 repo --name=livedeps --includepkgs=anaconda-live --cost=500 --baseurl=https://kojidev.rockylinux.org/kojifiles/repos/dist-rocky8_4-updates-build/latest/$basearch/
+#repo --name=livedeps --includepkgs=anaconda-live,rocky-logos,rocky-logos-httpd,rocky-backgrounds,rocky-logos-ipa --cost=500 --baseurl=http://10.100.0.1/pub/deps
 
 # Base repos
 repo --name=BaseOS --cost=200 --baseurl=http://dl.rockylinux.org/pub/rocky/8.4/BaseOS/$basearch/os/
