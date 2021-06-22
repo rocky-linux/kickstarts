@@ -86,4 +86,7 @@ restorecon -R /home/liveuser
 
 EOF
 
+# this doesn't come up automatically. not sure why.
+systemctl enable sddm.service
+
 %end

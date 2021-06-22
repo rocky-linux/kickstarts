@@ -23,6 +23,19 @@ pcp-selinux
 -gnome-shell
 -gnome-menus
 
+# Some stuff might already be here, doesn't hurt to list it.
+firefox
+thunderbird
+firewall-config
+pidgin
+rocky-backgrounds
+gparted
+rhythmbox
+
+# extras
+f32-backgrounds-xfce
+f32-backgrounds-extras-xfce
+
 xfce4-about
 xfce4-appfinder
 xfce4-taskmanager

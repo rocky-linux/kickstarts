@@ -51,6 +51,9 @@ glibc-all-langpacks
 # no longer in @core since 2018-10, but needed for livesys script
 initscripts
 chkconfig
+
+# absolutely required - don't want a system that can't actually update
+epel-release
 %end
 
 %post

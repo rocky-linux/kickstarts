@@ -98,4 +98,6 @@ restorecon -R /
 
 EOF
 
+systemctl enable sddm.service
+
 %end
