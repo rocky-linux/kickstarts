@@ -18,8 +18,6 @@ part / --fstype=xfs --asprimary --size=1024 --grow
 
 user --name=vagrant --plaintext --password=vagrant
 
-shutdown
-
 %packages --instLangs=en
 bash-completion
 man-pages
