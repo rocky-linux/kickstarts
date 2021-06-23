@@ -1,11 +1,7 @@
 # rocky-live-base.ks
 #
-# Defines the basics for all kickstarts in the fedora-live branch
-# Does not include package selection (other then mandatory)
-# Does not include localization packages or configuration
+# Base installation information for Rocky Linux images
 #
-# Does includes "default" language configuration (kickstarts including
-# this template can override these settings)
 
 lang en_US.UTF-8
 keyboard us
@@ -45,17 +41,17 @@ anaconda-install-env-deps
 anaconda-live
 @anaconda-tools
 
-# Need aajohan-comfortaa-fonts for the SVG rnotes images
+# Required for SVG rnotes images
 aajohan-comfortaa-fonts
 
-# Without this, initramfs generation during live image creation fails: #1242586
+# RHBZ#1242586 - Required for initramfs creation
 dracut-live
 syslinux
 
-# anaconda needs the locales available to run for different locales
+# Anaconda needs all the locales available, just like a DVD installer
 glibc-all-langpacks
 
-# no longer in @core since 2018-10, but needed for livesys script
+# This isn't in @core anymore, but livesys still needs it
 initscripts
 chkconfig
 %end
@@ -99,7 +95,7 @@ for arg in \`cat /proc/cmdline\` ; do
   fi
 done
 
-# enable swaps unless requested otherwise
+# Enable swap unless requested otherwise
 swaps=\`blkid -t TYPE=swap -o device\`
 if ! strstr "\`cat /proc/cmdline\`" noswap && [ -n "\$swaps" ] ; then
   for s in \$swaps ; do
@@ -110,6 +106,7 @@ if ! strstr "\`cat /proc/cmdline\`" noswap && [ -f /run/initramfs/live/\${livedi
   action "Enabling swap file" swapon /run/initramfs/live/\${livedir}/swap.img
 fi
 
+# Support for persistent homes
 mountPersistentHome() {
   # support label/uuid
   if [ "\${homedev##LABEL=}" != "\${homedev}" -o "\${homedev##UUID=}" != "\${homedev}" ]; then
@@ -146,6 +143,7 @@ mountPersistentHome() {
   if [ -d /home/liveuser ]; then USERADDARGS="-M" ; fi
 }
 
+# Help locate persistent homes
 findPersistentHome() {
   for arg in \`cat /proc/cmdline\` ; do
     if [ "\${arg##persistenthome=}" != "\${arg}" ]; then
@@ -160,7 +158,7 @@ elif [ -e /run/initramfs/live/\${livedir}/home.img ]; then
   homedev=/run/initramfs/live/\${livedir}/home.img
 fi
 
-# if we have a persistent /home, then we want to go ahead and mount it
+# Mount the persistent home if it's available
 if ! strstr "\`cat /proc/cmdline\`" nopersistenthome && [ -n "\$homedev" ] ; then
   action "Mounting persistent /home" mountPersistentHome
 fi
@@ -169,40 +167,40 @@ if [ -n "\$configdone" ]; then
   exit 0
 fi
 
-# add liveuser user with no passwd
+# Create the liveuser (no password) so automatic logins and sudo works
 action "Adding live user" useradd \$USERADDARGS -c "Live System User" liveuser
 passwd -d liveuser > /dev/null
 usermod -aG wheel liveuser > /dev/null
 
-# Remove root password lock
+# Same for root
 passwd -d root > /dev/null
 
-# turn off firstboot for livecd boots
+# Turn off firstboot (similar to a DVD/minimal install, where it asks
+# for the user to accept the EULA before bringing up a TTY)
 systemctl --no-reload disable firstboot-text.service 2> /dev/null || :
 systemctl --no-reload disable firstboot-graphical.service 2> /dev/null || :
 systemctl stop firstboot-text.service 2> /dev/null || :
 systemctl stop firstboot-graphical.service 2> /dev/null || :
 
-# don't use prelink on a running live image
+# Prelinking damages the images
 sed -i 's/PRELINKING=yes/PRELINKING=no/' /etc/sysconfig/prelink &>/dev/null || :
 
-# turn off mdmonitor by default
+# Turn off mdmonitor by default
 systemctl --no-reload disable mdmonitor.service 2> /dev/null || :
 systemctl --no-reload disable mdmonitor-takeover.service 2> /dev/null || :
 systemctl stop mdmonitor.service 2> /dev/null || :
 systemctl stop mdmonitor-takeover.service 2> /dev/null || :
 
-# don't enable the gnome-settings-daemon packagekit plugin
+# Even if there isn't gnome, this doesn't hurt.
 gsettings set org.gnome.software download-updates 'false' || :
 
-# don't start cron/at as they tend to spawn things which are
-# disk intensive that are painful on a live image
+# Disable cron
 systemctl --no-reload disable crond.service 2> /dev/null || :
 systemctl --no-reload disable atd.service 2> /dev/null || :
 systemctl stop crond.service 2> /dev/null || :
 systemctl stop atd.service 2> /dev/null || :
 
-# turn off abrtd on a live image
+# Disable abrt
 systemctl --no-reload disable abrtd.service 2> /dev/null || :
 systemctl stop abrtd.service 2> /dev/null || :
 
@@ -220,7 +218,7 @@ echo "localhost" > /etc/hostname
 
 EOF
 
-# bah, hal starts way too late
+# HAL likes to start late.
 cat > /etc/rc.d/init.d/livesys-late << EOF
 #!/bin/bash
 #
@@ -242,7 +240,7 @@ exists() {
 
 touch /.liveimg-late-configured
 
-# read some variables out of /proc/cmdline
+# Read some stuff out of the kernel cmdline
 for o in \`cat /proc/cmdline\` ; do
     case \$o in
     ks=*)
@@ -254,7 +252,7 @@ for o in \`cat /proc/cmdline\` ; do
     esac
 done
 
-# if liveinst or textinst is given, start anaconda
+# If liveinst or textinst is given, start installer
 if strstr "\`cat /proc/cmdline\`" liveinst ; then
    plymouth --quit
    /usr/sbin/liveinst \$ks
@@ -264,7 +262,7 @@ if strstr "\`cat /proc/cmdline\`" textinst ; then
    /usr/sbin/liveinst --text \$ks
 fi
 
-# configure X, allowing user to override xdriver
+# Configure X, allowing user to override xdriver
 if [ -n "\$xdriver" ]; then
    cat > /etc/X11/xorg.conf.d/00-xdriver.conf <<FOE
 Section "Device"
@@ -284,7 +282,7 @@ chmod 755 /etc/rc.d/init.d/livesys-late
 /sbin/restorecon /etc/rc.d/init.d/livesys-late
 /sbin/chkconfig --add livesys-late
 
-# enable tmpfs for /tmp
+# Enable tmpfs for /tmp - this is a good idea
 systemctl enable tmp.mount
 
 # make it so that we don't do writing to the overlay for things which
@@ -294,7 +292,7 @@ cat >> /etc/fstab << EOF
 vartmp   /var/tmp    tmpfs   defaults   0  0
 EOF
 
-# work around for poor key import UI in PackageKit
+# PackageKit likes to play games. Let's fix that.
 rm -f /var/lib/rpm/__db*
 releasever=$(rpm -q --qf '%{version}\n' --whatprovides system-release)
 basearch=$(uname -i)
@@ -324,10 +322,10 @@ echo 'File created by kickstart. See systemd-update-done.service(8).' \
 rm -f /boot/*-rescue*
 
 # Disable network service here, as doing it in the services line
-# fails due to RHBZ #1369794
+# fails due to RHBZ #1369794 - the error is expected
 /sbin/chkconfig network off
 
-# Remove machine-id on pre generated images
+# Remove machine-id on generated images
 rm -f /etc/machine-id
 touch /etc/machine-id
 
@@ -337,7 +335,7 @@ touch /etc/machine-id
 %post --nochroot
 cp $INSTALL_ROOT/usr/share/licenses/*-release/* $LIVE_ROOT/
 
-# only works on x86, x86_64
+# This only works on x86_64
 if [ "$(uname -i)" = "i386" -o "$(uname -i)" = "x86_64" ]; then
     # For livecd-creator builds
     if [ ! -d $LIVE_ROOT/LiveOS ]; then mkdir -p $LIVE_ROOT/LiveOS ; fi
