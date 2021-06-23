@@ -1,5 +1,5 @@
-#url --mirrorlist=http://mirrors.rockylinux.org/mirrorlist?release=8&arch=x86_64&repo=BaseOS-8
-#repo --name=AppStream --mirrorlist=http://mirrors.rockylinux.org/mirrorlist?release=8&arch=x86_64&repo=AppStream-8
+url --url=http://dl.rockylinux.org/pub/rocky/8/BaseOS/x86_64/os
+repo --name=AppStream --baseurl=http://dl.rockylinux.org/pub/rocky/8/AppStream/x86_64/os
 text
 keyboard --vckeymap us
 lang en_US
