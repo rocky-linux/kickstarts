@@ -19,6 +19,7 @@ libreoffice-writer
 ### The KDE-Desktop
 
 ### fixes
+sddm
 
 # use kde-print-manager instead of system-config-printer
 -system-config-printer
