@@ -18,8 +18,6 @@ part / --fstype=xfs --asprimary --size=1024 --grow
 
 user --name=vagrant --plaintext --password=vagrant
 
-shutdown
-
 %packages --instLangs=en
 bash-completion
 man-pages
@@ -82,13 +80,7 @@ PERSISTENT_DHCLIENT="yes"
 EOF
 
 # sshd: disable password authentication and DNS checks
-ex -s /etc/ssh/sshd_config <<EOF
-:%substitute/^\(PasswordAuthentication\) yes$/\1 no/
-:%substitute/^#\(UseDNS\) yes$/&\r\1 no/
-:update
-:quit
-EOF
-cat >>/etc/sysconfig/sshd <<EOF
+# for virtualbox we're disabling it after provisioning
 
 # Decrease connection time by preventing reverse DNS lookups
 # (see https://lists.centos.org/pipermail/centos-devel/2016-July/014981.html
