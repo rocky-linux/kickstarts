@@ -17,6 +17,7 @@ ristretto
 seahorse
 transmission
 pcp-selinux
+sddm
 #lightdm
 #gdm
 -gdm
