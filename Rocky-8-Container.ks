@@ -8,17 +8,19 @@
 #
 
 # Basic setup information
-text
-keyboard us
-rootpw --lock --iscrypted locked
-timezone --isUtc --nontp UTC
-selinux --enforcing
+
+url --url https://dl.rockylinux.org/pub/rocky/8/BaseOS/$basearch/os/
+
+bootloader --disable
 firewall --disabled
 network --bootproto=dhcp --device=link --activate --onboot=on
+rootpw --lock --iscrypted locked
+selinux --enforcing
 shutdown
-bootloader --disable
-lang en_US.UTF-8
 
+keyboard us
+lang en_US.UTF-8
+timezone --isUtc --nontp UTC
 
 # Disk setup
 zerombr
@@ -27,37 +29,37 @@ autopart --noboot --nohome --noswap --nolvm --fstype=ext4
 
 # Package setup
 %packages --excludedocs --instLangs=en --nocore --excludeWeakdeps
-rocky-release
-binutils
--brotli
 bash
-hostname
-rootfiles
+binutils
 coreutils-single
 glibc-minimal-langpack
-vim-minimal
-less
--gettext*
--firewalld
--os-prober*
-tar
--iptables
+hostname
 iputils
--kernel
+less
+rocky-release
+rootfiles
+tar
+vim-minimal
+yum
+
+-brotli
 -dosfstools
 -e2fsprogs
+-firewalld
 -fuse-libs
+-gettext*
 -gnupg2-smime
+-grub\*
+-iptables
+-kernel
 -libss
+-os-prober*
 -pinentry
+-qemu-guest-agent
 -shared-mime-info
 -trousers
--xkeyboard-config
 -xfsprogs
--qemu-guest-agent
-yum
--grub\*
-
+-xkeyboard-config
 %end
 
 %post --erroronfail --log=/root/anaconda-post.log
