@@ -44,6 +44,7 @@ yum
 
 -brotli
 -dosfstools
+-dracut
 -e2fsprogs
 -firewalld
 -fuse-libs
@@ -52,7 +53,6 @@ yum
 -grub\*
 -iptables
 -kernel
--kexec-tools
 -libss
 -os-prober*
 -pinentry
