@@ -52,6 +52,7 @@ yum
 -grub\*
 -iptables
 -kernel
+-kexec-tools
 -libss
 -os-prober*
 -pinentry
