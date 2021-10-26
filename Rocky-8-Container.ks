@@ -15,7 +15,7 @@ bootloader --disable
 firewall --disabled
 network --bootproto=dhcp --device=link --activate --onboot=on
 rootpw --lock --iscrypted locked
-selinux --enforcing
+selinux --disabled
 shutdown
 
 keyboard us
@@ -28,7 +28,7 @@ clearpart --all --initlabel
 autopart --noboot --nohome --noswap --nolvm --fstype=ext4
 
 # Package setup
-%packages --excludedocs --instLangs=en --nocore --excludeWeakdeps
+%packages --ignoremissing --excludedocs --instLangs=en --nocore --excludeWeakdeps
 bash
 binutils
 coreutils-single
@@ -44,7 +44,7 @@ yum
 
 -brotli
 -dosfstools
--dracut
+-kexec-tools
 -e2fsprogs
 -firewalld
 -fuse-libs
