@@ -82,7 +82,7 @@ systemd-tmpfiles --create --boot
 # mask mounts and login bits
 systemctl mask \
     console-getty.service \
-    dev-hugepages.mount
+    dev-hugepages.mount \
     getty.target \
     sys-fs-fuse-connections.mount \
     systemd-logind.service \
