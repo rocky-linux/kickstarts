@@ -92,6 +92,6 @@ systemctl mask \
 rm -f /etc/udev/hwdb.bin
 rm -rf /usr/lib/udev/hwdb.d/ \
        /boot /var/lib/dnf/history.* \
-       /tmp/* /tmp/.*
+       /tmp/* /tmp/.* || true
 
 %end
