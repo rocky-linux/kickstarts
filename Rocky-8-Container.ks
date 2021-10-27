@@ -1,11 +1,6 @@
 # This is a minimal Rocky kickstart designed for docker.
 # It will not produce a bootable system
-# To use this kickstart, run the following command
-# livemedia-creator --make-tar \
-#   --iso=/path/to/boot.iso  \
-#   --ks=rocky-8.ks \
-#   --image-name=rocky-root.tar.xz
-#
+# To use this kickstart, run make
 
 # Basic setup information
 
@@ -66,6 +61,7 @@ yum
 %post --erroronfail --log=/root/anaconda-post.log
 # container customizations inside the chroot
 
+# Stay compatible
 echo 'container' > /etc/dnf/vars/infra
 
 #Generate installtime file record
@@ -75,19 +71,27 @@ echo 'container' > /etc/dnf/vars/infra
 LANG="en_US"
 echo "%_install_langs $LANG" > /etc/rpm/macros.image-language-conf
 
+# https://bugzilla.redhat.com/show_bug.cgi?id=1727489
+echo 'LANG="C.UTF-8"' >  /etc/locale.conf
 
 # systemd fixes
 :> /etc/machine-id
 umount /run
 systemd-tmpfiles --create --boot
+
 # mask mounts and login bits
-systemctl mask systemd-logind.service getty.target console-getty.service sys-fs-fuse-connections.mount systemd-remount-fs.service dev-hugepages.mount
+systemctl mask \
+    console-getty.service \
+    dev-hugepages.mount
+    getty.target \
+    sys-fs-fuse-connections.mount \
+    systemd-logind.service \
+    systemd-remount-fs.service
 
-# Remove things we don't need
+# Cleanup the image
 rm -f /etc/udev/hwdb.bin
-rm -rf /usr/lib/udev/hwdb.d/
-rm -rf /boot
-rm -rf /var/lib/dnf/history.*
-
+rm -rf /usr/lib/udev/hwdb.d/ \
+       /boot /var/lib/dnf/history.* \
+       /tmp/* /tmp/.*
 
 %end
