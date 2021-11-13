@@ -12,8 +12,6 @@ lang en_US.UTF-8
 shutdown
 # Network information
 network  --bootproto=dhcp --device=link --activate
-# System authorization information
-auth --useshadow --passalgo=sha512
 # Firewall configuration
 firewall --enabled --service=mdns
 # Use network installation

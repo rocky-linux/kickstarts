@@ -14,8 +14,6 @@ shutdown
 timezone US/Eastern
 # Network information
 network  --bootproto=dhcp --device=link --activate
-# System authorization information
-auth --useshadow --passalgo=sha512
 # Firewall configuration
 firewall --enabled --service=mdns
 # SELinux configuration
