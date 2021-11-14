@@ -4,7 +4,7 @@
 
 # Basic setup information
 
-url --url https://dl.rockylinux.org/pub/rocky/8/BaseOS/$basearch/os/
+url --url https://dl.rockylinux.org/stg/rocky/8/BaseOS/$basearch/os/
 
 bootloader --disable
 firewall --disabled
