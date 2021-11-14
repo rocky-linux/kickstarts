@@ -21,7 +21,7 @@ cat >> /etc/rc.d/init.d/livesys << EOF
 mkdir -p /home/liveuser/.config/xfce4
 # ugly stuff, this should give us a default background for now
 mkdir -p /usr/share/backgrounds/images
-ln -s /usr/share/xfce4/backdrops/f32-04-twilight.png \
+ln -s ln -s /usr/share/backgrounds/f32/default/f32.png \
   /usr/share/backgrounds/images/default.png
 
 cat > /home/liveuser/.config/xfce4/helpers.rc << FOE
