@@ -485,6 +485,8 @@ xfce4-weather-plugin
 xfce4-whiskermenu-plugin
 xfdashboard
 xfdashboard-themes
+xdg-user-dirs
+xdg-user-dirs-gtk
 -acpid
 -aspell-*
 -autofs

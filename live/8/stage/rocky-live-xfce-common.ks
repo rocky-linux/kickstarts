@@ -56,6 +56,8 @@ xfdashboard-themes
 pavucontrol
 
 wget
+xdg-user-dirs
+xdg-user-dirs-gtk
 
 # save some space
 -autofs
