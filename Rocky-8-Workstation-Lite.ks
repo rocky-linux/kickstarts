@@ -15,11 +15,11 @@ network  --bootproto=dhcp --device=link --activate
 # Firewall configuration
 firewall --enabled --service=mdns
 # Use network installation
-url --url="http://dl.rockylinux.org/pub/rocky/8.5/BaseOS/$basearch/os/"
-repo --name="BaseOS" --baseurl=http://dl.rockylinux.org/pub/rocky/8.5/BaseOS/$basearch/os/ --cost=200
-repo --name="AppStream" --baseurl=http://dl.rockylinux.org/pub/rocky/8.5/AppStream/$basearch/os/ --cost=200
-repo --name="PowerTools" --baseurl=http://dl.rockylinux.org/pub/rocky/8.5/PowerTools/$basearch/os/ --cost=200
-repo --name="extras" --baseurl=http://dl.rockylinux.org/pub/rocky/8.5/extras/$basearch/os --cost=200
+url --url="http://dl.rockylinux.org/pub/rocky/8.6/BaseOS/$basearch/os/"
+repo --name="BaseOS" --baseurl=http://dl.rockylinux.org/pub/rocky/8.6/BaseOS/$basearch/os/ --cost=200
+repo --name="AppStream" --baseurl=http://dl.rockylinux.org/pub/rocky/8.6/AppStream/$basearch/os/ --cost=200
+repo --name="PowerTools" --baseurl=http://dl.rockylinux.org/pub/rocky/8.6/PowerTools/$basearch/os/ --cost=200
+repo --name="extras" --baseurl=http://dl.rockylinux.org/pub/rocky/8.6/extras/$basearch/os --cost=200
 # System timezone
 timezone US/Eastern
 # SELinux configuration
