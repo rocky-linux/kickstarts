@@ -18,6 +18,8 @@ seahorse
 transmission
 pcp-selinux
 sddm
+sddm-breeze
+sddm-themes
 #lightdm
 #gdm
 -gdm

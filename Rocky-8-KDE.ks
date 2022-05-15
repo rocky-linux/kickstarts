@@ -483,6 +483,9 @@ mariadb-embedded
 mariadb-server
 memtest86+
 sddm
+sddm-themes
+sddm-breeze
+sddm-kcm
 syslinux
 -@admin-tools
 -@input-methods

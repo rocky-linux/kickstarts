@@ -20,6 +20,9 @@ libreoffice-writer
 
 ### fixes
 sddm
+sddm-breeze
+sddm-themes
+sddm-kcm
 
 # use kde-print-manager instead of system-config-printer
 -system-config-printer

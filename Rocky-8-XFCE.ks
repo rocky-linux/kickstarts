@@ -473,6 +473,8 @@ rhythmbox
 ristretto
 rocky-backgrounds
 sddm
+sddm-themes
+sddm-breeze
 seahorse
 syslinux
 thunderbird
