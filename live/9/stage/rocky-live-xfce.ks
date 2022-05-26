@@ -87,6 +87,6 @@ EOF
 
 # this doesn't come up automatically. not sure why.
 systemctl enable --force lightdm.service
-dnf config-manager --set-enabled powertools
+dnf config-manager --set-enabled crb
 
 %end

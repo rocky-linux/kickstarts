@@ -204,7 +204,7 @@ systemctl stop atd.service 2> /dev/null || :
 systemctl --no-reload disable abrtd.service 2> /dev/null || :
 systemctl stop abrtd.service 2> /dev/null || :
 
-# Don't sync the system clock when running live (RHBZ #1018162)
+# Don't sync the system clock when running live (RHBZ #1019.02)
 sed -i 's/rtcsync//' /etc/chrony.conf
 
 # Mark things as configured

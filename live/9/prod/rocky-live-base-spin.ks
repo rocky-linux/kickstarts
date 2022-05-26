@@ -1,6 +1,7 @@
-# rocky-live-base.ks
+# rocky-live-base-spin.ks
 #
 # Base installation information for Rocky Linux images
+# Contains EPEL.
 #
 
 lang en_US.UTF-8
@@ -17,7 +18,7 @@ network --bootproto=dhcp --device=link --activate
 rootpw --lock --iscrypted locked
 shutdown
 
-%include rocky-repo.ks
+%include rocky-repo-epel.ks
 
 %packages
 @base-x
@@ -50,9 +51,12 @@ syslinux
 # Anaconda needs all the locales available, just like a DVD installer
 glibc-all-langpacks
 
-# This isn't in @core anymore, but livesys still needs it
+# no longer in @core since 2018-10, but needed for livesys script
 initscripts
 chkconfig
+
+# absolutely required - don't want a system that can't actually update
+epel-release
 %end
 
 %post
@@ -203,7 +207,7 @@ systemctl stop atd.service 2> /dev/null || :
 systemctl --no-reload disable abrtd.service 2> /dev/null || :
 systemctl stop abrtd.service 2> /dev/null || :
 
-# Don't sync the system clock when running live (RHBZ #1018162)
+# Don't sync the system clock when running live (RHBZ #1019.02)
 sed -i 's/rtcsync//' /etc/chrony.conf
 
 # Mark things as configured
@@ -334,7 +338,7 @@ touch /etc/machine-id
 %post --nochroot
 cp $INSTALL_ROOT/usr/share/licenses/*-release/* $LIVE_ROOT/
 
-# This only works on x86_64
+# only works on x86_64
 if [ "$(uname -i)" = "i386" -o "$(uname -i)" = "x86_64" ]; then
     # For livecd-creator builds
     if [ ! -d $LIVE_ROOT/LiveOS ]; then mkdir -p $LIVE_ROOT/LiveOS ; fi

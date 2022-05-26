@@ -5,7 +5,7 @@
 
 %post
 
-# set default GTK+ theme for root (see #683855, #689070, #808062)
+# set default GTK+ theme for root (see #683855, #689070, #809.02)
 cat > /root/.gtkrc-2.0 << EOF
 include "/usr/share/themes/Adwaita/gtk-2.0/gtkrc"
 include "/etc/gtk-2.0/gtkrc"
@@ -110,6 +110,6 @@ restorecon -R /
 EOF
 
 systemctl enable --force sddm.service
-dnf config-manager --set-enabled powertools
+dnf config-manager --set-enabled crb
 
 %end

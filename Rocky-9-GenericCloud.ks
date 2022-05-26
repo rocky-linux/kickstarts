@@ -3,6 +3,7 @@ auth --enableshadow --passalgo=sha512
 shutdown
 firewall --enabled --service=ssh
 firstboot --disable
+ignoredisk --only-use=vda
 keyboard us
 # System language
 lang en_US.UTF-8
@@ -15,15 +16,11 @@ selinux --enforcing
 services --disabled="kdump" --enabled="NetworkManager,sshd,rsyslog,chronyd,cloud-init,cloud-init-local,cloud-config,cloud-final,rngd"
 timezone UTC --isUtc
 # Disk
-bootloader --append="console=ttyS0,115200n8 no_timer_check crashkernel=auto net.ifnames=0 nvme_core.io_timeout=4294967295 nvme_core.max_retries=10" --location=mbr --timeout=1 --boot-drive=vda 
+bootloader --append="console=ttyS0,115200n8 no_timer_check crashkernel=auto net.ifnames=0" --location=mbr --timeout=1 --boot-drive=vda
 zerombr
 clearpart --all --initlabel 
 reqpart
-part / --fstype="xfs" --ondisk=vda --size=7950
-
-%pre --erroronfail
-/usr/sbin/parted -s /dev/vda mklabel gpt
-%end
+part / --fstype="xfs" --ondisk=vda --size=8000
 
 %post --erroronfail
 passwd -d root
@@ -62,6 +59,9 @@ cat > /etc/sysconfig/network << EOF
 NETWORKING=yes
 NOZEROCONF=yes
 EOF
+
+# Remove build-time resolvers to fix #16948
+echo > /etc/resolv.conf
 
 # For cloud images, 'eth0' _is_ the predictable device name, since
 # we don't want to be tied to specific virtual (!) hardware
@@ -111,9 +111,9 @@ sed -i 's/name: cloud-user/name: rocky/g' /etc/cloud/cloud.cfg
 dnf clean all
 
 # XXX instance type markers - MUST match Rocky Infra expectation
-echo 'ec2' > /etc/yum/vars/infra
+echo 'genclo' > /etc/yum/vars/infra
 
-# change dhcp client retry/timeouts to resolve #6866
+# change dhcp client retry/timeouts to resolve #69.0
 cat  >> /etc/dhcp/dhclient.conf << EOF
 
 timeout 300;
@@ -137,22 +137,6 @@ touch /var/log/cron
 touch /var/log/boot.log
 mkdir -p /var/cache/yum
 /usr/sbin/fixfiles -R -a restore
-
-# remove these for ec2 debugging
-sed -i -e 's/ rhgb quiet//' /boot/grub/grub.conf
-
-cat > /etc/modprobe.d/blacklist-nouveau.conf << EOL
-blacklist nouveau
-EOL
-
-# enable resizing on copied AMIs
-echo 'install_items+=" sgdisk "' > /etc/dracut.conf.d/sgdisk.conf
-
-echo 'add_drivers+="xen-netfront xen-blkfront "' > /etc/dracut.conf.d/xen.conf
-# Rerun dracut for the installed kernel (not the running kernel):
-KERNEL_VERSION=$(rpm -q kernel --qf '%{V}-%{R}.%{arch}\n')
-dracut -f /boot/initramfs-$KERNEL_VERSION.img $KERNEL_VERSION
-
 
 # reorder console entries
 sed -i 's/console=tty0/console=tty0 console=ttyS0,115200n8/' /boot/grub2/grub.cfg
