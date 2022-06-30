@@ -10,12 +10,12 @@
 #@xfce-office
 
 # Manual install...
-geany
+#geany
 gparted
-mousepad
-ristretto
+#mousepad
+#ristretto
 seahorse
-transmission
+#transmission
 pcp-selinux
 lightdm
 #gdm
@@ -27,31 +27,31 @@ lightdm
 firefox
 thunderbird
 firewall-config
-pidgin
+#pidgin
 rocky-backgrounds
 gparted
-rhythmbox
+#rhythmbox
 
 # extras
-f32-backgrounds-xfce
-f32-backgrounds-extras-xfce
+f35-backgrounds-xfce
+f35-backgrounds-extras-xfce
 
 xfce4-about
 xfce4-appfinder
 xfce4-taskmanager
-xfce4-pulseaudio-plugin
-xfce4-battery-plugin
+#xfce4-pulseaudio-plugin
+#xfce4-battery-plugin
 xfce4-datetime-plugin
 xfce4-netload-plugin
-xfce4-places-plugin
+#xfce4-places-plugin
 xfce4-screenshooter-plugin
 xfce4-smartbookmark-plugin
 xfce4-systemload-plugin
 xfce4-time-out-plugin
 xfce4-weather-plugin
 xfce4-whiskermenu-plugin
-xfdashboard
-xfdashboard-themes
+#xfdashboard
+#xfdashboard-themes
 pavucontrol
 
 wget

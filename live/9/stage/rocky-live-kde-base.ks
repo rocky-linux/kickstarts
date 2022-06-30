@@ -5,7 +5,7 @@
 
 %post
 
-# set default GTK+ theme for root (see #683855, #689070, #809.02)
+# set default GTK+ theme for root (see #683855, #689070, #808062)
 cat > /root/.gtkrc-2.0 << EOF
 include "/usr/share/themes/Adwaita/gtk-2.0/gtkrc"
 include "/etc/gtk-2.0/gtkrc"
@@ -48,14 +48,6 @@ MENU_EOF
 
 # show liveinst.desktop on desktop and in menu
 sed -i 's/NoDisplay=true/NoDisplay=false/' /usr/share/applications/liveinst.desktop
-
-# debrand
-#sed -i "s/Red Hat Enterprise/Rocky/g" /usr/share/anaconda/gnome/rhel-welcome.desktop
-#sed -i "s/RHEL/Rocky Linux/g" /usr/share/anaconda/gnome/rhel-welcome
-#sed -i "s/Red Hat Enterprise/Rocky/g" /usr/share/anaconda/gnome/rhel-welcome
-#sed -i "s/org.fedoraproject.AnacondaInstaller/fedora-logo-icon/g" /usr/share/anaconda/gnome/rhel-welcome
-#sed -i "s/org.fedoraproject.AnacondaInstaller/fedora-logo-icon/g" /usr/share/applications/liveinst.desktop
-
 # set executable bit disable KDE security warning
 chmod +x /usr/share/applications/liveinst.desktop
 mkdir /home/liveuser/Desktop
@@ -74,9 +66,6 @@ cat > /home/liveuser/.config/akonadi/akonadiserverrc << AKONADI_EOF
 Driver=QSQLITE3
 AKONADI_EOF
 
-# Disable plasma-pk-updates if applicable
-rpm -e plasma-pk-updates
-
 # "Disable plasma-discover-notifier"
 mkdir -p /home/liveuser/.config/autostart
 cp -a /etc/xdg/autostart/org.kde.discover.notifier.desktop /home/liveuser/.config/autostart/
@@ -87,8 +76,6 @@ cat > /home/liveuser/.config/baloofilerc << BALOO_EOF
 [Basic Settings]
 Indexing-Enabled=false
 BALOO_EOF
-
-mkdir -p ~liveuser/.kde/share/config/
 
 # Disable kres-migrator
 cat > /home/liveuser/.kde/share/config/kres-migratorrc << KRES_EOF
@@ -101,6 +88,14 @@ cat > /home/liveuser/.config/kwalletrc << KWALLET_EOL
 [Migration]
 alreadyMigrated=true
 KWALLET_EOL
+# Disable automount of 'known' devices
+# https://bugzilla.redhat.com/show_bug.cgi?id=2073708
+cat > /home/liveuser/.config/kded_device_automounterrc << AUTOMOUNTER_EOF
+[General]
+AutomountEnabled=false
+AutomountOnLogin=false
+AutomountOnPlugin=false
+AUTOMOUNTER_EOF
 
 # make sure to set the right permissions and selinux contexts
 chown -R liveuser:liveuser /home/liveuser/

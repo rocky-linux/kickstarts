@@ -9,7 +9,7 @@
 #
 #include snippets/packagekit-cached-metadata.ks
 
-part / --size 6656
+part / --size 7750
 
 %post
 
@@ -19,6 +19,7 @@ cat >> /etc/rc.d/init.d/livesys << EOF
 # disable gnome-software automatically downloading updates
 cat >> /usr/share/glib-2.0/schemas/org.gnome.software.gschema.override << FOE
 [org.gnome.software]
+allow-updates=false
 download-updates=false
 FOE
 
@@ -55,20 +56,20 @@ if [ -f /usr/share/applications/liveinst.desktop ]; then
 
   cat >> /usr/share/glib-2.0/schemas/org.gnome.shell.gschema.override << FOE
 [org.gnome.shell]
-favorite-apps=['firefox.desktop', 'evolution.desktop', 'rhythmbox.desktop', 'shotwell.desktop', 'org.gnome.Nautilus.desktop', 'anaconda.desktop']
+favorite-apps=['firefox.desktop', 'evolution.desktop', 'org.gnome.Nautilus.desktop', 'anaconda.desktop']
 FOE
 
   # Make the welcome screen show up
   if [ -f /usr/share/anaconda/gnome/rhel-welcome.desktop ]; then
     mkdir -p ~liveuser/.config/autostart
-    #sed -i "s/Red Hat Enterprise/Rocky/g" /usr/share/anaconda/gnome/rhel-welcome.desktop
-    #sed -i "s/RHEL/Rocky Linux/g" /usr/share/anaconda/gnome/rhel-welcome
-    #sed -i "s/Red Hat Enterprise/Rocky/g" /usr/share/anaconda/gnome/rhel-welcome
-    #sed -i "s/org.fedoraproject.AnacondaInstaller/fedora-logo-icon/g" /usr/share/anaconda/gnome/rhel-welcome
-    #sed -i "s/org.fedoraproject.AnacondaInstaller/fedora-logo-icon/g" /usr/share/applications/anaconda.desktop
     cp /usr/share/anaconda/gnome/rhel-welcome.desktop /usr/share/applications/
     cp /usr/share/anaconda/gnome/rhel-welcome.desktop ~liveuser/.config/autostart/
   fi
+
+  # Disable GNOME welcome tour so it doesn't overlap with Fedora welcome screen
+  cat >> /usr/share/glib-2.0/schemas/org.gnome.shell.gschema.override << FOE
+welcome-dialog-last-shown-version='4294967295'
+FOE
 
   # Copy Anaconda branding in place
   if [ -d /usr/share/lorax/product/usr/share/anaconda ]; then

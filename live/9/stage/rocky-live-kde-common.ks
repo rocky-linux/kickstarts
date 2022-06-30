@@ -32,7 +32,6 @@ mariadb-connector-c
 mariadb-server
 
 # minimal localization support - allows installing the kde-l10n-* packages
-#system-config-language <- Not in EL8
 #kde-l10n <- Not in EL8
 
 # unwanted packages from @kde-desktop

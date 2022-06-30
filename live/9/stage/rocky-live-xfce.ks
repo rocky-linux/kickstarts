@@ -20,9 +20,9 @@ cat >> /etc/rc.d/init.d/livesys << EOF
 
 mkdir -p /home/liveuser/.config/xfce4
 # ugly stuff, this should give us a default background for now
-mkdir -p /usr/share/backgrounds/images
-ln -s /usr/share/backgrounds/f32/default/f32.png \
-  /usr/share/backgrounds/images/default.png
+#mkdir -p /usr/share/backgrounds/images
+#ln -s /usr/share/backgrounds/f32/default/f32.png \
+#  /usr/share/backgrounds/images/default.png
 
 cat > /home/liveuser/.config/xfce4/helpers.rc << FOE
 MailReader=sylpheed-claws
@@ -87,6 +87,8 @@ EOF
 
 # this doesn't come up automatically. not sure why.
 systemctl enable --force lightdm.service
+
+# CRB needs to be enabled for EPEL to function.
 dnf config-manager --set-enabled crb
 
 %end
