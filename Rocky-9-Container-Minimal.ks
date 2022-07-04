@@ -13,7 +13,7 @@ shutdown
 
 keyboard us
 lang en_US.UTF-8
-timezone --isUtc --nontp UTC
+timezone --isUtc --ntp-disable UTC
 
 # Disk setup
 zerombr
@@ -21,7 +21,7 @@ clearpart --all --initlabel
 autopart --noboot --nohome --noswap --nolvm --fstype=ext4
 
 # Package setup
-%packages --ignoremissing --excludedocs --instLangs=en --nocore --excludeWeakdeps
+%packages --ignoremissing --excludedocs --inst-langs=en --nocore --exclude-weakdeps
 bash
 coreutils-single
 glibc-minimal-langpack
@@ -92,6 +92,6 @@ systemctl mask \
 rm -f /etc/udev/hwdb.bin
 rm -rf /usr/lib/udev/hwdb.d/ \
        /boot /var/lib/dnf/history.* \
-       /tmp/* /tmp/.* 
+      "/tmp/*" "/tmp/.*" || true
 
 %end

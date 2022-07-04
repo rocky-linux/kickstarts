@@ -18,7 +18,7 @@ user --name=vagrant --plaintext --password=vagrant
 
 shutdown
 
-%packages --instLangs=en
+%packages --inst-langs=en
 bash-completion
 man-pages
 bzip2
