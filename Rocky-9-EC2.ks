@@ -13,7 +13,7 @@ network  --hostname=localhost.localdomain
 rootpw --iscrypted thereisnopasswordanditslocked
 selinux --enforcing
 services --disabled="kdump" --enabled="NetworkManager,sshd,rsyslog,chronyd,cloud-init,cloud-init-local,cloud-config,cloud-final,rngd"
-timezone UTC --isUtc
+timezone UTC --utc
 # Disk
 bootloader --append="console=ttyS0,115200n8 no_timer_check crashkernel=auto net.ifnames=0 nvme_core.io_timeout=4294967295 nvme_core.max_retries=10" --location=mbr --timeout=1 --boot-drive=vda 
 zerombr
