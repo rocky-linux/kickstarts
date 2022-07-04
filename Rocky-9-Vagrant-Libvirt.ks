@@ -1,5 +1,3 @@
-url --url=http://dl.rockylinux.org/pub/rocky/9/BaseOS/x86_64/os
-repo --name=AppStream --baseurl=http://dl.rockylinux.org/pub/rocky/9/AppStream/x86_64/os
 text
 keyboard --vckeymap us
 lang en_US
