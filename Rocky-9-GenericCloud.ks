@@ -20,7 +20,7 @@ bootloader --append="console=ttyS0,115200n8 no_timer_check crashkernel=auto net.
 zerombr
 clearpart --all --initlabel 
 reqpart
-part / --fstype="xfs" --ondisk=vda --size=8000
+part / --fstype="xfs" --ondisk=vda --size=8000 --grow
 
 %post --erroronfail
 passwd -d root
