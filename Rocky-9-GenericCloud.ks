@@ -154,7 +154,6 @@ cloud-init
 cloud-utils-growpart
 NetworkManager
 dracut-config-generic
-dracut-norescue
 firewalld
 gdisk
 grub2
