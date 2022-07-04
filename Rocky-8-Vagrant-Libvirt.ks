@@ -1,5 +1,3 @@
-url --url=http://dl.rockylinux.org/pub/rocky/8/BaseOS/x86_64/os
-repo --name=AppStream --baseurl=http://dl.rockylinux.org/pub/rocky/8/AppStream/x86_64/os
 text
 keyboard --vckeymap us
 lang en_US
@@ -14,11 +12,12 @@ services --enabled=vmtoolsd
 bootloader --timeout=1 --append="no_timer_check console=tty0 console=ttyS0,115200n8 net.ifnames=0 biosdevname=0 elevator=noop"
 zerombr
 clearpart --all --initlabel
+reqpart
 part / --fstype=xfs --asprimary --size=1024 --grow
 
 user --name=vagrant --plaintext --password=vagrant
 
-reboot
+shutdown
 
 %packages --instLangs=en
 bash-completion
@@ -82,7 +81,13 @@ PERSISTENT_DHCLIENT="yes"
 EOF
 
 # sshd: disable password authentication and DNS checks
-# for virtualbox we're disabling it after provisioning
+ex -s /etc/ssh/sshd_config <<EOF
+:%substitute/^\(PasswordAuthentication\) yes$/\1 no/
+:%substitute/^#\(UseDNS\) yes$/&\r\1 no/
+:update
+:quit
+EOF
+cat >>/etc/sysconfig/sshd <<EOF
 
 # Decrease connection time by preventing reverse DNS lookups
 # (see https://lists.centos.org/pipermail/centos-devel/2016-July/014981.html

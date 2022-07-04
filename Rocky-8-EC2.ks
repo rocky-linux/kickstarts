@@ -19,7 +19,7 @@ bootloader --append="console=ttyS0,115200n8 no_timer_check crashkernel=auto net.
 zerombr
 clearpart --all --initlabel 
 reqpart
-part / --fstype="xfs" --ondisk=vda --size=7950
+part / --fstype="xfs" --ondisk=vda --size=8000 --grow
 
 %pre --erroronfail
 /usr/sbin/parted -s /dev/vda mklabel gpt
