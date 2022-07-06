@@ -21,13 +21,13 @@ selinux --enforcing
 
 # System services
 services --disabled="sshd" --enabled="NetworkManager,ModemManager"
-repo --name="BaseOS" --baseurl=http://dl.rockylinux.org/pub/rocky/9.0/BaseOS/$basearch/os/ --cost=200
-repo --name="AppStream" --baseurl=http://dl.rockylinux.org/pub/rocky/9.0/AppStream/$basearch/os/ --cost=200
-repo --name="CRB" --baseurl=http://dl.rockylinux.org/pub/rocky/9.0/CRB/$basearch/os/ --cost=200
-repo --name="extras" --baseurl=http://dl.rockylinux.org/pub/rocky/9.0/extras/$basearch/os --cost=200
+repo --name="BaseOS" --baseurl=http://dl.rockylinux.org/pub/rocky/9/BaseOS/$basearch/os/ --cost=200
+repo --name="AppStream" --baseurl=http://dl.rockylinux.org/pub/rocky/9/AppStream/$basearch/os/ --cost=200
+repo --name="CRB" --baseurl=http://dl.rockylinux.org/pub/rocky/9/CRB/$basearch/os/ --cost=200
+repo --name="extras" --baseurl=http://dl.rockylinux.org/pub/rocky/9/extras/$basearch/os --cost=200
 repo --name="elrepo-kernel" --baseurl=https://elrepo.org/linux/kernel/el8/$basearch/ --cost=200
 # Use network installation
-url --url="http://dl.rockylinux.org/pub/rocky/9.0/BaseOS/$basearch/os/"
+url --url="http://dl.rockylinux.org/pub/rocky/9/BaseOS/$basearch/os/"
 # System bootloader configuration
 bootloader --location=none
 # Clear the Master Boot Record
@@ -186,7 +186,7 @@ systemctl stop atd.service 2> /dev/null || :
 systemctl --no-reload disable abrtd.service 2> /dev/null || :
 systemctl stop abrtd.service 2> /dev/null || :
 
-# Don't sync the system clock when running live (RHBZ #1019.02)
+# Don't sync the system clock when running live (RHBZ #1018162)
 sed -i 's/rtcsync//' /etc/chrony.conf
 
 # Mark things as configured

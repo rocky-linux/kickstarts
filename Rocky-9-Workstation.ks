@@ -15,11 +15,11 @@ network  --bootproto=dhcp --device=link --activate
 # Firewall configuration
 firewall --enabled --service=mdns
 # Use network installation
-url --url="http://dl.rockylinux.org/pub/rocky/9.0/BaseOS/$basearch/os/"
-repo --name="BaseOS" --baseurl=http://dl.rockylinux.org/pub/rocky/9.0/BaseOS/$basearch/os/ --cost=200
-repo --name="AppStream" --baseurl=http://dl.rockylinux.org/pub/rocky/9.0/AppStream/$basearch/os/ --cost=200
-repo --name="CRB" --baseurl=http://dl.rockylinux.org/pub/rocky/9.0/CRB/$basearch/os/ --cost=200
-repo --name="extras" --baseurl=http://dl.rockylinux.org/pub/rocky/9.0/extras/$basearch/os --cost=200
+url --url="http://dl.rockylinux.org/pub/rocky/9/BaseOS/$basearch/os/"
+repo --name="BaseOS" --baseurl=http://dl.rockylinux.org/pub/rocky/9/BaseOS/$basearch/os/ --cost=200
+repo --name="AppStream" --baseurl=http://dl.rockylinux.org/pub/rocky/9/AppStream/$basearch/os/ --cost=200
+repo --name="CRB" --baseurl=http://dl.rockylinux.org/pub/rocky/9/CRB/$basearch/os/ --cost=200
+repo --name="extras" --baseurl=http://dl.rockylinux.org/pub/rocky/9/extras/$basearch/os --cost=200
 # System timezone
 timezone US/Eastern
 # SELinux configuration
@@ -184,7 +184,7 @@ systemctl stop atd.service 2> /dev/null || :
 systemctl --no-reload disable abrtd.service 2> /dev/null || :
 systemctl stop abrtd.service 2> /dev/null || :
 
-# Don't sync the system clock when running live (RHBZ #1019.02)
+# Don't sync the system clock when running live (RHBZ #1018162)
 sed -i 's/rtcsync//' /etc/chrony.conf
 
 # Mark things as configured

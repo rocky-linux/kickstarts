@@ -1,8 +1,20 @@
 # R9 specific kickstarts
 
-This branch has Rocky Linux 8 specific kickstarts. These kickstarts vary
+This branch has Rocky Linux 9 specific kickstarts. These kickstarts vary
 between cloud images and live images provided in our repositories and
 mirrors.
+
+## Structure
+
+In the root of the repository are the general kickstarts in use that any
+user can pick up, use, or modify to their liking to make their own Rocky
+Linux live images. For those who are curious, in the `live` directory are
+the split parts that make the live kickstarts what they are, which you can
+use `ksflatten` on if you so choose.
+
+For SIG/Core's usage, we use the `live` area as a "working" directory,
+where we use the split parts in our automation for the images and the
+pre-flattened versions are there for the convenience of all users.
 
 ## Building Live Images
 
@@ -12,7 +24,13 @@ many issues. The latter can be a bit more tricky to work with and typically
 runs the installer virtually. However, it can be used without a virtual machine
 like in a mock shell.
 
-### Using livemedia-creator
+Optionally, it is possible to use `empanadas` found in the SIG/Core toolkit.
+
+### Automatic: Using empanadas
+
+To be filled.
+
+### Manual: Using livemedia-creator
 
 To use livemedia-creator without using virt, you can use a mock shell. To
 setup a mock chroot for the purpose of building a live image, you would
@@ -29,7 +47,7 @@ set it up like so:
 # As the user, setup the mock environment
 % mock -r rocky-9-x86_64 --init
 % mock -r rocky-9-x86_64 --install lorax-lmc-novirt vim-minimal pykickstart git
-# You will need to be in permissive mode temporarily
+# You may need to be in permissive mode temporarily if you have issues
 % setenforce 0
 # Enter the shell
 % mock -r rocky-9-x86_64 --shell --isolation=simple --enable-network
