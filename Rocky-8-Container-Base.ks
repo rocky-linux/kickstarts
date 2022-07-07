@@ -3,6 +3,7 @@
 # To use this kickstart, run make
 
 # Basic setup information
+url --url https://dl.rockylinux.org/stg/rocky/8/BaseOS/$basearch/os/
 
 text
 bootloader --disable
