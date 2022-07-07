@@ -81,15 +81,6 @@ for dir in $(ls -d "/usr/share/{locale,i18n}/*" | grep -v 'en_US\|all_languages\
 umount /run
 systemd-tmpfiles --create --boot
 
-# mask mounts and login bits
-systemctl mask \
-    console-getty.service \
-    dev-hugepages.mount \
-    getty.target \
-    sys-fs-fuse-connections.mount \
-    systemd-logind.service \
-    systemd-remount-fs.service
-
 # Cleanup the image
 rm -f /etc/udev/hwdb.bin
 rm -rf /usr/lib/udev/hwdb.d/ \
