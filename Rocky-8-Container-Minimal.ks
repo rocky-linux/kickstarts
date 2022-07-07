@@ -24,57 +24,59 @@ autopart --noboot --nohome --noswap --nolvm --fstype=ext4
 # Package setup
 %packages --ignoremissing --excludedocs --instLangs=en --nocore --excludeWeakdeps
 bash
-binutils
 coreutils-single
 glibc-minimal-langpack
-hostname
-iputils
-less
+microdnf
 rocky-release
-rootfiles
-tar
-vim-minimal
-yum
 
 -brotli
 -dosfstools
--kexec-tools
 -e2fsprogs
 -firewalld
 -fuse-libs
 -gettext*
 -gnupg2-smime
 -grub\*
+-hostname
 -iptables
+-iputils
 -kernel
+-kexec-tools
+-less
 -libss
 -os-prober*
 -pinentry
 -qemu-guest-agent
+-rootfiles
 -shared-mime-info
+-tar
 -trousers
+-vim-minimal
 -xfsprogs
 -xkeyboard-config
+-yum
 %end
 
 %post --erroronfail --log=/root/anaconda-post.log
 # container customizations inside the chroot
 
-# Stay compatible
+
+rpm --rebuilddb
+
+/bin/date +%Y-%m-%d_%H:%M:%S > /etc/BUILDTIME
+
 echo 'container' > /etc/dnf/vars/infra
 
-#Generate installtime file record
-/bin/date +%Y%m%d_%H%M > /etc/BUILDTIME
-
-# Limit languages to help reduce size.
 LANG="en_US"
-echo "%_install_langs $LANG" > /etc/rpm/macros.image-language-conf
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=1727489
+echo '%_install_langs en_US.UTF-8' > /etc/rpm/macros.image-language-conf
 echo 'LANG="C.UTF-8"' >  /etc/locale.conf
 
+rm -f /var/lib/dnf/history.* 
+rm -fr "/var/log/*" "/tmp/*" "/tmp/.*"
+
+for dir in $(ls -d "/usr/share/{locale,i18n}/*" | grep -v 'en_US\|all_languages\|locale\.alias'); do rm -fr $dir; done
+
 # systemd fixes
-:> /etc/machine-id
 umount /run
 systemd-tmpfiles --create --boot
 
@@ -91,6 +93,6 @@ systemctl mask \
 rm -f /etc/udev/hwdb.bin
 rm -rf /usr/lib/udev/hwdb.d/ \
        /boot /var/lib/dnf/history.* \
-       /tmp/* /tmp/.* || true
+      "/tmp/*" "/tmp/.*" || true
 
 %end
