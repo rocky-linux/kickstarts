@@ -29,8 +29,9 @@ binutils
 coreutils-single
 glibc-minimal-langpack
 hostname
-iputils
+iputils # this pulls in systemd, lets ask for it by name, too
 less
+systemd
 rocky-release
 rootfiles
 tar
