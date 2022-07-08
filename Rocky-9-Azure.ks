@@ -15,7 +15,7 @@ network  --hostname=localhost.localdomain
 rootpw --iscrypted thereisnopasswordanditslocked
 selinux --enforcing
 services --disabled="kdump" --enabled="NetworkManager,sshd,rsyslog,chronyd,cloud-init,cloud-init-local,cloud-config,cloud-final,rngd"
-timezone UTC --isUtc
+timezone UTC --utc
 # Disk
 bootloader --append="rootdelay=300 console=ttyS0 earlyprintk=ttyS0  no_timer_check crashkernel=auto net.ifnames=0" --location=mbr --timeout=1 --boot-drive=vda
 zerombr
