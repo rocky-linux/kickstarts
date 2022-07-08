@@ -72,21 +72,21 @@ echo "virtual-guest" > /etc/tuned/active_profile
 
 # For cloud images, 'eth0' _is_ the predictable device name, since
 # we don't want to be tied to specific virtual (!) hardware
-rm -f /etc/udev/rules.d/70*
-ln -s /dev/null /etc/udev/rules.d/80-net-name-slot.rules
+#rm -f /etc/udev/rules.d/70*
+#ln -s /dev/null /etc/udev/rules.d/80-net-name-slot.rules
 
 # simple eth0 config, again not hard-coded to the build hardware
-cat > /etc/sysconfig/network-scripts/ifcfg-eth0 << EOF
-DEVICE=eth0
-ONBOOT=yes
-BOOTPROTO=dhcp
-TYPE=Ethernet
-USERCTL=no
-PEERDNS=yes
-IPV6INIT=no
-NM_CONTROLLED=yes
-IPV4_DHCP_TIMEOUT=300
-EOF
+#cat > /etc/sysconfig/network-scripts/ifcfg-eth0 << EOF
+#DEVICE=eth0
+#ONBOOT=yes
+#BOOTPROTO=dhcp
+#TYPE=Ethernet
+#USERCTL=no
+#PEERDNS=yes
+#IPV6INIT=no
+#NM_CONTROLLED=yes
+#IPV4_DHCP_TIMEOUT=300
+#EOF
 
 cat << EOF | tee -a /etc/NetworkManager/conf.d/dhcp-timeout.conf
 # Configure dhcp timeout to 300s by default
@@ -224,8 +224,8 @@ rm -f /var/lib/systemd/random-seed
 rm -rf /root/anaconda-ks.cfg
 rm -rf /root/install.log
 rm -rf /root/install.log.syslog
-rm -rf /var/lib/yum/*
-rm -rf /var/log/anaconda*
+rm -rf "/var/lib/yum/*"
+rm -rf "/var/log/anaconda*"
 rm -rf /var/log/yum.log
 
 # Wipe machineid
@@ -250,7 +250,6 @@ cloud-init
 cloud-utils-growpart
 NetworkManager
 dracut-config-generic
-dracut-norescue
 firewalld
 gdisk
 grub2
