@@ -1,3 +1,4 @@
+url --url http://dl.rockylinux.org/pub/rocky/8/BaseOS/$basearch/os/
 text
 auth --enableshadow --passalgo=sha512
 shutdown
