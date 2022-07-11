@@ -382,10 +382,10 @@ sed -i 's/^#show-language-selector=.*/show-language-selector=true/' /etc/lightdm
 sed -i 's/^#user-session=.*/user-session=xfce/' /etc/lightdm/lightdm.conf
 
 # debrand
-#sed -i "s/Red Hat Enterprise/Rocky/g" /usr/share/anaconda/gnome/rhel-welcome.desktop
-#sed -i "s/RHEL/Rocky Linux/g" /usr/share/anaconda/gnome/rhel-welcome
-#sed -i "s/Red Hat Enterprise/Rocky/g" /usr/share/anaconda/gnome/rhel-welcome
-#sed -i "s/org.fedoraproject.AnacondaInstaller/fedora-logo-icon/g" /usr/share/anaconda/gnome/rhel-welcome
+#sed -i "s/Red Hat Enterprise/Rocky/g" /usr/share/anaconda/gnome/fedora-welcome.desktop
+#sed -i "s/RHEL/Rocky Linux/g" /usr/share/anaconda/gnome/fedora-welcome
+#sed -i "s/Red Hat Enterprise/Rocky/g" /usr/share/anaconda/gnome/fedora-welcome
+#sed -i "s/org.fedoraproject.AnacondaInstaller/fedora-logo-icon/g" /usr/share/anaconda/gnome/fedora-welcome
 #sed -i "s/org.fedoraproject.AnacondaInstaller/fedora-logo-icon/g" /usr/share/applications/liveinst.desktop
 
 # Show harddisk install on the desktop
@@ -393,10 +393,10 @@ sed -i -e 's/NoDisplay=true/NoDisplay=false/' /usr/share/applications/liveinst.d
 mkdir /home/liveuser/Desktop
 cp /usr/share/applications/liveinst.desktop /home/liveuser/Desktop/
 
-if [ -f /usr/share/anaconda/gnome/rhel-welcome.desktop  ]; then
+if [ -f /usr/share/anaconda/gnome/fedora-welcome.desktop  ]; then
   mkdir -p ~liveuser/.config/autostart
-  cp /usr/share/anaconda/gnome/rhel-welcome.desktop /usr/share/applications/
-  cp /usr/share/anaconda/gnome/rhel-welcome.desktop ~liveuser/.config/autostart/
+  cp /usr/share/anaconda/gnome/fedora-welcome.desktop /usr/share/applications/
+  cp /usr/share/anaconda/gnome/fedora-welcome.desktop ~liveuser/.config/autostart/
 fi
 
 # no updater applet in live environment

@@ -53,10 +53,10 @@ chmod +x /usr/share/applications/liveinst.desktop
 mkdir /home/liveuser/Desktop
 cp -a /usr/share/applications/liveinst.desktop /home/liveuser/Desktop/
 
-if [ -f /usr/share/anaconda/gnome/rhel-welcome.desktop   ]; then
+if [ -f /usr/share/anaconda/gnome/fedora-welcome.desktop   ]; then
   mkdir -p ~liveuser/.config/autostart
-  cp /usr/share/anaconda/gnome/rhel-welcome.desktop /usr/share/applications/
-  cp /usr/share/anaconda/gnome/rhel-welcome.desktop ~liveuser/.config/autostart/
+  cp /usr/share/anaconda/gnome/fedora-welcome.desktop /usr/share/applications/
+  cp /usr/share/anaconda/gnome/fedora-welcome.desktop ~liveuser/.config/autostart/
 fi
 
 # Set akonadi backend
