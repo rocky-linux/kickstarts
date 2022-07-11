@@ -456,7 +456,9 @@ grub2-tools
 grub2-tools-efi
 grub2-tools-extra
 grub2-tools-minimal
-grubby                                                                                                                                                                                                               shim-*64
+grubby
+shim-*64
+-shim-unsigned-*64
 -@dial-up
 -@input-methods
 -@standard

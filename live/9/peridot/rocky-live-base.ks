@@ -52,6 +52,7 @@ grub2-tools-extra
 grub2-tools-minimal
 grubby
 shim-*64
+-shim-unsigned-*64
 
 # Required for SVG rnotes images
 aajohan-comfortaa-fonts
