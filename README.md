@@ -63,7 +63,7 @@ set it up like so:
   --volid Rocky-Workstation-9 \
   --iso-only \
   --iso-name Rocky-Workstation-9-x86_64.iso \
-  --releasever=8 \
+  --releasever=9 \
   --nomacboot  # This option is important to set, mkfs.hfsplus is not available
 ```
 
