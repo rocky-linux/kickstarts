@@ -18,9 +18,6 @@
 
 # Libreoffice
 libreoffice-calc
-libreoffice-emailmerge
-libreoffice-graphicfilter
-libreoffice-impress
 libreoffice-writer
 
 # Exclude unwanted packages from @anaconda-tools group

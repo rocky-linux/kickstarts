@@ -39,6 +39,18 @@ anaconda
 anaconda-install-env-deps
 anaconda-live
 @anaconda-tools
+efi-filesystem
+efivar-libs
+efibootmgr
+grub2-common
+grub2-efi-*64
+grub2-efi-*64-cdboot
+grub2-pc-modules
+grub2-tools
+grub2-tools-efi
+grub2-tools-extra
+grub2-tools-minimal
+grubby                                                                                                                                                                                                               shim-*64
 
 # Required for SVG rnotes images
 aajohan-comfortaa-fonts

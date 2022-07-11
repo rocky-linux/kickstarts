@@ -440,12 +440,23 @@ kernel
 kernel-modules
 kernel-modules-extra
 libreoffice-calc
-libreoffice-emailmerge
-libreoffice-graphicfilter
-libreoffice-impress
 libreoffice-writer
 memtest86+
 syslinux
+shim-*64
+grub2-efi
+efi-filesystem
+efivar-libs
+efibootmgr
+grub2-common
+grub2-efi-*64
+grub2-efi-*64-cdboot
+grub2-pc-modules
+grub2-tools
+grub2-tools-efi
+grub2-tools-extra
+grub2-tools-minimal
+grubby                                                                                                                                                                                                               shim-*64
 -@dial-up
 -@input-methods
 -@standard
