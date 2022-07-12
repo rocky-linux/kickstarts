@@ -21,7 +21,6 @@ repo --name="AppStream" --baseurl=http://dl.rockylinux.org/pub/rocky/9/AppStream
 repo --name="CRB" --baseurl=http://dl.rockylinux.org/pub/rocky/9/CRB/$basearch/os/ --cost=200
 repo --name="extras" --baseurl=http://dl.rockylinux.org/pub/rocky/9/extras/$basearch/os --cost=200
 repo --name="epel" --baseurl=https://dl.fedoraproject.org/pub/epel/9/Everything/$basearch/ --cost=200
-#repo --name="epel-modular" --baseurl=https://dl.fedoraproject.org/pub/epel/8/Modular/$basearch/ --cost=200
 # System timezone
 timezone US/Eastern
 # SELinux configuration
@@ -433,13 +432,16 @@ dnf config-manager --set-enabled crb
 @input-methods
 @multimedia
 @standard
-@xfce-desktop
+@xfce-desktop --nodefaults
 aajohan-comfortaa-fonts
 anaconda
 anaconda-install-env-deps
 anaconda-live
 chkconfig
 dracut-live
+efi-filesystem
+efibootmgr
+efivar-libs
 epel-release
 f35-backgrounds-extras-xfce
 f35-backgrounds-xfce
@@ -447,35 +449,6 @@ firefox
 firewall-config
 glibc-all-langpacks
 gparted
-initscripts
-kernel
-kernel-modules
-kernel-modules-extra
-lightdm
-memtest86+
-pavucontrol
-pcp-selinux
-rocky-backgrounds
-seahorse
-syslinux
-thunderbird
-wget
-xdg-user-dirs
-xdg-user-dirs-gtk
-xfce4-about
-xfce4-appfinder
-xfce4-datetime-plugin
-xfce4-netload-plugin
-xfce4-screenshooter-plugin
-xfce4-smartbookmark-plugin
-xfce4-systemload-plugin
-xfce4-taskmanager
-xfce4-time-out-plugin
-xfce4-weather-plugin
-xfce4-whiskermenu-plugin
-efi-filesystem
-efivar-libs
-efibootmgr
 grub2-common
 grub2-efi-*64
 grub2-efi-*64-cdboot
@@ -485,8 +458,42 @@ grub2-tools-efi
 grub2-tools-extra
 grub2-tools-minimal
 grubby
+initscripts
+kernel
+kernel-modules
+kernel-modules-extra
+lightdm
+memtest86+
+network-manager-applet
+openssh-askpass
+pavucontrol
+pcp-selinux
+rocky-backgrounds
+seahorse
 shim-*64
--shim-unsigned-*64
+syslinux
+thunar-archive-plugin
+thunar-volman
+thunderbird
+tumbler
+wget
+xdg-user-dirs
+xdg-user-dirs-gtk
+xfce-polkit
+xfce4-about
+xfce4-appfinder
+xfce4-datetime-plugin
+xfce4-netload-plugin
+xfce4-power-manager
+xfce4-screensaver
+xfce4-screenshooter-plugin
+xfce4-smartbookmark-plugin
+xfce4-systemload-plugin
+xfce4-taskmanager
+xfce4-terminal
+xfce4-time-out-plugin
+xfce4-weather-plugin
+xfce4-whiskermenu-plugin
 -acpid
 -aspell-*
 -autofs
@@ -499,6 +506,7 @@ shim-*64
 -isdn4k-utils
 -mpage
 -sane-backends
+-shim-unsigned-*64
 -xfce4-eyes-plugin
 -xfce4-sensors-plugin
 -xsane

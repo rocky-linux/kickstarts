@@ -2,7 +2,7 @@
 %packages
 
 # these aren't an epel 8 thing for some reason.
-@xfce-desktop
+@xfce-desktop --nodefaults
 #@^xfce-desktop-environment
 #@xfce-apps
 #@xfce-extra-plugins
@@ -37,9 +37,7 @@ f35-backgrounds-xfce
 f35-backgrounds-extras-xfce
 
 xfce4-about
-xfce4-appfinder
 xfce4-taskmanager
-#xfce4-pulseaudio-plugin
 #xfce4-battery-plugin
 xfce4-datetime-plugin
 xfce4-netload-plugin
@@ -53,6 +51,19 @@ xfce4-whiskermenu-plugin
 #xfdashboard
 #xfdashboard-themes
 pavucontrol
+
+# XFCE group defaults
+xfce4-appfinder
+xfce4-power-manager
+#xfce4-pulseaudio-plugin
+xfce4-screensaver
+xfce4-terminal
+network-manager-applet
+openssh-askpass
+thunar-archive-plugin
+thunar-volman
+tumbler
+xfce-polkit
 
 wget
 xdg-user-dirs

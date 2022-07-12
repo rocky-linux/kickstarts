@@ -227,7 +227,7 @@ touch /.liveimg-configured
 # https://bugzilla.redhat.com/show_bug.cgi?id=679486
 # the hostname must be something else than 'localhost'
 # https://bugzilla.redhat.com/show_bug.cgi?id=1370222
-echo "localhost" > /etc/hostname
+echo "localhost-live" > /etc/hostname
 
 EOF
 
