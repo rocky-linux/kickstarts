@@ -21,7 +21,6 @@ lightdm
 #gdm
 -gdm
 -gnome-shell
--gnome-menus
 
 # Some stuff might already be here, doesn't hurt to list it.
 firefox

@@ -500,7 +500,6 @@ xfce4-whiskermenu-plugin
 -desktop-backgrounds-basic
 -gdm
 -gimp-help
--gnome-menus
 -gnome-shell
 -hplip
 -isdn4k-utils
