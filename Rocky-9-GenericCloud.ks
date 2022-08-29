@@ -23,6 +23,7 @@ clearpart --all --initlabel --disklabel=gpt
 part prepboot  --size=4    --fstype=prepboot
 part biosboot  --size=1    --fstype=biosboot
 part /boot/efi --size=100  --fstype=efi
+part /boot     --size=1000 --fstype=xfs   --label=boot
 part /         --size=8000 --fstype="xfs" --mkfsoptions "-m bigtime=0,inobtcount=0"
 shutdown
 
@@ -89,6 +90,7 @@ passwd -l root
 
 # Attempting to force legacy BIOS boot if we boot from UEFI
 if [ "$(arch)" = "x86_64" ]; then
+  dnf install grub2-pc-modules -y
   grub2-install --target=i386-pc /dev/vda
 fi
 
