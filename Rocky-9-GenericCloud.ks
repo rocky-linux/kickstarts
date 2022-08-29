@@ -16,9 +16,14 @@ rootpw --iscrypted thereisnopasswordanditslocked
 
 # Partition stuff
 zerombr
-clearpart --all --initlabel 
-reqpart
-part / --fstype="xfs" --mkfsoptions "-m bigtime=0,inobtcount=0" --ondisk=vda --size=8000
+clearpart --all --initlabel --disklabel=gpt
+#reqpart
+# This should allow BIOS, UEFI, and PReP booting. Trying to be as universal as
+# possible. This is a similar setup to Fedora without the btrfs.
+part prepboot  --size=4    --fstype=prepboot
+part biosboot  --size=1    --fstype=biosboot
+part /boot/efi --size=100  --fstype=efi
+part /         --size=8000 --fstype="xfs" --mkfsoptions "-m bigtime=0,inobtcount=0"
 shutdown
 
 %packages
@@ -81,6 +86,14 @@ qemu-guest-agent
 %post --erroronfail
 passwd -d root
 passwd -l root
+
+# Attempting to force legacy BIOS boot if we boot from UEFI
+if [ "$(arch)" = "x86_64" ];
+  grub2-install --target=i386-pc /dev/vda
+fi
+
+# Ensure that the pmbr_boot flag is off
+parted /dev/vda disk_set pmbr_boot off
 
 # setup systemd to boot to the right runlevel
 rm -f /etc/systemd/system/default.target
