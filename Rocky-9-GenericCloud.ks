@@ -90,7 +90,7 @@ passwd -l root
 
 # Attempting to force legacy BIOS boot if we boot from UEFI
 if [ "$(arch)" = "x86_64" ]; then
-  dnf install grub2-pc-modules -y
+  dnf install grub2-pc-modules grub-pc -y
   grub2-install --target=i386-pc /dev/vda
 fi
 
