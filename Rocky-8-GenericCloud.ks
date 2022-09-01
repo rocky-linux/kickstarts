@@ -1,27 +1,87 @@
-url --url http://dl.rockylinux.org/pub/rocky/8/BaseOS/$basearch/os/
 text
+lang en_US.UTF-8
+keyboard us
+timezone UTC --isUtc
+# Disk
+bootloader --append="console=ttyS0,115200n8 no_timer_check crashkernel=auto net.ifnames=0" --location=mbr --timeout=1 --boot-drive=vda
 auth --enableshadow --passalgo=sha512
-shutdown
+selinux --enforcing
 firewall --enabled --service=ssh
 firstboot --disable
-ignoredisk --only-use=vda
-keyboard us
-# System language
-lang en_US.UTF-8
 # Network information
 network  --bootproto=dhcp --device=link --activate --onboot=on
 network  --hostname=localhost.localdomain
 # Root password
-rootpw --iscrypted thereisnopasswordanditslocked
-selinux --enforcing
 services --disabled="kdump" --enabled="NetworkManager,sshd,rsyslog,chronyd,cloud-init,cloud-init-local,cloud-config,cloud-final,rngd"
-timezone UTC --isUtc
-# Disk
-bootloader --append="console=ttyS0,115200n8 no_timer_check crashkernel=auto net.ifnames=0" --location=mbr --timeout=1 --boot-drive=vda
+rootpw --iscrypted thereisnopasswordanditslocked
+
+# Partition stuff
 zerombr
 clearpart --all --initlabel 
 reqpart
 part / --fstype="xfs" --ondisk=vda --size=8000 --grow
+shutdown
+
+url --url http://dl.rockylinux.org/pub/rocky/8/BaseOS/$basearch/os/
+
+%packages
+@core
+chrony
+dnf
+yum
+cloud-init
+cloud-utils-growpart
+NetworkManager
+dracut-config-generic
+dracut-norescue
+firewalld
+gdisk
+grub2
+kernel
+nfs-utils
+rsync
+tar
+dnf-utils
+yum-utils
+-aic94xx-firmware
+-alsa-firmware
+-alsa-lib
+-alsa-tools-firmware
+-ivtv-firmware
+-iwl100-firmware
+-iwl1000-firmware
+-iwl105-firmware
+-iwl135-firmware
+-iwl2000-firmware
+-iwl2030-firmware
+-iwl3160-firmware
+-iwl3945-firmware
+-iwl4965-firmware
+-iwl5000-firmware
+-iwl5150-firmware
+-iwl6000-firmware
+-iwl6000g2a-firmware
+-iwl6000g2b-firmware
+-iwl6050-firmware
+-iwl7260-firmware
+-libertas-sd8686-firmware
+-libertas-sd8787-firmware
+-libertas-usb8388-firmware
+-biosdevname
+-iprutils
+-plymouth
+
+python3-jsonschema
+qemu-guest-agent
+dhcp-client
+cockpit-ws
+cockpit-system
+-langpacks-*
+-langpacks-en
+
+rocky-release
+rng-tools
+%end
 
 %post --erroronfail
 passwd -d root
@@ -146,61 +206,3 @@ true
 
 %end
 
-%packages
-@core
-chrony
-dnf
-yum
-cloud-init
-cloud-utils-growpart
-NetworkManager
-dracut-config-generic
-dracut-norescue
-firewalld
-gdisk
-grub2
-kernel
-nfs-utils
-rsync
-tar
-dnf-utils
-yum-utils
--aic94xx-firmware
--alsa-firmware
--alsa-lib
--alsa-tools-firmware
--ivtv-firmware
--iwl100-firmware
--iwl1000-firmware
--iwl105-firmware
--iwl135-firmware
--iwl2000-firmware
--iwl2030-firmware
--iwl3160-firmware
--iwl3945-firmware
--iwl4965-firmware
--iwl5000-firmware
--iwl5150-firmware
--iwl6000-firmware
--iwl6000g2a-firmware
--iwl6000g2b-firmware
--iwl6050-firmware
--iwl7260-firmware
--libertas-sd8686-firmware
--libertas-sd8787-firmware
--libertas-usb8388-firmware
--biosdevname
--iprutils
--plymouth
-
-python3-jsonschema
-qemu-guest-agent
-dhcp-client
-cockpit-ws
-cockpit-system
--langpacks-*
--langpacks-en
-
-rocky-release
-rng-tools
-%end
