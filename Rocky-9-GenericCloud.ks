@@ -81,7 +81,8 @@ virt-what
 -biosdevname
 -plymouth
 -iprutils
--langpacks-*
+# Fixes an s390x issue
+#-langpacks-*
 -langpacks-en
 %end
 
