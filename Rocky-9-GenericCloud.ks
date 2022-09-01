@@ -76,6 +76,7 @@ rng-tools
 cockpit-ws
 cockpit-system
 qemu-guest-agent
+virt-what
 
 -biosdevname
 -plymouth
