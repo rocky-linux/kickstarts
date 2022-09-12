@@ -4,7 +4,7 @@
 %include rocky-live-base-spin.ks
 %include rocky-live-mate-common.ks
 
-part / --size 6144
+part / --size 7168
 
 %post
 # mate configuration
