@@ -378,7 +378,6 @@ rm -f /etc/xdg/autostart/org.mageia.dnfdragora-updater.desktop
 # reset selinux contexts
 chown -R liveuser:liveuser /home/liveuser/
 restorecon -R /home/liveuser/
-restorecon -R /
 
 EOF
 
