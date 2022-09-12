@@ -82,6 +82,7 @@ mv /usr/share/applications/liveinst.desktop /usr/share/applications/anaconda.des
 # this goes at the end after all other changes. 
 chown -R liveuser:liveuser /home/liveuser
 restorecon -R /home/liveuser
+restorecon -R /
 
 EOF
 
