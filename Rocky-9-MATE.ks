@@ -337,6 +337,7 @@ fi
 %post
 # mate configuration
 
+cat >> /etc/rc.d/init.d/livesys << EOF
 # make the installer show up
 if [ -f /usr/share/applications/liveinst.desktop  ]; then
   # Show harddisk install in shell dash
@@ -377,6 +378,8 @@ rm -f /etc/xdg/autostart/org.mageia.dnfdragora-updater.desktop
 # reset selinux contexts
 chown -R liveuser:liveuser /home/liveuser/
 restorecon -R /home/liveuser/
+restorecon -R /
+
 EOF
 
 # this doesn't come up automatically. not sure why.
