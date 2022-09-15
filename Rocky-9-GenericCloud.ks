@@ -92,7 +92,7 @@ passwd -l root
 
 # Attempting to force legacy BIOS boot if we boot from UEFI
 if [ "$(arch)" = "x86_64" ]; then
-  dnf install grub2-pc-modules grub-pc -y
+  dnf install grub2-pc-modules grub2-pc -y
   grub2-install --target=i386-pc /dev/vda
 fi
 
@@ -202,7 +202,7 @@ rm -f /var/lib/systemd/random-seed
 cat /dev/null > /etc/machine-id
 
 # reorder console entries
-sed -i 's/console=tty0/console=tty0 console=ttyS0,115200n8/' /boot/grub2/grub.cfg
+#sed -i 's/console=tty0/console=tty0 console=ttyS0,115200n8/' /boot/grub2/grub.cfg
 
 true
 
