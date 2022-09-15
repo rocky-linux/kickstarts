@@ -169,6 +169,8 @@ echo "RUN_FIRSTBOOT=NO" > /etc/sysconfig/firstboot
 if ! grep -q growpart /etc/cloud/cloud.cfg; then
   sed -i 's/ - resizefs/ - growpart\n - resizefs/' /etc/cloud/cloud.cfg
 fi
+# temporary until 22.2
+sed -i 's/^system_info:/locale: C.UTF-8\nsystem_info:/' /etc/cloud/cloud.cfg
 
 # rocky cloud user
 echo -e 'rocky\tALL=(ALL)\tNOPASSWD: ALL' >> /etc/sudoers
