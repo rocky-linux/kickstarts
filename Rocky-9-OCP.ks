@@ -1,6 +1,7 @@
 text
 repo --name="BaseOS" --baseurl=http://dl.rockylinux.org/pub/rocky/9/BaseOS/$basearch/os/
 repo --name="AppStream" --baseurl=http://dl.rockylinux.org/pub/rocky/9/AppStream/$basearch/os/
+repo --name="oraclelinux-addons" --baseurl=http://yum.oracle.com/repo/OracleLinux/OL9/addons/$basearch/ --install --includepkgs="oci-utils"
 
 url --url http://dl.rockylinux.org/pub/rocky/9/BaseOS/$basearch/os/
 
@@ -136,6 +137,10 @@ sed -i -e 's/ rhgb quiet//' /boot/grub/grub.conf
 # enable resizing on copied AMIs
 echo 'install_items+=" sgdisk "' > /etc/dracut.conf.d/sgdisk.conf
 
+
+# OCI - Start ocid on boot
+systemctl enable ocid.service
+
 # OCI - Need iscsi as a dracut module
 echo 'add_dracutmodules+="iscsi"' > /etc/dracut.conf.d/iscsi.conf
 
@@ -239,25 +244,37 @@ true
 %packages
 @core
 chrony
-dnf
-yum
 cloud-init
 cloud-utils-growpart
-NetworkManager
+cockpit-system
+cockpit-ws
+dhcp-client
+dnf
+dnf-utils
 dracut-config-generic
 firewalld
 gdisk
 grub2
+iscsi-initiator-utils
 kernel
+NetworkManager
 nfs-utils
+oci-utils
+python3-jsonschema
+qemu-guest-agent
+rng-tools
+rocky-release
 rsync
 tar
-dnf-utils
+yum
 yum-utils
+
 -aic94xx-firmware
 -alsa-firmware
 -alsa-lib
 -alsa-tools-firmware
+-biosdevname
+-iprutils
 -ivtv-firmware
 -iwl100-firmware
 -iwl1000-firmware
@@ -275,25 +292,11 @@ yum-utils
 -iwl6000g2b-firmware
 -iwl6050-firmware
 -iwl7260-firmware
+-langpacks-*
+-langpacks-en
 -libertas-sd8686-firmware
 -libertas-sd8787-firmware
 -libertas-usb8388-firmware
--biosdevname
--iprutils
 -plymouth
-
-python3-jsonschema
-qemu-guest-agent
-dhcp-client
-cockpit-ws
-cockpit-system
--langpacks-*
--langpacks-en
-
-
-iscsi-initiator-utils
-
-rocky-release
-rng-tools
 %end
 
