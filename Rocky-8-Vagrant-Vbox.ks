@@ -20,6 +20,7 @@ part / --fstype=xfs --asprimary --size=1024 --grow
 user --name=vagrant --plaintext --password=vagrant
 
 reboot
+url --url https://download.rockylinux.org/stg/rocky/8/BaseOS/$basearch/os/
 
 %packages --instLangs=en
 bash-completion

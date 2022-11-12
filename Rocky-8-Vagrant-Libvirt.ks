@@ -19,6 +19,8 @@ user --name=vagrant --plaintext --password=vagrant
 
 shutdown
 
+url --url https://download.rockylinux.org/stg/rocky/8/BaseOS/$basearch/os/
+
 %packages --instLangs=en
 bash-completion
 man-pages
