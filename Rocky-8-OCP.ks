@@ -1,6 +1,4 @@
 text
-repo --name="BaseOS" --baseurl=http://dl.rockylinux.org/pub/rocky/8/BaseOS/$basearch/os/
-repo --name="AppStream" --baseurl=http://dl.rockylinux.org/pub/rocky/8/AppStream/$basearch/os/
 repo --name="oraclelinux-addons" --baseurl=http://yum.oracle.com/repo/OracleLinux/OL8/addons/$basearch/ --install --includepkgs="oci-utils"
 
 url --url https://download.rockylinux.org/stg/rocky/8/BaseOS/$basearch/os/
