@@ -1,8 +1,8 @@
 text
-repo --name="BaseOS" --baseurl=http://dl.rockylinux.org/pub/rocky/9/BaseOS/$basearch/os/
-repo --name="AppStream" --baseurl=http://dl.rockylinux.org/pub/rocky/9/AppStream/$basearch/os/
+repo --name="BaseOS" --baseurl=http://dl.rockylinux.org/stg/rocky/9/BaseOS/$basearch/os/
+repo --name="AppStream" --baseurl=http://dl.rockylinux.org/stg/rocky/9/AppStream/$basearch/os/
 
-url --url http://dl.rockylinux.org/pub/rocky/9/BaseOS/$basearch/os/
+url --url http://dl.rockylinux.org/stg/rocky/9/BaseOS/$basearch/os/
 
 auth --enableshadow --passalgo=sha512
 reboot

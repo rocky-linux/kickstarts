@@ -15,11 +15,11 @@ network  --bootproto=dhcp --device=link --activate
 # Firewall configuration
 firewall --enabled --service=mdns
 # Use network installation
-url --url="http://dl.rockylinux.org/pub/rocky/9/BaseOS/$basearch/os/"
-repo --name="BaseOS" --baseurl=http://dl.rockylinux.org/pub/rocky/9/BaseOS/$basearch/os/ --cost=200
-repo --name="AppStream" --baseurl=http://dl.rockylinux.org/pub/rocky/9/AppStream/$basearch/os/ --cost=200
-repo --name="CRB" --baseurl=http://dl.rockylinux.org/pub/rocky/9/CRB/$basearch/os/ --cost=200
-repo --name="extras" --baseurl=http://dl.rockylinux.org/pub/rocky/9/extras/$basearch/os --cost=200
+url --url="http://dl.rockylinux.org/stg/rocky/9/BaseOS/$basearch/os/"
+repo --name="BaseOS" --baseurl=http://dl.rockylinux.org/stg/rocky/9/BaseOS/$basearch/os/ --cost=200
+repo --name="AppStream" --baseurl=http://dl.rockylinux.org/stg/rocky/9/AppStream/$basearch/os/ --cost=200
+repo --name="CRB" --baseurl=http://dl.rockylinux.org/stg/rocky/9/CRB/$basearch/os/ --cost=200
+repo --name="extras" --baseurl=http://dl.rockylinux.org/stg/rocky/9/extras/$basearch/os --cost=200
 repo --name="epel" --baseurl=https://dl.fedoraproject.org/pub/epel/9/Everything/$basearch/ --cost=200
 #repo --name="epel-modular" --baseurl=https://dl.fedoraproject.org/pub/epel/8/Modular/$basearch/ --cost=200
 # System timezone
