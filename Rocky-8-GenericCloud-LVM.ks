@@ -24,7 +24,7 @@ volgroup rocky pv.01
 logvol / --vgname=rocky --size=8000 --name=root --grow
 shutdown
 
-url --url https://dl.rockylinux.org/stg/rocky/8/BaseOS/$basearch/os/
+url --url https://download.rockylinux.org/stg/rocky/8/BaseOS/$basearch/os/
 
 %packages
 @core

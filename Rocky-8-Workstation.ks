@@ -15,7 +15,7 @@ network  --bootproto=dhcp --device=link --activate
 # Firewall configuration
 firewall --enabled --service=mdns
 # Use network installation
-url --url https://dl.rockylinux.org/stg/rocky/8/BaseOS/$basearch/os/
+url --url https://download.rockylinux.org/stg/rocky/8/BaseOS/$basearch/os/
 repo --name="BaseOS" --baseurl=http://dl.rockylinux.org/pub/rocky/8.7/BaseOS/$basearch/os/ --cost=200
 repo --name="AppStream" --baseurl=http://dl.rockylinux.org/pub/rocky/8.7/AppStream/$basearch/os/ --cost=200
 repo --name="PowerTools" --baseurl=http://dl.rockylinux.org/pub/rocky/8.7/PowerTools/$basearch/os/ --cost=200

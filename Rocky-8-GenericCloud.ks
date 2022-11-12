@@ -22,7 +22,7 @@ reqpart
 part / --fstype="xfs" --ondisk=vda --size=8000 --grow
 shutdown
 
-url --url https://dl.rockylinux.org/stg/rocky/8/BaseOS/$basearch/os/
+url --url https://download.rockylinux.org/stg/rocky/8/BaseOS/$basearch/os/
 
 %packages
 @core

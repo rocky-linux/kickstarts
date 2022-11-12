@@ -1,4 +1,4 @@
-url --url https://dl.rockylinux.org/stg/rocky/8/BaseOS/$basearch/os/
+url --url https://download.rockylinux.org/stg/rocky/8/BaseOS/$basearch/os/
 repo --name=AppStream --baseurl=http://dl.rockylinux.org/pub/rocky/8/AppStream/x86_64/os
 text
 keyboard --vckeymap us

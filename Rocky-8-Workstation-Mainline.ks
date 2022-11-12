@@ -27,7 +27,7 @@ repo --name="PowerTools" --baseurl=http://dl.rockylinux.org/pub/rocky/8.7/PowerT
 repo --name="extras" --baseurl=http://dl.rockylinux.org/pub/rocky/8.7/extras/$basearch/os --cost=200
 repo --name="elrepo-kernel" --baseurl=https://elrepo.org/linux/kernel/el8/$basearch/ --cost=200
 # Use network installation
-url --url https://dl.rockylinux.org/stg/rocky/8/BaseOS/$basearch/os/
+url --url https://download.rockylinux.org/stg/rocky/8/BaseOS/$basearch/os/
 # System bootloader configuration
 bootloader --location=none
 # Clear the Master Boot Record
