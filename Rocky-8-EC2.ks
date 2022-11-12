@@ -21,6 +21,8 @@ clearpart --all --initlabel
 reqpart
 part / --fstype="xfs" --ondisk=vda --size=8000 --grow
 
+url --url https://download.rockylinux.org/stg/rocky/8/BaseOS/$basearch/os/
+
 %pre --erroronfail
 /usr/sbin/parted -s /dev/vda mklabel gpt
 %end

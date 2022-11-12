@@ -23,6 +23,8 @@ part pv.01     --size=1    --ondisk=vda      --asprimary --grow
 volgroup rocky pv.01
 logvol / --vgname=rocky --size=8000 --name=root --grow
 
+url --url https://download.rockylinux.org/stg/rocky/8/BaseOS/$basearch/os/
+
 %pre --erroronfail
 /usr/sbin/parted -s /dev/vda mklabel gpt
 %end
