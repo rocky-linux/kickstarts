@@ -17,6 +17,8 @@ rootpw --iscrypted thereisnopasswordanditslocked
 # Partition stuff - Should work for x86 and aarch64
 zerombr
 clearpart --all --initlabel 
+part /boot --fstype xfs --size 1024 --asprimary --ondisk vda
+part /boot/efi --fstype vfat --size 512 --asprimary --ondisk vda
 reqpart
 part pv.01     --size=1    --ondisk=vda      --asprimary --grow
 volgroup rocky pv.01
