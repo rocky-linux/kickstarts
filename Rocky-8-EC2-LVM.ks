@@ -18,6 +18,8 @@ timezone UTC --isUtc
 bootloader --append="console=ttyS0,115200n8 no_timer_check crashkernel=auto net.ifnames=0 nvme_core.io_timeout=4294967295 nvme_core.max_retries=10" --location=mbr --timeout=1 --boot-drive=vda 
 zerombr
 clearpart --all --initlabel 
+part /boot --fstype xfs --size 1024 --asprimary --ondisk vda
+part /boot/efi --fstype vfat --size 512 --asprimary --ondisk vda
 reqpart
 part pv.01     --size=1    --ondisk=vda      --asprimary --grow
 volgroup rocky pv.01
