@@ -18,8 +18,10 @@ timezone UTC --isUtc
 bootloader --append="console=ttyS0,115200n8 no_timer_check crashkernel=auto net.ifnames=0 nvme_core.io_timeout=4294967295 nvme_core.max_retries=10" --location=mbr --timeout=1 --boot-drive=vda 
 zerombr
 clearpart --all --initlabel 
+part /boot --fstype xfs --size 1024 --asprimary --ondisk vda
+part /boot/efi --fstype vfat --size 512 --asprimary --ondisk vda
 reqpart
-part / --fstype="xfs" --ondisk=vda --size=8000 --grow
+part / --fstype="xfs" --ondisk=vda --maxsize=3000 --grow
 
 url --url https://download.rockylinux.org/stg/rocky/8/BaseOS/$basearch/os/
 
