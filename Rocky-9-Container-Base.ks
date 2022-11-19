@@ -23,7 +23,7 @@ clearpart --all --initlabel
 autopart --noboot --nohome --noswap --nolvm --fstype=ext4
 
 # Package setup
-%packages --ignoremissing --excludedocs --inst-langs=en --nocore --exclude-weakdeps
+%packages --excludedocs --inst-langs=en --nocore --exclude-weakdeps
 bash
 binutils
 coreutils-single
