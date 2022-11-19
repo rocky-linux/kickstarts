@@ -22,6 +22,10 @@ zerombr
 clearpart --all --initlabel
 autopart --noboot --nohome --noswap --nolvm --fstype=ext4
 
+# This breaks everything, apparently
+%addon com_redhat_kdump --disable
+%end
+
 # Package setup
 %packages --excludedocs --inst-langs=en --nocore --exclude-weakdeps
 bash
