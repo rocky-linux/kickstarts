@@ -17,6 +17,8 @@ rootpw --iscrypted thereisnopasswordanditslocked
 # Partition Stuff
 zerombr
 clearpart --all --initlabel 
+part /boot --fstype xfs --size 1024 --asprimary --ondisk vda
+part /boot/efi --fstype vfat --size 512 --asprimary --ondisk vda
 reqpart
 part / --fstype="xfs" --mkfsoptions "-m bigtime=0,inobtcount=0" --ondisk=vda --size=3000
 shutdown
