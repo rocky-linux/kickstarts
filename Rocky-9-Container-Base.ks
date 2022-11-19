@@ -3,6 +3,7 @@
 # To use this kickstart, run make
 
 # Basic setup information
+url --url https://download.rockylinux.org/stg/rocky/9/BaseOS/$basearch/os/
 
 text
 bootloader --disable
@@ -30,7 +31,6 @@ glibc-minimal-langpack
 hostname
 iputils
 less
-systemctl
 rocky-release
 rootfiles
 tar
