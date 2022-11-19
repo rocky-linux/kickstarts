@@ -4,6 +4,7 @@
 
 # Basic setup information
 
+text
 bootloader --disable
 firewall --disabled
 network --bootproto=dhcp --device=link --activate --onboot=on
