@@ -30,6 +30,7 @@ glibc-minimal-langpack
 hostname
 iputils
 less
+systemctl
 rocky-release
 rootfiles
 tar
