@@ -77,7 +77,7 @@ rng-tools
 -plymouth
 -iprutils
 -langpacks-*
-langpacks-en
+-langpacks-en
 %end
 
 %post --erroronfail
