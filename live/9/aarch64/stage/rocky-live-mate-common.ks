@@ -40,7 +40,7 @@ gvfs-fuse
 gvfs-gphoto2
 gvfs-mtp
 gvfs-smb
-hexchat
+#hexchat
 initial-setup-gui
 libmatekbd
 libmatemixer
@@ -106,7 +106,7 @@ pluma-plugins
 tigervnc
 
 libreoffice-calc
-libreoffice-emailmerge
+#libreoffice-emailmerge
 libreoffice-graphicfilter
 libreoffice-impress
 libreoffice-writer
