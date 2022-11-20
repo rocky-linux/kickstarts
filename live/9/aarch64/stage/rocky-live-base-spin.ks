@@ -35,7 +35,7 @@ shutdown
 kernel
 kernel-modules
 kernel-modules-extra
-memtest86+
+#memtest86+
 anaconda
 anaconda-install-env-deps
 anaconda-live
@@ -46,9 +46,9 @@ efibootmgr
 grub2-common
 grub2-efi-*64
 grub2-efi-*64-cdboot
-grub2-pc-modules
+#grub2-pc-modules
 grub2-tools
-grub2-tools-efi
+#grub2-tools-efi
 grub2-tools-extra
 grub2-tools-minimal
 grubby
@@ -60,7 +60,7 @@ aajohan-comfortaa-fonts
 
 # RHBZ#1242586 - Required for initramfs creation
 dracut-live
-syslinux
+#syslinux
 
 # Anaconda needs all the locales available, just like a DVD installer
 glibc-all-langpacks
