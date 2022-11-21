@@ -1,3 +1,6 @@
+url --url https://download.rockylinux.org/stg/rocky/8/BaseOS/$basearch/os/
+repo --name=plus --baseurl=http://dl.rockylinux.org/pub/rocky/8/plus/x86_64/os
+
 text
 keyboard --vckeymap us
 lang en_US
@@ -18,8 +21,6 @@ part / --fstype=xfs --asprimary --size=1024 --grow
 user --name=vagrant --plaintext --password=vagrant
 
 shutdown
-
-url --url https://download.rockylinux.org/stg/rocky/8/BaseOS/$basearch/os/
 
 %packages --instLangs=en
 bash-completion
