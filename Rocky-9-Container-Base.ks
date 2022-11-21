@@ -15,7 +15,7 @@ shutdown
 
 keyboard us
 lang en_US.UTF-8
-timezone --utc --nontp UTC
+timezone --utc --ntp-disable UTC
 
 # Disk setup
 zerombr
