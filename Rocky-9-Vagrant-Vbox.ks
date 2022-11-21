@@ -108,6 +108,26 @@ account		required	pam_succeed_if.so user notin root:vagrant
 :quit
 EOF
 
+# Install VBoxGuestAdditions for installed kernel
+kver=$(rpm -q --queryformat="%{VERSION}-%{RELEASE}.%{ARCH}" kernel)
+dnf -y install kernel-devel gcc make perl elfutils-libelf-devel
+curl -L -o /tmp/vboxadditions.iso https://download.virtualbox.org/virtualbox/6.1.40/VBoxGuestAdditions_6.1.40.iso
+mkdir -p /media/VBoxGuestAdditions
+mount -o loop,ro /tmp/vboxadditions.iso /media/VBoxGuestAdditions
+mkdir -p /tmp/VBoxGuestAdditions
+sh /media/VBoxGuestAdditions/VBoxLinuxAdditions.run --nox11 --noexec --keep --target /tmp/VBoxGuestAdditions
+pushd /tmp/VBoxGuestAdditions
+./install.sh
+/sbin/rcvboxadd quicksetup all
+popd
+ls "/lib/modules/${kver}/misc/"
+modinfo "/lib/modules/${kver}/misc/vboxsf.ko"
+rm -rf /tmp/VBoxGuestAdditions
+umount /media/VBoxGuestAdditions
+rm -f /tmp/vboxadditions.iso
+rmdir /media/VBoxGuestAdditions
+dnf -y remove kernel-devel gcc make perl elfutils-libelf-devel
+
 # systemd should generate a new machine id during the first boot, to
 # avoid having multiple Vagrant instances with the same id in the local
 # network. /etc/machine-id should be empty, but it must exist to prevent
