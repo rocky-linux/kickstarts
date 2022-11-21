@@ -72,6 +72,10 @@ echo "/swapfile none swap defaults 0 0" >> /etc/fstab
 echo "%vagrant ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/vagrant
 chmod 0440 /etc/sudoers.d/vagrant
 
+# vmware needs open-vm-tools; on aarch, this is in plus
+dnf config-manager --set-enabled=plus
+
+
 # Fix for https://github.com/CentOS/sig-cloud-instance-build/issues/38
 cat > /etc/sysconfig/network-scripts/ifcfg-eth0 << EOF
 DEVICE="eth0"
