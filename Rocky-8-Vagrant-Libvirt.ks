@@ -1,5 +1,5 @@
 url --url https://download.rockylinux.org/stg/rocky/8/BaseOS/$basearch/os/
-repo --name=plus --baseurl=http://dl.rockylinux.org/pub/rocky/8/plus/x86_64/os
+repo --name=plus --baseurl=http://dl.rockylinux.org/pub/rocky/8/plus/$basearch/os
 
 text
 keyboard --vckeymap us
