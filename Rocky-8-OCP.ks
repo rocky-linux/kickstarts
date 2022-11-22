@@ -37,7 +37,7 @@ clearpart --all --initlabel --disklabel=gpt
 part biosboot --asprimary --fstype="biosboot" --size=1
 part /boot/efi --asprimary --fstype="efi" --size=100
 part /boot --asprimary --fstype="xfs" --size=1000 --label=boot
-part pv.01 --asprimary --grow --ondisk=vda --size=1
+part pv.01 --grow --ondisk=vda --size=1
 volgroup rocky pv.01
 logvol / --grow --size=8000 --name=root --vgname=rocky
 
