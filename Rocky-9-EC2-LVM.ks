@@ -18,6 +18,7 @@ rootpw --iscrypted thereisnopasswordanditslocked
 zerombr
 clearpart --all --initlabel --disklabel=gpt
 #reqpart
+part biosboot  --size=1    --fstype=biosboot --asprimary
 part /boot/efi --size=100  --fstype=efi   --asprimary
 part /boot     --size=1024 --fstype=xfs   --asprimary --label=boot
 part pv.01     --size=1    --ondisk=vda   --asprimary --grow
