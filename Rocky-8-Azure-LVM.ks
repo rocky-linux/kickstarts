@@ -1,56 +1,62 @@
-text
-url --url https://download.rockylinux.org/stg/rocky/8/BaseOS/$basearch/os/
-
-auth --enableshadow --passalgo=sha512
-shutdown
-firewall --enabled --service=ssh
-firstboot --disable
-ignoredisk --only-use=vda
-keyboard us
-# System language
-lang en_US.UTF-8
-# Network information
-network  --bootproto=dhcp --device=link --activate --onboot=on
-network  --hostname=localhost.localdomain
+#version=DEVEL
+# Keyboard layouts
+keyboard 'us'
 # Root password
 rootpw --iscrypted thereisnopasswordanditslocked
-selinux --enforcing
-services --disabled="kdump" --enabled="NetworkManager,sshd,rsyslog,chronyd,cloud-init,cloud-init-local,cloud-config,cloud-final,rngd"
+# System language
+lang en_US.UTF-8
+# Shutdown after installation
+shutdown
+# System timezone
 timezone UTC --isUtc
-# Disk
-bootloader --append="rootdelay=300 console=ttyS0 earlyprintk=ttyS0  no_timer_check crashkernel=auto net.ifnames=0" --location=mbr --timeout=1 --boot-drive=vda
-zerombr
-clearpart --all --initlabel 
-part /boot --fstype xfs --size 1024 --asprimary --ondisk vda
-part /boot/efi --fstype vfat --size 512 --asprimary --ondisk vda
-reqpart
-part pv.01     --size=1    --ondisk=vda      --asprimary --grow
-volgroup rocky pv.01
-logvol / --vgname=rocky --size=8000 --name=root --grow
+# Use text mode install
+text
+# Network information
+network  --bootproto=dhcp --device=link --activate
+network  --bootproto=dhcp --hostname=localhost.localdomain
+# Use network installation
+url --url="https://download.rockylinux.org/stg/rocky/8/BaseOS/$basearch/os/"
+# System authorization information
+auth --enableshadow --passalgo=sha512
+# Firewall configuration
+firewall --enabled --service=ssh
+firstboot --disable
+# SELinux configuration
+selinux --enforcing
 
+# System services
+services --disabled="kdump" --enabled="NetworkManager,sshd,rsyslog,chronyd,cloud-init,cloud-init-local,cloud-config,cloud-final,rngd"
+# System bootloader configuration
+bootloader --append="rootdelay=300 console=ttyS0 earlyprintk=ttyS0  no_timer_check crashkernel=auto net.ifnames=0" --location=mbr --timeout=1
+# Clear the Master Boot Record
+zerombr
+# Partition clearing information
+clearpart --all --initlabel --disklabel=gpt
+# Disk partitioning information
+part biosboot --asprimary --fstype="biosboot" --size=1
+part /boot/efi --asprimary --fstype="efi" --size=100
+part /boot --asprimary --fstype="xfs" --size=1000 --label=boot
+part pv.01 --asprimary --grow --ondisk=vda --size=1
+volgroup rocky pv.01
+logvol / --grow --size=8000 --name=root --vgname=rocky
 
 %post --erroronfail
 passwd -d root
 passwd -l root
 
+# Attempting to force legacy BIOS boot if we boot from UEFI
+# This was backported from our 9 kickstarts to address some issues.
+if [ "$(arch)" = "x86_64" ]; then
+  dnf install grub2-pc-modules grub2-pc -y
+  grub2-install --target=i386-pc /dev/vda
+fi
+
+# Ensure that the pmbr_boot flag is off
+parted /dev/vda disk_set pmbr_boot off
+
 ###
 # Common Cloud Tweaks
 ###
-
-# pvgrub support
-echo -n "Creating grub.conf for pvgrub"
-rootuuid=$( awk '$2=="/" { print $1 };'  /etc/fstab )
-mkdir /boot/grub
-echo -e 'default=0\ntimeout=0\n\n' > /boot/grub/grub.conf
-for kv in $( ls -1v /boot/vmlinuz* |grep -v rescue |sed s/.*vmlinuz-//  ); do
-  echo "title Rocky Linux 8 ($kv)" >> /boot/grub/grub.conf
-  echo -e "\troot (hd0)" >> /boot/grub/grub.conf
-  echo -e "\tkernel /boot/vmlinuz-$kv ro root=$rootuuid console=hvc0 LANG=en_US.UTF-8" >> /boot/grub/grub.conf
-  echo -e "\tinitrd /boot/initramfs-$kv.img" >> /boot/grub/grub.conf
-  echo
-done
-ln -sf grub.conf /boot/grub/menu.lst
-ln -sf /boot/grub/grub.conf /etc/grub.conf
 
 # setup systemd to boot to the right runlevel
 rm -f /etc/systemd/system/default.target
@@ -246,27 +252,38 @@ true
 
 %packages
 @core
+NetworkManager
+WALinuxAgent
 chrony
-dnf
-yum
 cloud-init
 cloud-utils-growpart
-NetworkManager
+cockpit-system
+cockpit-ws
+dhcp-client
+dnf
+dnf-utils
 dracut-config-generic
 dracut-norescue
 firewalld
 gdisk
 grub2
+hyperv-daemons
 kernel
 nfs-utils
+python3-jsonschema
+qemu-guest-agent
+rng-tools
+rocky-release
 rsync
 tar
-dnf-utils
+yum
 yum-utils
 -aic94xx-firmware
 -alsa-firmware
 -alsa-lib
 -alsa-tools-firmware
+-biosdevname
+-iprutils
 -ivtv-firmware
 -iwl100-firmware
 -iwl1000-firmware
@@ -284,25 +301,11 @@ yum-utils
 -iwl6000g2b-firmware
 -iwl6050-firmware
 -iwl7260-firmware
+-langpacks-*
+-langpacks-en
 -libertas-sd8686-firmware
 -libertas-sd8787-firmware
 -libertas-usb8388-firmware
--biosdevname
--iprutils
 -plymouth
-
-python3-jsonschema
-qemu-guest-agent
-dhcp-client
-cockpit-ws
-cockpit-system
--langpacks-*
--langpacks-en
-
-rocky-release
-rng-tools
-
-WALinuxAgent
-hyperv-daemons
 
 %end

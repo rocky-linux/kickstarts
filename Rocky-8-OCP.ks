@@ -1,36 +1,56 @@
-text
-repo --name="oraclelinux-addons" --baseurl=http://yum.oracle.com/repo/OracleLinux/OL8/addons/$basearch/ --install --includepkgs="oci-utils"
-
-url --url https://download.rockylinux.org/stg/rocky/8/BaseOS/$basearch/os/
-
-auth --enableshadow --passalgo=sha512
-reboot
-firewall --enabled --service=ssh
-firstboot --disable
-ignoredisk --only-use=vda
-keyboard us
+#version=DEVEL
+# Keyboard layouts
+keyboard 'us'
+# Root password
+rootpw --iscrypted thereisnopasswordanditslocked
 # System language
 lang en_US.UTF-8
-# Network information
-network  --bootproto=dhcp --device=link --activate --onboot=on
-network  --hostname=localhost.localdomain
-# Root password
-rootpw --plaintext rocky
-selinux --enforcing
-services --disabled="kdump" --enabled="NetworkManager,sshd,rsyslog,chronyd,cloud-init,cloud-init-local,cloud-config,cloud-final,rngd"
+# Shutdown after installation
+shutdown
+# System timezone
 timezone UTC --isUtc
-# Disk
-bootloader --append="console=ttyS0,115200n8 console=tty0 no_timer_check crashkernel=auto net.ifnames=0 LANG=en_US.UTF-8 transparent_hugepage=never rd.luks=0 rd.md=0 rd.dm=0 rd.lvm.vg=rocky rd.lvm.lv=rocky/root rd.net.timeout.dhcp=10" --location=mbr --timeout=1 --boot-drive=vda
+# Use text mode install
+text
+# Network information
+network  --bootproto=dhcp --device=link --activate
+network  --bootproto=dhcp --hostname=localhost.localdomain
+repo --name="oraclelinux-addons" --baseurl=http://yum.oracle.com/repo/OracleLinux/OL8/addons/$basearch/ --includepkgs="oci-utils" --install
+# Use network installation
+url --url="https://download.rockylinux.org/stg/rocky/8/BaseOS/$basearch/os/"
+# System authorization information
+auth --enableshadow --passalgo=sha512
+# Firewall configuration
+firewall --enabled --service=ssh
+firstboot --disable
+# SELinux configuration
+selinux --enforcing
 
-clearpart --all --initlabel --drives vda
-part /boot --fstype xfs --size 1024 --asprimary --ondisk vda
-part /boot/efi --fstype vfat --size 512 --asprimary --ondisk vda
-
-part pv.01 --ondisk=vda --size=1 --grow --asprimary
+# System services
+services --disabled="kdump" --enabled="NetworkManager,sshd,rsyslog,chronyd,cloud-init,cloud-init-local,cloud-config,cloud-final,rngd"
+# System bootloader configuration
+bootloader --append="console=ttyS0,115200n8 console=tty0 no_timer_check crashkernel=auto net.ifnames=0 LANG=en_US.UTF-8 transparent_hugepage=never rd.luks=0 rd.md=0 rd.dm=0 rd.lvm.vg=rocky rd.lvm.lv=rocky/root rd.net.timeout.dhcp=10" --location=mbr --timeout=1
+# Clear the Master Boot Record
+zerombr
+# Partition clearing information
+clearpart --all --initlabel --disklabel=gpt
+# Disk partitioning information
+part biosboot --asprimary --fstype="biosboot" --size=1
+part /boot/efi --asprimary --fstype="efi" --size=100
+part /boot --asprimary --fstype="xfs" --size=1000 --label=boot
+part pv.01 --asprimary --grow --ondisk=vda --size=1
 volgroup rocky pv.01
-logvol / --vgname=rocky --size=3000 --name=root --grow
+logvol / --grow --size=8000 --name=root --vgname=rocky
 
 %post --erroronfail
+# Attempting to force legacy BIOS boot if we boot from UEFI
+# This was backported from our 9 kickstarts to address some issues.
+if [ "$(arch)" = "x86_64" ]; then
+  dnf install grub2-pc-modules grub2-pc -y
+  grub2-install --target=i386-pc /dev/vda
+fi
+
+# Ensure that the pmbr_boot flag is off
+parted /dev/vda disk_set pmbr_boot off
 
 # setup systemd to boot to the right runlevel
 rm -f /etc/systemd/system/default.target
@@ -213,9 +233,9 @@ echo "$(date) - OCI initramfs network modification script started."
 # Symlink network config files where cloud-init >= 19.4 expects them
 DRACUT_CFG=/run/initramfs/state/etc/sysconfig/network-scripts
 CI_DIR=/run
-if [ -d $DRACUT_CFG ]; then
+if [ -d $DRACUT_CFG  ]; then
     FILE_COUNT=`ls $DRACUT_CFG | wc -l`
-    if [ $FILE_COUNT -eq 0 ]; then
+    if [ $FILE_COUNT -eq 0  ]; then
         # Create dummy file if dracut did not create network device config
         dummycfg=$CI_DIR/net-dummy.conf
         echo "DEVICE=\"dummy\"" > $dummycfg
@@ -226,7 +246,7 @@ if [ -d $DRACUT_CFG ]; then
             filename=${dcfg##*/}
             devname=${filename##ifcfg-}
             cicfg=$CI_DIR/net-$devname.conf
-            if [ ! -e $cicfg ]; then
+            if [ ! -e $cicfg  ]; then
                 echo "$(date) - Creating symlink from $dcfg to $cicfg."
                 ln -s $dcfg $cicfg
             fi
@@ -241,6 +261,7 @@ true
 
 %packages
 @core
+NetworkManager
 chrony
 cloud-init
 cloud-utils-growpart
@@ -255,7 +276,6 @@ gdisk
 grub2
 iscsi-initiator-utils
 kernel
-NetworkManager
 nfs-utils
 oci-utils
 python3-jsonschema
@@ -266,7 +286,6 @@ rsync
 tar
 yum
 yum-utils
-
 -aic94xx-firmware
 -alsa-firmware
 -alsa-lib
@@ -296,4 +315,5 @@ yum-utils
 -libertas-sd8787-firmware
 -libertas-usb8388-firmware
 -plymouth
+
 %end

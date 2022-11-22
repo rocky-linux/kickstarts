@@ -1,67 +1,38 @@
-url --url https://download.rockylinux.org/stg/rocky/8/BaseOS/$basearch/os/
-repo --name=plus --baseurl=http://dl.rockylinux.org/pub/rocky/8/plus/$basearch/os
-
-text
-keyboard --vckeymap us
-lang en_US
-skipx
-network  --bootproto=dhcp --device=link --activate --onboot=on
+#version=DEVEL
+# Keyboard layouts
+keyboard --vckeymap=us
+# Root password
 rootpw --plaintext vagrant
-firewall --disabled
-timezone --utc UTC
-services --enabled=vmtoolsd
-# The biosdevname and ifnames options ensure we get "eth0" as our interface
-# even in environments like virtualbox that emulate a real NW card
-bootloader --timeout=1 --append="no_timer_check console=tty0 console=ttyS0,115200n8 net.ifnames=0 biosdevname=0 elevator=noop"
-zerombr
-clearpart --all --initlabel
-reqpart
-part / --fstype=xfs --asprimary --size=1024 --grow
-
-user --name=vagrant --plaintext --password=vagrant
-
+# System language
+lang en_US
+# Shutdown after installation
 shutdown
+user --name=vagrant --password=vagrant
+# System timezone
+timezone UTC --isUtc
+# Use text mode install
+text
+# Network information
+network  --bootproto=dhcp --device=link --activate
+repo --name="plus" --baseurl=http://dl.rockylinux.org/pub/rocky/8/plus/$basearch/os
+# Use network installation
+url --url="https://download.rockylinux.org/stg/rocky/8/BaseOS/$basearch/os/"
+# Firewall configuration
+firewall --disabled
+# Do not configure the X Window System
+skipx
 
-%packages --instLangs=en
-bash-completion
-man-pages
-bzip2
-rsync
-nfs-utils
-cifs-utils
-chrony
-yum-utils
-hyperv-daemons
-open-vm-tools
-# Vagrant boxes aren't normally visible, no need for Plymouth
--plymouth
-# Microcode updates cannot work in a VM
--microcode_ctl
-# Firmware packages are not needed in a VM
--iwl100-firmware
--iwl1000-firmware
--iwl105-firmware
--iwl135-firmware
--iwl2000-firmware
--iwl2030-firmware
--iwl3160-firmware
--iwl3945-firmware
--iwl4965-firmware
--iwl5000-firmware
--iwl5150-firmware
--iwl6000-firmware
--iwl6000g2a-firmware
--iwl6050-firmware
--iwl7260-firmware
-# Don't build rescue initramfs
--dracut-config-rescue
-%end
-
-# kdump needs to reserve 160MB + 2bits/4kB RAM, and automatic allocation only
-# works on systems with at least 2GB RAM (which excludes most Vagrant boxes)
-# CBS doesn't support %addon yet https://bugs.centos.org/view.php?id=12169
-%addon com_redhat_kdump --disable
-%end
+# System services
+services --enabled="vmtoolsd"
+# System bootloader configuration
+bootloader --append="no_timer_check console=tty0 console=ttyS0,115200n8 net.ifnames=0 biosdevname=0 elevator=noop" --location=mbr --timeout=1
+reqpart
+# Clear the Master Boot Record
+zerombr
+# Partition clearing information
+clearpart --all --initlabel
+# Disk partitioning information
+part / --asprimary --fstype="xfs" --grow --size=1024
 
 %post
 # configure swap to a file
@@ -109,9 +80,9 @@ ex -s /etc/pam.d/su <<'EOF'
 # allow vagrant to use su, but prevent others from becoming root or vagrant
 /^account\s\+sufficient\s\+pam_succeed_if.so uid = 0 use_uid quiet$/
 :append
-account		[success=1 default=ignore] \\
-				pam_succeed_if.so user = vagrant use_uid quiet
-account		required	pam_succeed_if.so user notin root:vagrant
+account   [success=1 default=ignore] \\
+        pam_succeed_if.so user = vagrant use_uid quiet
+account   required  pam_succeed_if.so user notin root:vagrant
 .
 :update
 :quit
@@ -153,4 +124,38 @@ dracut -f /boot/initramfs-${KERNEL_VERSION}.img ${KERNEL_VERSION}
 rm -rf /etc/ssh/ssh_host_*
 hostnamectl set-hostname localhost.localdomain
 rm -rf /etc/udev/rules.d/70-*
+%end
+
+%addon com_redhat_kdump --disable
+%end
+%packages --instLangs=en
+bash-completion
+bzip2
+chrony
+cifs-utils
+hyperv-daemons
+man-pages
+nfs-utils
+open-vm-tools
+rsync
+yum-utils
+-dracut-config-rescue
+-iwl100-firmware
+-iwl1000-firmware
+-iwl105-firmware
+-iwl135-firmware
+-iwl2000-firmware
+-iwl2030-firmware
+-iwl3160-firmware
+-iwl3945-firmware
+-iwl4965-firmware
+-iwl5000-firmware
+-iwl5150-firmware
+-iwl6000-firmware
+-iwl6000g2a-firmware
+-iwl6050-firmware
+-iwl7260-firmware
+-microcode_ctl
+-plymouth
+
 %end
