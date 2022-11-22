@@ -1,89 +1,57 @@
-text
+#version=DEVEL
+# Keyboard layouts
+keyboard 'us'
+# Root password
+rootpw --iscrypted thereisnopasswordanditslocked
+# System language
 lang en_US.UTF-8
-keyboard us
-timezone UTC --utc
-# Disk
-bootloader --append="rootdelay=300 console=ttyS0 earlyprintk=ttyS0  no_timer_check crashkernel=auto net.ifnames=0" --location=mbr --timeout=1
+# Shutdown after installation
+shutdown
+# System timezone
+timezone UTC --isUtc
+# Use text mode install
+text
+# Network information
+network  --bootproto=dhcp --device=link --activate
+# Use network installation
+url --url="https://download.rockylinux.org/stg/rocky/9/BaseOS/$basearch/os/"
+# System authorization information
 auth --enableshadow --passalgo=sha512
-selinux --enforcing
+# Firewall configuration
 firewall --enabled --service=ssh
 firstboot --disable
-# Network information
-network  --bootproto=dhcp --device=link --activate --onboot=on
-# Root password
-services --disabled="kdump" --enabled="NetworkManager,sshd,rsyslog,chronyd,cloud-init,cloud-init-local,cloud-config,cloud-final,rngd,waagent"
-rootpw --iscrypted thereisnopasswordanditslocked
+# SELinux configuration
+selinux --enforcing
 
-# Partition Stuff
+# System services
+services --disabled="kdump,rhsmcertd" --enabled="NetworkManager,sshd,rsyslog,chronyd,cloud-init,cloud-init-local,cloud-config,cloud-final,rngd"
+# System bootloader configuration
+bootloader --append="rootdelay=300 console=ttyS0 earlyprintk=ttyS0  no_timer_check crashkernel=auto net.ifnames=0" --location=mbr --timeout=1
+# Clear the Master Boot Record
 zerombr
-clearpart --all --initlabel 
-part /boot --fstype xfs --size 1024 --asprimary --ondisk vda
-part /boot/efi --fstype vfat --size 512 --asprimary --ondisk vda
-reqpart
-part pv.01     --size=1    --ondisk=vda      --grow
+# Partition clearing information
+clearpart --all --initlabel --disklabel=gpt
+# Disk partitioning information
+part prepboot --asprimary --fstype="prepboot" --size=4
+part biosboot --asprimary --fstype="biosboot" --size=1
+part /boot/efi --asprimary --fstype="efi" --size=100
+part /boot --asprimary --fstype="xfs" --size=1000 --label=boot
+part pv.01 --grow --ondisk=vda --size=1
 volgroup rocky pv.01
-logvol / --vgname=rocky --size=8000 --name=root --grow --mkfsoptions "-m bigtime=0,inobtcount=0"
-shutdown
-
-%packages
-@core
-rocky-release
-kernel
-yum-utils
--aic94xx-firmware
--alsa-firmware
--alsa-lib
--alsa-tools-firmware
--ivtv-firmware
--iwl1000-firmware
--iwl100-firmware
--iwl105-firmware
--iwl135-firmware
--iwl2000-firmware
--iwl2030-firmware
--iwl3160-firmware
--iwl3945-firmware
--iwl4965-firmware
--iwl5000-firmware
--iwl5150-firmware
--iwl6000-firmware
--iwl6000g2a-firmware
--iwl6000g2b-firmware
--iwl6050-firmware
--iwl7260-firmware
--libertas-sd8686-firmware
--libertas-sd8787-firmware
--libertas-usb8388-firmware
-
-cloud-init
-cloud-utils-growpart
-gdisk
-dracut-config-generic
-grub2
-firewalld
-
-# some stuff that's missing from core or explicitly setting
-tar
-rsync
-dhcp-client
-NetworkManager
-rng-tools
-dnf-utils
-chrony
-WALinuxAgent
-hyperv-daemons
-
--biosdevname
--plymouth
--iprutils
--langpacks-*
--langpacks-en
--qemu-guest-agent
-%end
+logvol / --grow --size=8000 --mkfsoptions="-m bigtime=0,inobtcount=0" --name=root --vgname=rocky
 
 %post --erroronfail
 passwd -d root
 passwd -l root
+
+# Attempting to force legacy BIOS boot if we boot from UEFI
+if [ "$(arch)" = "x86_64"  ]; then
+  dnf install grub2-pc-modules grub2-pc -y
+  grub2-install --target=i386-pc /dev/vda
+fi
+
+# Ensure that the pmbr_boot flag is off
+parted /dev/vda disk_set pmbr_boot off
 
 # Common Cloud Tweaks
 # setup systemd to boot to the right runlevel
@@ -232,4 +200,55 @@ true
 
 %end
 
+%packages
+@core
+NetworkManager
+WALinuxAgent
+chrony
+cloud-init
+cloud-utils-growpart
+dhcp-client
+dnf-utils
+dracut-config-generic
+firewalld
+gdisk
+grub2
+hyperv-daemons
+kernel
+rng-tools
+rocky-release
+rsync
+tar
+yum-utils
+-aic94xx-firmware
+-alsa-firmware
+-alsa-lib
+-alsa-tools-firmware
+-biosdevname
+-iprutils
+-ivtv-firmware
+-iwl100-firmware
+-iwl1000-firmware
+-iwl105-firmware
+-iwl135-firmware
+-iwl2000-firmware
+-iwl2030-firmware
+-iwl3160-firmware
+-iwl3945-firmware
+-iwl4965-firmware
+-iwl5000-firmware
+-iwl5150-firmware
+-iwl6000-firmware
+-iwl6000g2a-firmware
+-iwl6000g2b-firmware
+-iwl6050-firmware
+-iwl7260-firmware
+-langpacks-*
+-langpacks-en
+-libertas-sd8686-firmware
+-libertas-sd8787-firmware
+-libertas-usb8388-firmware
+-plymouth
+-qemu-guest-agent
 
+%end

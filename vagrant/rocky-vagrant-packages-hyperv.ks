@@ -1,4 +1,4 @@
-%packages --inst-langs=en
+%packages --instLangs=en
 bash-completion
 man-pages
 bzip2
