@@ -16,18 +16,14 @@ rootpw --iscrypted thereisnopasswordanditslocked
 
 # Partition stuff - Should work for x86 and aarch64
 zerombr
-clearpart --all --initlabel 
-part /boot --fstype xfs --size 1024 --asprimary --ondisk vda
-part /boot/efi --fstype vfat --size 512 --asprimary --ondisk vda
-reqpart
-part pv.01     --size=1    --ondisk=vda      --asprimary --grow
+clearpart --all --initlabel --disklabel=gpt
+#reqpart
+part /boot/efi --size=100  --fstype=efi   --asprimary
+part /boot     --size=1024 --fstype=xfs   --asprimary --label=boot
+part pv.01     --size=1    --ondisk=vda   --asprimary --grow
 volgroup rocky pv.01
 logvol / --vgname=rocky --size=8000 --name=root --grow --mkfsoptions "-m bigtime=0,inobtcount=0"
 shutdown
-
-%pre --erroronfail
-/usr/sbin/parted -s /dev/vda mklabel gpt
-%end
 
 %packages
 @core
@@ -83,6 +79,12 @@ rng-tools
 %post --erroronfail
 passwd -d root
 passwd -l root
+
+# Attempting to force legacy BIOS boot if we boot from UEFI
+if [ "$(arch)" = "x86_64" ]; then
+  dnf install grub2-pc-modules grub2-pc -y
+  grub2-install --target=i386-pc /dev/vda
+fi
 
 # setup systemd to boot to the right runlevel
 rm -f /etc/systemd/system/default.target
