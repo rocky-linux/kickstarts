@@ -27,7 +27,7 @@ clearpart --all --initlabel --drives vda
 part /boot --fstype xfs --size 1024 --asprimary --ondisk vda
 part /boot/efi --fstype vfat --size 512 --asprimary --ondisk vda
 
-part pv.01 --ondisk=vda --size=1 --grow --asprimary
+part pv.01 --ondisk=vda --size=1 --grow
 volgroup rocky pv.01
 logvol / --vgname=rocky --size=3000 --name=root --grow
 

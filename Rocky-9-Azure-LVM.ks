@@ -20,7 +20,7 @@ clearpart --all --initlabel
 part /boot --fstype xfs --size 1024 --asprimary --ondisk vda
 part /boot/efi --fstype vfat --size 512 --asprimary --ondisk vda
 reqpart
-part pv.01     --size=1    --ondisk=vda      --asprimary --grow
+part pv.01     --size=1    --ondisk=vda      --grow
 volgroup rocky pv.01
 logvol / --vgname=rocky --size=8000 --name=root --grow --mkfsoptions "-m bigtime=0,inobtcount=0"
 shutdown
