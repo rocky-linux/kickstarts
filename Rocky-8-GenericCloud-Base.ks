@@ -3,7 +3,7 @@ lang en_US.UTF-8
 keyboard us
 timezone UTC --isUtc
 # Disk
-bootloader --append="console=ttyS0,115200n8 no_timer_check crashkernel=auto net.ifnames=0" --location=mbr --timeout=1 --boot-drive=vda
+bootloader --append="console=ttyS0,115200n8 no_timer_check crashkernel=auto net.ifnames=0" --location=mbr --timeout=1
 auth --enableshadow --passalgo=sha512
 selinux --enforcing
 firewall --enabled --service=ssh
@@ -17,11 +17,12 @@ rootpw --iscrypted thereisnopasswordanditslocked
 
 # Partition stuff
 zerombr
-clearpart --all --initlabel 
-part /boot --fstype xfs --size 1024 --asprimary --ondisk vda
-part /boot/efi --fstype vfat --size 512 --asprimary --ondisk vda
-reqpart
-part / --fstype="xfs" --ondisk=vda --size=8000 --grow
+clearpart --all --initlabel --disklabel=gpt
+#reqpart
+part biosboot  --size=1    --fstype=biosboot --asprimary
+part /boot/efi --size=100  --fstype=efi      --asprimary
+part /boot     --size=1000 --fstype=xfs      --asprimary --label=boot
+part /         --size=8000 --fstype="xfs"    --mkfsoptions "-m bigtime=0,inobtcount=0" --grow
 shutdown
 
 url --url https://download.rockylinux.org/stg/rocky/8/BaseOS/$basearch/os/
@@ -90,19 +91,29 @@ passwd -d root
 passwd -l root
 
 # pvgrub support
-echo -n "Creating grub.conf for pvgrub"
-rootuuid=$( awk '$2=="/" { print $1 };'  /etc/fstab )
-mkdir /boot/grub
-echo -e 'default=0\ntimeout=0\n\n' > /boot/grub/grub.conf
-for kv in $( ls -1v /boot/vmlinuz* |grep -v rescue |sed s/.*vmlinuz-//  ); do
-  echo "title Rocky Linux 8 ($kv)" >> /boot/grub/grub.conf
-  echo -e "\troot (hd0)" >> /boot/grub/grub.conf
-  echo -e "\tkernel /boot/vmlinuz-$kv ro root=$rootuuid console=hvc0 LANG=en_US.UTF-8" >> /boot/grub/grub.conf
-  echo -e "\tinitrd /boot/initramfs-$kv.img" >> /boot/grub/grub.conf
-  echo
-done
-ln -sf grub.conf /boot/grub/menu.lst
-ln -sf /boot/grub/grub.conf /etc/grub.conf
+#echo -n "Creating grub.conf for pvgrub"
+#rootuuid=$( awk '$2=="/" { print $1 };'  /etc/fstab )
+#mkdir /boot/grub
+#echo -e 'default=0\ntimeout=0\n\n' > /boot/grub/grub.conf
+#for kv in $( ls -1v /boot/vmlinuz* |grep -v rescue |sed s/.*vmlinuz-//  ); do
+#  echo "title Rocky Linux 8 ($kv)" >> /boot/grub/grub.conf
+#  echo -e "\troot (hd0)" >> /boot/grub/grub.conf
+#  echo -e "\tkernel /boot/vmlinuz-$kv ro root=$rootuuid console=hvc0 LANG=en_US.UTF-8" >> /boot/grub/grub.conf
+#  echo -e "\tinitrd /boot/initramfs-$kv.img" >> /boot/grub/grub.conf
+#  echo
+#done
+#ln -sf grub.conf /boot/grub/menu.lst
+#ln -sf /boot/grub/grub.conf /etc/grub.conf
+
+# Attempting to force legacy BIOS boot if we boot from UEFI
+# This was backported from our 9 kickstarts to address some issues.
+if [ "$(arch)" = "x86_64"  ]; then
+  dnf install grub2-pc-modules grub2-pc -y
+  grub2-install --target=i386-pc /dev/vda
+fi
+
+# Ensure that the pmbr_boot flag is off
+parted /dev/vda disk_set pmbr_boot off
 
 # setup systemd to boot to the right runlevel
 rm -f /etc/systemd/system/default.target
