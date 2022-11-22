@@ -22,10 +22,9 @@ clearpart --all --initlabel
 part biosboot  --size=1    --fstype=biosboot --asprimary
 part /boot/efi --size=100  --fstype=efi      --asprimary
 part /boot     --size=1024 --fstype=xfs      --asprimary --label=boot
-part /         --size=8000 --fstype="xfs"    --mkfsoptions "-m bigtime=0,inobtcount=0"
 part pv.01     --size=1    --ondisk=vda      --asprimary --grow
 volgroup rocky pv.01
-logvol / --vgname=rocky --size=8000 --name=root --grow
+logvol / --vgname=rocky --size=8000 --name=root --grow --fstype=xfs --mkfsoptions "-m bigtime=0,inobtcount=0"
 
 url --url https://download.rockylinux.org/stg/rocky/8/BaseOS/$basearch/os/
 
