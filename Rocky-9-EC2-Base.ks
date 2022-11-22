@@ -84,6 +84,9 @@ if [ "$(arch)" = "x86_64" ]; then
   grub2-install --target=i386-pc /dev/vda
 fi
 
+# Ensure that the pmbr_boot flag is off
+parted /dev/vda disk_set pmbr_boot off
+
 # setup systemd to boot to the right runlevel
 rm -f /etc/systemd/system/default.target
 ln -s /lib/systemd/system/multi-user.target /etc/systemd/system/default.target
