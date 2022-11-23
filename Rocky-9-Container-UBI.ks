@@ -27,7 +27,8 @@ autopart --noboot --nohome --noswap --nolvm --fstype=ext4
 %end
 
 # Package setup
-%packages --excludedocs --inst-langs=en --nocore --exclude-weakdeps
+# NOTE(nhanlon) - 2022-11-23 adding --ignoremissing as dmidecode does not exist on all arches
+%packages --ignoremissing --excludedocs --inst-langs=en --nocore --exclude-weakdeps
 bash
 binutils
 brotli
