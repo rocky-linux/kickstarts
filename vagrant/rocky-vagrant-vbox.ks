@@ -4,6 +4,15 @@
 reboot
 
 %post
+# Attempting to force legacy BIOS boot if we boot from UEFI
+if [ "$(arch)" = "x86_64"   ]; then
+  dnf install grub2-pc-modules grub2-pc -y
+  grub2-install --target=i386-pc /dev/vda
+fi
+
+# Ensure that the pmbr_boot flag is off
+parted /dev/vda disk_set pmbr_boot off
+
 # configure swap to a file
 fallocate -l 2G /swapfile
 chmod 600 /swapfile
