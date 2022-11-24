@@ -101,7 +101,7 @@ EOF
 set -x
 # Install VBoxGuestAdditions for installed kernel
 kver=$(rpm -q --queryformat="%{VERSION}-%{RELEASE}.%{ARCH}" kernel)
-dnf -y install kernel-devel gcc make perl elfutils-libelf-devel
+dnf -y install kernel-headers-$kver kernel-devel gcc make perl elfutils-libelf-devel
 curl -L -o /tmp/vboxadditions.iso https://download.virtualbox.org/virtualbox/6.1.40/VBoxGuestAdditions_6.1.40.iso
 mkdir -p /media/VBoxGuestAdditions
 mount -o loop,ro /tmp/vboxadditions.iso /media/VBoxGuestAdditions
