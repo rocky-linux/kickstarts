@@ -34,6 +34,7 @@ EOF
 
 # sshd: disable password authentication and DNS checks
 # for virtualbox we're disabling it after provisioning
+cat >>/etc/sysconfig/sshd <<EOF
 
 # Decrease connection time by preventing reverse DNS lookups
 # (see https://lists.centos.org/pipermail/centos-devel/2016-July/014981.html
@@ -62,7 +63,11 @@ EOF
 
 # Install VBoxGuestAdditions for installed kernel
 kver=$(rpm -q --queryformat="%{VERSION}-%{RELEASE}.%{ARCH}" kernel)
-dnf -y install kernel-devel gcc make perl elfutils-libelf-devel
+echo "stg/rocky" > /etc/dnf/vars/contentdir
+sed -i 's/^#baseurl/baseurl/g;s/^mirrorlist/#mirrorlist/g' /etc/yum.repos.d/rocky*repo
+dnf -y install kernel-headers-$kver kernel-devel gcc make perl elfutils-libelf-devel
+sed -i 's/^baseurl/#baseurl/g;s/^#mirrorlist/mirrorlist/g' /etc/yum.repos.d/rocky*repo
+echo "pub/rocky" > /etc/dnf/vars/contentdir
 curl -L -o /tmp/vboxadditions.iso https://download.virtualbox.org/virtualbox/6.1.40/VBoxGuestAdditions_6.1.40.iso
 mkdir -p /media/VBoxGuestAdditions
 mount -o loop,ro /tmp/vboxadditions.iso /media/VBoxGuestAdditions
