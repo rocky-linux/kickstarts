@@ -26,13 +26,15 @@ skipx
 services --enabled="vmtoolsd"
 # System bootloader configuration
 bootloader --append="no_timer_check console=tty0 console=ttyS0,115200n8 net.ifnames=0 biosdevname=0 elevator=noop" --location=mbr --timeout=1
-reqpart
 # Clear the Master Boot Record
 zerombr
 # Partition clearing information
-clearpart --all --initlabel
+clearpart --all --initlabel --disklabel=gpt
 # Disk partitioning information
-part / --asprimary --fstype="xfs" --grow --size=1024
+part biosboot  --size=1    --fstype=biosboot --asprimary
+part /boot/efi --size=100  --fstype=efi      --asprimary
+part /boot     --size=1000 --fstype=xfs      --asprimary --label=boot
+part /         --size=8000 --fstype="xfs"    --mkfsoptions "-m bigtime=0,inobtcount=0" --grow
 
 %post
 # configure swap to a file
