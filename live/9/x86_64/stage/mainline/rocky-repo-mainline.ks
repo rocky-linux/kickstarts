@@ -7,7 +7,7 @@ repo --name=CRB --cost=200 --baseurl=http://dl.rockylinux.org/stg/rocky/9/CRB/$b
 repo --name=extras --cost=200 --baseurl=http://dl.rockylinux.org/stg/rocky/9/extras/$basearch/os
 
 # ELRepo
-repo --name="elrepo-kernel" --baseurl=https://elrepo.org/linux/kernel/el8/$basearch/ --cost=200
+repo --name="elrepo-kernel" --baseurl=https://elrepo.org/linux/kernel/el9/$basearch/ --cost=200
 
 # URL to the base os repo
 url --url=http://dl.rockylinux.org/stg/rocky/9/BaseOS/$basearch/os/

@@ -32,10 +32,10 @@ zerombr
 # Partition clearing information
 clearpart --all --initlabel --disklabel=gpt
 # Disk partitioning information
-part prepboot --asprimary --fstype="prepboot" --size=4
-part biosboot --asprimary --fstype="biosboot" --size=1
-part /boot/efi --asprimary --fstype="efi" --size=100
-part /boot --asprimary --fstype="xfs" --size=1000 --label=boot
+part prepboot --fstype="prepboot" --size=4
+part biosboot --fstype="biosboot" --size=1
+part /boot/efi --fstype="efi" --size=100
+part /boot --fstype="xfs" --size=1000 --label=boot
 part pv.01 --grow --ondisk=vda --size=1
 volgroup rocky pv.01
 logvol / --grow --size=8000 --mkfsoptions="-m bigtime=0,inobtcount=0" --name=root --vgname=rocky
