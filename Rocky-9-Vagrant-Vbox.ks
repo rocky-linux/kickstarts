@@ -97,8 +97,6 @@ account		required	pam_succeed_if.so user notin root:vagrant
 :quit
 EOF
 
-
-set -x
 # Install VBoxGuestAdditions for installed kernel
 kver=$(rpm -q --queryformat="%{VERSION}-%{RELEASE}.%{ARCH}" kernel)
 echo "stg/rocky" > /etc/dnf/vars/contentdir
