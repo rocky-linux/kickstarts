@@ -66,6 +66,7 @@ ex -s /etc/ssh/sshd_config <<EOF
 :update
 :quit
 EOF
+
 cat >>/etc/sysconfig/sshd <<EOF
 
 # Decrease connection time by preventing reverse DNS lookups

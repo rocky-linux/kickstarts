@@ -70,6 +70,7 @@ EOF
 
 # sshd: disable password authentication and DNS checks
 # for virtualbox we're disabling it after provisioning
+cat >>/etc/sysconfig/sshd <<EOF
 
 # Decrease connection time by preventing reverse DNS lookups
 # (see https://lists.centos.org/pipermail/centos-devel/2016-July/014981.html
