@@ -97,6 +97,8 @@ account		required	pam_succeed_if.so user notin root:vagrant
 :quit
 EOF
 
+
+set -x
 # Install VBoxGuestAdditions for installed kernel
 kver=$(rpm -q --queryformat="%{VERSION}-%{RELEASE}.%{ARCH}" kernel)
 dnf -y install kernel-devel gcc make perl elfutils-libelf-devel
