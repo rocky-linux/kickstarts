@@ -42,6 +42,8 @@ part / --fstype="xfs" --size=8000 --mkfsoptions="-m bigtime=0,inobtcount=0"
 passwd -d root
 passwd -l root
 
+systemctl enable waagent
+
 # Attempting to force legacy BIOS boot if we boot from UEFI
 if [ "$(arch)" = "x86_64"  ]; then
   dnf install grub2-pc-modules grub2-pc -y
