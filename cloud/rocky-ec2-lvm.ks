@@ -13,6 +13,7 @@ passwd -l root
 if [ "$(arch)" = "x86_64" ]; then
   dnf install grub2-pc-modules grub2-pc -y
   grub2-install --target=i386-pc /dev/vda
+  grub2-mkconfig -o /boot/grub2/grub.cfg --no-grubenv-update
 fi
 
 # Ensure that the pmbr_boot flag is off
