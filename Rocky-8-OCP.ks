@@ -152,18 +152,18 @@ mkdir -p /var/cache/yum
 # remove these for debugging
 sed -i -e 's/ rhgb quiet//' /boot/grub/grub.conf
 
-# enable resizing on copied AMIs
-echo 'install_items+=" sgdisk "' > /etc/dracut.conf.d/sgdisk.conf
-
 
 # OCI - Start ocid on boot
 systemctl enable ocid.service
 
+# enable resizing on copied AMIs
+echo 'install_items+=" sgdisk "' > /etc/dracut.conf.d/sgdisk.conf
+
 # OCI - Need iscsi as a dracut module
-echo 'add_dracutmodules+="iscsi"' > /etc/dracut.conf.d/iscsi.conf
+echo 'add_dracutmodules+=" iscsi "' > /etc/dracut.conf.d/iscsi.conf
 
 # OCI - Virtio drivers
-echo 'add_drivers+="virtio virtio_blk virtio_net virtio_pci virtio_ring virtio_scsi virtio_console"' > /etc/dracut.conf.d/virtio.conf
+echo 'add_drivers+=" virtio virtio_blk virtio_net virtio_pci virtio_ring virtio_scsi virtio_console "' > /etc/dracut.conf.d/virtio.conf
 
 # OCI - YOLO
 mkdir -p /usr/lib/dracut/modules.d/95oci
