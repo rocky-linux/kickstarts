@@ -15,6 +15,7 @@ text
 network  --bootproto=dhcp --device=link --activate
 # Use network installation
 url --url="https://download.rockylinux.org/stg/rocky/9/BaseOS/$basearch/os/"
+repo --name "sig-cloud-common" --baseurl=http://dl.rockylinux.org/stg/sig/9/cloud/$basearch/cloud-common/ --includepkgs="oci-utils"
 # System authorization information
 auth --enableshadow --passalgo=sha512
 # Firewall configuration
@@ -129,7 +130,6 @@ cat  >> /etc/dhcp/dhclient.conf << EOF
 timeout 300;
 retry 60;
 EOF
-
 
 # OCI - Import repo GPG key
 cat <<EOF > /tmp/key
@@ -386,6 +386,7 @@ python3-jsonschema
 qemu-guest-agent
 rng-tools
 rocky-release
+rocky-release-cloud
 rsync
 tar
 yum

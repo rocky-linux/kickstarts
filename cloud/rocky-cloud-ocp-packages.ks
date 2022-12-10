@@ -56,5 +56,6 @@ cockpit-system
 iscsi-initiator-utils
 
 rocky-release
+rocky-release-cloud
 rng-tools
 %end

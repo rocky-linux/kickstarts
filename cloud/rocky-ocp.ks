@@ -2,6 +2,8 @@
 %include rocky-cloud-parts-lvm.ks
 %include rocky-cloud-ocp-packages.ks
 
+repo --name "sig-cloud-common" --baseurl=http://dl.rockylinux.org/stg/sig/9/cloud/$basearch/cloud-common/ --includepkgs="oci-utils"
+
 bootloader --append="console=ttyS0,115200n8 console=tty0 no_timer_check crashkernel=auto net.ifnames=0 LANG=en_US.UTF-8 transparent_hugepage=never rd.luks=0 rd.md=0 rd.dm=0 rd.lvm.vg=rocky rd.lvm.lv=rocky/root rd.net.timeout.dhcp=10" --location=mbr --timeout=1 --boot-drive=vda
 
 %post --erroronfail
