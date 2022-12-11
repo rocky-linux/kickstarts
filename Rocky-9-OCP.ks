@@ -15,6 +15,7 @@ text
 network  --bootproto=dhcp --device=link --activate
 # Use network installation
 url --url="https://download.rockylinux.org/stg/rocky/9/BaseOS/$basearch/os/"
+repo --name "extras" --baseurl=http://dl.rockylinux.org/stg/rocky/9/extras/$basearch/os/
 repo --name "sig-cloud-common" --baseurl=http://dl.rockylinux.org/stg/sig/9/cloud/$basearch/cloud-common/ --includepkgs="oci-utils"
 # System authorization information
 auth --enableshadow --passalgo=sha512
