@@ -383,6 +383,7 @@ grub2
 iscsi-initiator-utils
 kernel
 nfs-utils
+oci-utils
 python3-jsonschema
 qemu-guest-agent
 rng-tools

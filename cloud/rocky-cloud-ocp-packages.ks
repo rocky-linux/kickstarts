@@ -12,6 +12,7 @@ gdisk
 grub2
 kernel
 nfs-utils
+oci-utils
 rsync
 tar
 dnf-utils
