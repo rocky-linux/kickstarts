@@ -15,9 +15,9 @@ text
 network  --bootproto=dhcp --device=link --activate
 # Use network installation
 url --url="https://download.rockylinux.org/stg/rocky/9/BaseOS/$basearch/os/"
-repo --name "extras" --baseurl=https://dl.rockylinux.org/stg/rocky/9/extras/$basearch/os/"
-repo --name "sig-cloud-common" --baseurl=https://yumrepofs.build.resf.org/v1/projects/15016370-1410-4459-a1a2-a1576041fd19/repo/cloud-common/$basearch/
-repo --name=epel --cost=200 --baseurl=https://dl.fedoraproject.org/pub/epel/9/Everything/$basearch/
+repo --name "extras" --baseurl="https://dl.rockylinux.org/stg/rocky/9/extras/$basearch/os/"
+repo --name "sig-cloud-common" --baseurl="https://yumrepofs.build.resf.org/v1/projects/15016370-1410-4459-a1a2-a1576041fd19/repo/cloud-common/$basearch/" --cost=100
+repo --name=epel --cost=200 --baseurl="https://dl.fedoraproject.org/pub/epel/9/Everything/$basearch/"
 # System authorization information
 auth --enableshadow --passalgo=sha512
 # Firewall configuration
