@@ -25,6 +25,8 @@ autopart --noboot --nohome --noswap --nolvm --fstype=ext4
 %pre
 dbus-broker-launch --scope=none
 %end
+%addon com_redhat_kdump --disable
+%end
 
 # Package setup
 %packages --ignoremissing --excludedocs --instLangs=en --nocore --excludeWeakdeps
