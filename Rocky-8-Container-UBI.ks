@@ -33,7 +33,6 @@ dmidecode
 findutils
 glibc-minimal-langpack
 libcurl
-systemd
 rocky-release
 rootfiles
 tar

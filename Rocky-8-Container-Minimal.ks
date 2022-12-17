@@ -27,7 +27,6 @@ autopart --noboot --nohome --noswap --nolvm --fstype=ext4
 bash
 coreutils-single
 glibc-minimal-langpack
-systemd
 microdnf
 rocky-release
 

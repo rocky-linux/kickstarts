@@ -31,7 +31,6 @@ glibc-minimal-langpack
 hostname
 iputils # this pulls in systemd, lets ask for it by name, too
 less
-systemd
 rocky-release
 rootfiles
 tar
