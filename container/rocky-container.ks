@@ -16,3 +16,7 @@ timezone --isUtc --nontp UTC
 zerombr
 clearpart --all --initlabel
 autopart --noboot --nohome --noswap --nolvm --fstype=ext4
+
+%pre
+dbus-broker-launch --scope=none
+%end
