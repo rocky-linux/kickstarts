@@ -31,7 +31,6 @@ dbus-broker-launch --scope=none
 # Package setup
 %packages --ignoremissing --excludedocs --instLangs=en --nocore --excludeWeakdeps
 bash
-dbus-daemon
 coreutils-single
 glibc-minimal-langpack
 microdnf
