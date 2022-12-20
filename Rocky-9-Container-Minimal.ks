@@ -32,6 +32,7 @@ coreutils-single
 glibc-minimal-langpack
 microdnf
 rocky-release
+util-linux
 
 -brotli
 -dosfstools

@@ -43,6 +43,7 @@ rocky-release
 rootfiles
 tar
 vim-minimal
+util-linux
 which
 yum
 
