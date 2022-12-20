@@ -14,6 +14,7 @@ systemd
 rocky-release
 rootfiles
 tar
+util-linux
 vim-minimal
 which
 yum

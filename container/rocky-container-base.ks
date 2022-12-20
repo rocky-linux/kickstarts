@@ -4,13 +4,21 @@
 bash
 binutils
 coreutils-single
+crypto-policies-scripts
+curl-minimal
+findutils
 glibc-minimal-langpack
+gzip
 hostname
 iputils
 less
+libcurl-minimal
+libusbx
 rocky-release
 rootfiles
 tar
+usermode
+util-linux
 vim-minimal
 yum
 
