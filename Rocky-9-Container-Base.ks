@@ -31,17 +31,22 @@ autopart --noboot --nohome --noswap --nolvm --fstype=ext4
 bash
 binutils
 coreutils-single
+crypto-policies-scripts
+curl-minimal
+findutils
 glibc-minimal-langpack
+gzip
 hostname
-iputils
+libcurl-minimal
+libusbx
 less
 rocky-release
 rootfiles
 tar
+usermod
 vim-minimal
 yum
 
--brotli
 -dosfstools
 -kexec-tools
 -e2fsprogs
