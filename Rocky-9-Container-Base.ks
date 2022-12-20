@@ -58,6 +58,8 @@ yum
 -iptables
 -kernel
 -libss
+-langpacks-*
+-langpacks-en
 -os-prober*
 -pinentry
 -qemu-guest-agent
