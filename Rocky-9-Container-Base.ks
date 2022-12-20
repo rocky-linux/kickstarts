@@ -43,7 +43,7 @@ less
 rocky-release
 rootfiles
 tar
-usermod
+usermode
 vim-minimal
 yum
 
