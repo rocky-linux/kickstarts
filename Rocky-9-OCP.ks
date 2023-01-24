@@ -36,11 +36,11 @@ zerombr
 # Partition clearing information
 clearpart --all --initlabel --disklabel=gpt
 # Disk partitioning information
-part prepboot --fstype="prepboot" --size=4
-part biosboot --fstype="biosboot" --size=1
-part /boot/efi --fstype="efi" --size=100
-part /boot --fstype="xfs" --size=1000 --label=boot
-part pv.01 --grow --ondisk=vda --size=1
+part prepboot --fstype="prepboot" --size=4 --onpart=vda1
+part biosboot --fstype="biosboot" --size=1 --onpart=vda2
+part /boot/efi --fstype="efi" --size=100 --onpart=vda3
+part /boot --fstype="xfs" --size=1000 --label=boot --onpart=vda4
+part pv.01 --grow --size=1 --onpart=vda5
 volgroup rocky pv.01
 logvol / --grow --size=8000 --mkfsoptions="-m bigtime=0,inobtcount=0" --name=root --vgname=rocky
 
@@ -319,6 +319,9 @@ CiAtIGZpbmFsLW1lc3NhZ2UKIyBPQ0k6IHBvd2VyLXN0YXRlLWNoYW5nZSBpcyBkaXNhYmxlZAoj
 LSBwb3dlci1zdGF0ZS1jaGFuZ2UKCg=="
 
 base64 -d <<<"$OCICLOUDCFG" >> /etc/cloud/cloud.cfg.d/99_oci.cfg
+
+# Remove system.devices because Oracle does things.
+rm -fv /etc/lvm/devices/system.devices
 
 # Rerun dracut for the installed kernel (not the running kernel):
 KERNEL_VERSION=$(rpm -q kernel --qf '%%{V}-%%{R}.%%{arch}\n')
