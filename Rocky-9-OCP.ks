@@ -33,10 +33,10 @@ services --disabled="kdump,rhsmcertd" --enabled="NetworkManager,sshd,rsyslog,chr
 bootloader --append="console=ttyS0,115200n8 console=tty0 no_timer_check crashkernel=auto net.ifnames=0 LANG=en_US.UTF-8 transparent_hugepage=never rd.luks=0 rd.md=0 rd.dm=0 rd.lvm.vg=rocky rd.lvm.lv=rocky/root rd.net.timeout.dhcp=10 libiscsi.debug_libiscsi_eh=1 netroot=iscsi:169.254.0.2:::1:iqn.2015-02.oracle.boot:uefi ip=dhcp rd.iscsi.bypass rd.iscsi.param=node.session.timeo.replacement_timeout=6000" --location=mbr --timeout=1 --boot-drive=vda
 
 # Disk partitioning information
-part /boot/efi --fstype="efi" --size=100 --onpart=vda3
-part /boot --fstype="xfs" --size=1000 --label=boot --onpart=vda4
-part prepboot --fstype="prepboot" --size=4 --onpart=vda1
-part biosboot --fstype="biosboot" --size=1 --onpart=vda2
+part /boot/efi --fstype="efi" --onpart=vda1
+part /boot --fstype="xfs" --label=boot --onpart=vda2
+part prepboot --fstype="prepboot" --onpart=vda3
+part biosboot --fstype="biosboot" --onpart=vda4
 part pv.01 --grow --size=1 --onpart=vda5
 volgroup rocky pv.01
 logvol / --grow --size=8000 --mkfsoptions="-m bigtime=0,inobtcount=0" --name=root --vgname=rocky
