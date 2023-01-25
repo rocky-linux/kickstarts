@@ -59,6 +59,8 @@ parted /dev/sda mkpart primary 1MiB 10.7GB
 # Create a partition for LVM
 parted /dev/sda3 mkpart primary lvm 1100MiB 10.6GB
 
+%end
+
 %post --erroronfail
 
 # Attempting to force legacy BIOS boot if we boot from UEFI
