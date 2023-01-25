@@ -53,9 +53,9 @@ parted /dev/vda set 1 boot on
 # Create a partition for /boot
 parted /dev/vda mkpart primary xfs 100MiB 1100MiB
 # Create a partition for prep
-parted /dev/vda mkpart primary 1100MiB 4MiB 
+parted /dev/vda mkpart primary 1100MiB 1104MiB 
 # Create a partition for bios_grub
-parted /dev/vda mkpart primary 1105MiB 1MiB
+parted /dev/vda mkpart primary 1104MiB 1105MiB
 # Create a partition for LVM
 parted /dev/vda mkpart primary lvm 1106MiB 10.6GB
 
