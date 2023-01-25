@@ -31,10 +31,7 @@ selinux --enforcing
 services --disabled="kdump,rhsmcertd" --enabled="NetworkManager,sshd,rsyslog,chronyd,cloud-init,cloud-init-local,cloud-config,cloud-final,rngd"
 # System bootloader configuration
 bootloader --append="console=ttyS0,115200n8 console=tty0 no_timer_check crashkernel=auto net.ifnames=0 LANG=en_US.UTF-8 transparent_hugepage=never rd.luks=0 rd.md=0 rd.dm=0 rd.lvm.vg=rocky rd.lvm.lv=rocky/root rd.net.timeout.dhcp=10 libiscsi.debug_libiscsi_eh=1 netroot=iscsi:169.254.0.2:::1:iqn.2015-02.oracle.boot:uefi ip=dhcp rd.iscsi.bypass rd.iscsi.param=node.session.timeo.replacement_timeout=6000" --location=mbr --timeout=1 --boot-drive=vda
-# Clear the Master Boot Record
-zerombr
-# Partition clearing information
-clearpart --all --initlabel --disklabel=gpt
+
 # Disk partitioning information
 part prepboot --fstype="prepboot" --size=4 --onpart=vda1
 part biosboot --fstype="biosboot" --size=1 --onpart=vda2
@@ -43,6 +40,24 @@ part /boot --fstype="xfs" --size=1000 --label=boot --onpart=vda4
 part pv.01 --grow --size=1 --onpart=vda5
 volgroup rocky pv.01
 logvol / --grow --size=8000 --mkfsoptions="-m bigtime=0,inobtcount=0" --name=root --vgname=rocky
+
+
+%pre
+# Clear the Master Boot Record
+dd if=/dev/zero of=/dev/sda bs=512 count=1
+# Create a new GPT partition table
+parted /dev/sda mklabel gpt
+# Create a partition for /boot/efi
+parted /dev/sda mkpart primary fat32 1MiB 100MiB
+parted /dev/sda set 1 boot on
+# Create a partition for /boot
+parted /dev/sda mkpart primary xfs 100MiB 1100MiB
+# Create a partition for prep
+parted /dev/sda mkpart primary 4MiB 10.7GB
+# Create a partition for bios_grub
+parted /dev/sda mkpart primary 1MiB 10.7GB
+# Create a partition for LVM
+parted /dev/sda3 mkpart primary lvm 1100MiB 10.6GB
 
 %post --erroronfail
 
