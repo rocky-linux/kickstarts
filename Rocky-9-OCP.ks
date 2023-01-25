@@ -44,20 +44,20 @@ logvol / --grow --size=8000 --mkfsoptions="-m bigtime=0,inobtcount=0" --name=roo
 
 %pre
 # Clear the Master Boot Record
-dd if=/dev/zero of=/dev/sda bs=512 count=1
+dd if=/dev/zero of=/dev/vda bs=512 count=1
 # Create a new GPT partition table
-parted /dev/sda mklabel gpt
+parted /dev/vda mklabel gpt
 # Create a partition for /boot/efi
-parted /dev/sda mkpart primary fat32 1MiB 100MiB
-parted /dev/sda set 1 boot on
+parted /dev/vda mkpart primary fat32 1MiB 100MiB
+parted /dev/vda set 1 boot on
 # Create a partition for /boot
-parted /dev/sda mkpart primary xfs 100MiB 1100MiB
+parted /dev/vda mkpart primary xfs 100MiB 1100MiB
 # Create a partition for prep
-parted /dev/sda mkpart primary 4MiB 10.7GB
+parted /dev/vda mkpart primary 4MiB 10.7GB
 # Create a partition for bios_grub
-parted /dev/sda mkpart primary 1MiB 10.7GB
+parted /dev/vda mkpart primary 1MiB 10.7GB
 # Create a partition for LVM
-parted /dev/sda3 mkpart primary lvm 1100MiB 10.6GB
+parted /dev/vda mkpart primary lvm 1100MiB 10.6GB
 
 %end
 
