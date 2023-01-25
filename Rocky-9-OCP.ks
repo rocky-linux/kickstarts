@@ -57,7 +57,8 @@ parted /dev/vda mkpart primary 1100MiB 1104MiB
 # Create a partition for bios_grub
 parted /dev/vda mkpart primary 1104MiB 1105MiB
 # Create a partition for LVM
-parted /dev/vda mkpart primary lvm 1106MiB 10.6GB
+parted /dev/vda mkpart primary ext2 1106MiB 10.7GB
+parted /dev/vda set 5 lvm on
 
 %end
 
