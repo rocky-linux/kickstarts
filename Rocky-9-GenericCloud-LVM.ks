@@ -20,11 +20,11 @@ rootpw --iscrypted thereisnopasswordanditslocked
 #reqpart
 # This should allow BIOS, UEFI, and PReP booting. Trying to be as universal as
 # possible. This is a similar setup to Fedora without the btrfs.
-part /boot/efi --fstype=efi      --asprimary
-part /boot     --fstype=xfs      --label=boot
-part prepboot  --fstype=prepboot --asprimary
-part biosboot  --fstype=biosboot --asprimary
-part pv.01     --ondisk=vda      --grow
+part /boot/efi --fstype=efi      --asprimary  --onpart=vda1
+part /boot     --fstype=xfs      --label=boot  --onpart=vda2
+part prepboot  --fstype=prepboot --asprimary  --onpart=vda3
+part biosboot  --fstype=biosboot --asprimary  --onpart=vda4
+part pv.01     --grow  --onpart=vda5
 
 volgroup rocky pv.01
 logvol / --vgname=rocky --size=8000 --name=root --grow --mkfsoptions "-m bigtime=0,inobtcount=0"

@@ -18,11 +18,11 @@ rootpw --iscrypted thereisnopasswordanditslocked
 #zerombr
 #clearpart --all --initlabel --disklabel=gpt
 #reqpart
-part /boot/efi --fstype=efi   --asprimary
-part /boot     --fstype=xfs   --label=boot
-part prepboot  --fstype=prepboot --asprimary
-part biosboot  --fstype=biosboot --asprimary
-part pv.01     --ondisk=vda   --grow
+part /boot/efi --fstype=efi   --asprimary --onpart=vda1
+part /boot     --fstype=xfs   --label=boot --onpart=vda2
+part prepboot  --fstype=prepboot --asprimary --onpart=vda3
+part biosboot  --fstype=biosboot --asprimary --onpart=vda4
+part pv.01     --grow --onpart=vda5
 volgroup rocky pv.01
 logvol / --vgname=rocky --size=8000 --name=root --grow --mkfsoptions "-m bigtime=0,inobtcount=0"
 shutdown
