@@ -32,13 +32,33 @@ zerombr
 # Partition clearing information
 clearpart --all --initlabel --disklabel=gpt
 # Disk partitioning information
-part prepboot --fstype="prepboot" --size=4
-part biosboot --fstype="biosboot" --size=1
-part /boot/efi --fstype="efi" --size=100
-part /boot --fstype="xfs" --size=1000 --label=boot
-part pv.01 --grow --ondisk=vda --size=1
+part /boot/efi --fstype="efi"
+part /boot --fstype="xfs" --label=boot
+part prepboot --fstype="prepboot"
+part biosboot --fstype="biosboot"
+part pv.01 --grow --ondisk=vda
 volgroup rocky pv.01
 logvol / --grow --size=8000 --mkfsoptions="-m bigtime=0,inobtcount=0" --name=root --vgname=rocky
+
+%pre
+# Clear the Master Boot Record
+dd if=/dev/zero of=/dev/vda bs=512 count=1
+# Create a new GPT partition table
+parted /dev/vda mklabel gpt
+# Create a partition for /boot/efi
+parted /dev/vda mkpart primary fat32 1MiB 100MiB
+parted /dev/vda set 1 boot on
+# Create a partition for /boot
+parted /dev/vda mkpart primary xfs 100MiB 1100MiB
+# Create a partition for prep
+parted /dev/vda mkpart primary 1100MiB 1104MiB
+# Create a partition for bios_grub
+parted /dev/vda mkpart primary 1104MiB 1105MiB
+# Create a partition for LVM
+parted /dev/vda mkpart primary ext2 1106MiB 10.7GB
+parted /dev/vda set 5 lvm on
+
+%end
 
 %post --erroronfail
 passwd -d root

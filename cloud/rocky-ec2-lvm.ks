@@ -1,5 +1,5 @@
 %include rocky-cloud-base.ks
-%include rocky-cloud-parts-base.ks
+%include rocky-cloud-parts-lvm.ks
 %include rocky-cloud-base-packages.ks
 
 bootloader --append="console=ttyS0,115200n8 console=tty0 net.ifnames=0 rd.blacklist=nouveau nvme_core.io_timeout=4294967295" --location=mbr --timeout=1
