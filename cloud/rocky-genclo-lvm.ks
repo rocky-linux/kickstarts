@@ -91,6 +91,7 @@ fi
 sed -i 's/^system_info:/locale: C.UTF-8\nsystem_info:/' /etc/cloud/cloud.cfg
 
 # rocky cloud user
+sed -i '1i # Modified for cloud image' /etc/cloud/cloud.cfg
 echo -e 'rocky\tALL=(ALL)\tNOPASSWD: ALL' >> /etc/sudoers
 sed -i 's/name: cloud-user/name: rocky/g' /etc/cloud/cloud.cfg
 
