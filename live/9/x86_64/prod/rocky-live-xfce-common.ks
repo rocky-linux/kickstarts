@@ -1,7 +1,7 @@
 # xfce
 %packages
 
-# these aren't an epel 8 thing for some reason.
+# these aren't an epel thing for some reason.
 @xfce-desktop --nodefaults
 #@^xfce-desktop-environment
 #@xfce-apps
@@ -34,6 +34,10 @@ gparted
 # extras
 f35-backgrounds-xfce
 f35-backgrounds-extras-xfce
+f36-backgrounds-xfce
+f36-backgrounds-extras-xfce
+f37-backgrounds-xfce
+f37-backgrounds-extras-xfce
 
 xfce4-about
 xfce4-taskmanager

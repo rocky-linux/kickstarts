@@ -5,6 +5,8 @@ thunderbird
 firefox
 f36-backgrounds-mate
 f36-backgrounds-extras-mate
+f37-backgrounds-mate
+f37-backgrounds-extras-mate
 
 NetworkManager-adsl
 NetworkManager-bluetooth

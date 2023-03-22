@@ -1,5 +1,4 @@
 # rocky-live-kde.ks
-# BROKEN
 
 %include rocky-live-kde-base.ks
 
