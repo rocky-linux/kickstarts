@@ -10,7 +10,7 @@ shutdown
 
 keyboard us
 lang en_US.UTF-8
-timezone --isUtc --nontp UTC
+timezone --isUtc --nontp Etc/UTC
 
 # Disk setup
 zerombr
