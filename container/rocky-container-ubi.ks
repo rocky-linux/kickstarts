@@ -2,14 +2,14 @@
 
 %packages --ignoremissing --excludedocs --instLangs=en --nocore --excludeWeakdeps
 bash
-binutils
-brotli
 coreutils-single
 crypto-policies-scripts
-dmidecode
+curl-minimal
 findutils
+gdb-gdbserver
 glibc-minimal-langpack
-libcurl
+gzip
+libcurl-minimal
 systemd
 rocky-release
 rootfiles
@@ -40,6 +40,7 @@ yum
 %end
 
 %post --erroronfail --log=/root/anaconda-post.log
+set -eux
 # container customizations inside the chroot
 
 # Stay compatible
@@ -69,10 +70,15 @@ systemctl mask \
     systemd-logind.service \
     systemd-remount-fs.service
 
+# Remove network configuration files leftover from anaconda installation
+# https://bugzilla.redhat.com/show_bug.cgi?id=1713089
+rm -f /etc/sysconfig/network-scripts/ifcfg-*
+
 # Cleanup the image
 rm -f /etc/udev/hwdb.bin
 rm -rf /usr/lib/udev/hwdb.d/ \
        /boot /var/lib/dnf/history.* \
+       /var/cache/* /var/log/* \
        /tmp/* /tmp/.* || true
 
 %end
