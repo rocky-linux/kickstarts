@@ -124,7 +124,7 @@ EOL
 # enable resizing on copied AMIs
 echo 'install_items+=" sgdisk "' > /etc/dracut.conf.d/sgdisk.conf
 
-echo 'add_drivers+="xen-netfront xen-blkfront "' > /etc/dracut.conf.d/xen.conf
+echo 'add_drivers+=" xen-netfront xen-blkfront "' > /etc/dracut.conf.d/xen.conf
 # Rerun dracut for the installed kernel (not the running kernel):
 KERNEL_VERSION=$(rpm -q kernel --qf '%{V}-%{R}.%{arch}\n')
 dracut -f /boot/initramfs-$KERNEL_VERSION.img $KERNEL_VERSION
