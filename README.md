@@ -1,11 +1,12 @@
-**Note**: This repository is mirrored [here](https://git.resf.org/sig_core/kickstarts)
-and [here](https://github.com/rocky-linux/kickstarts)
+**Note**: This repository is mirrored at the [RESF Git Service](https://git.resf.org/sig_core/kickstarts)
+and [Rocky Linux GitHub](https://github.com/rocky-linux/kickstarts)
 
 This is the kickstarts repository for Rocky Linux. These kickstarts help us
 make a variety of images, such as:
 
 * Live images (eg GNOME/Workstation, XFCE, KDE)
-* Cloud Images (eg EC2, GenericCloud for OpenStack)
+* Cloud Images (eg EC2, GenericCloud for OpenStack, Azure)
+* Various container images
 
 Each major version gets their own separate branch or branches, depending on the
 nature of the images and where development is for Rocky Linux.
