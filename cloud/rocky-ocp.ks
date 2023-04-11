@@ -2,7 +2,7 @@
 %include rocky-cloud-parts-lvm.ks
 %include rocky-cloud-ocp-packages.ks
 
-repo --name "sig-cloud-common" --baseurl=http://dl.rockylinux.org/stg/sig/9/cloud/$basearch/cloud-common/ --includepkgs="oci-utils"
+repo --name "sig-cloud-common" --baseurl=http://dl.rockylinux.org/stg/sig/9/cloud/$basearch/cloud-common/ --includepkgs="oci-utils,python3-circuitbreaker,python3-daemon,python3-sdnotify,python39-oci-sdk" --cost=100
 repo --name "extras" --baseurl=http://dl.rockylinux.org/stg/rocky/9/extras/$basearch/os/
 repo --name=epel --cost=200 --baseurl=https://dl.fedoraproject.org/pub/epel/9/Everything/$basearch/
 
@@ -86,6 +86,9 @@ echo "RUN_FIRSTBOOT=NO" > /etc/sysconfig/firstboot
 sed -i '1i # Modified for cloud image' /etc/cloud/cloud.cfg
 echo -e 'rocky\tALL=(ALL)\tNOPASSWD: ALL' >> /etc/sudoers
 sed -i 's/name: cloud-user/name: rocky/g' /etc/cloud/cloud.cfg
+
+# disable cloud kernel repo as it's not needed
+sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/Rocky-SIG-Cloud-Kernel.repo
 
 dnf clean all
 
@@ -329,6 +332,8 @@ if [ -d $DRACUT_CFG  ]; then
 fi
 
 echo "$(date) - OCI initramfs network modification script done."
+
+
 true
 
 %end
