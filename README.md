@@ -4,6 +4,26 @@ This branch has Rocky Linux 8 specific kickstarts. These kickstarts vary
 between cloud images and live images provided in our repositories and
 mirrors.
 
+## Structure
+
+In the root of the repository are the general kickstarts in use that any
+user can pick up, use, or modify to their liking to make their own Rocky
+Linux live images, cloud images, and so on. These kickstarts are generated
+by templates that live in the various directories in this repository.
+
+* `cloud` -> Cloud image templates
+* `live` -> Live image templates
+* `container` -> Container image templates
+
+These kickstarts are generated using `ksflatten`. Changes made to the
+kickstarts generally match between the templates and the full kickstarts
+in the root.
+
+For SIG/Core's usage, we use the `live` area as a "working" directory,
+where we use the split parts in our automation for the images and the
+pre-flattened versions are there for the convenience of all users. This
+is easier than using the pre-made ones in empanadas.
+
 ## Building Live Images
 
 To build live images, you will need to use `livecd-creator` or
