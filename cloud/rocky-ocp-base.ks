@@ -289,6 +289,12 @@ LSBwb3dlci1zdGF0ZS1jaGFuZ2UKCg=="
 
 base64 -d <<<"$OCICLOUDCFG" >> /etc/cloud/cloud.cfg.d/99_oci.cfg
 
+# Remove system.devices because Oracle does things.
+rm -fv /etc/lvm/devices/system.devices
+
+# Start OCId
+systemctl enable ocid
+
 # Rerun dracut for the installed kernel (not the running kernel):
 KERNEL_VERSION=$(rpm -q kernel --qf '%%{V}-%%{R}.%%{arch}\n')
 dracut -f /boot/initramfs-$KERNEL_VERSION.img $KERNEL_VERSION

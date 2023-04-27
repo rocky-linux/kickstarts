@@ -219,6 +219,9 @@ touch /var/log/boot.log
 mkdir -p /var/cache/yum
 /usr/sbin/fixfiles -R -a restore
 
+# LVM Variant Fix, remove system.devices
+rm -fv /etc/lvm/devices/system.devices
+
 true
 
 %end

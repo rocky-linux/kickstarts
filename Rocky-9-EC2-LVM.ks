@@ -224,5 +224,8 @@ cat >> /etc/chrony.conf << EOF
 server 169.254.169.123 prefer iburst minpoll 4 maxpoll 4
 EOF
 
+# LVM Variant Fix, remove system.devices
+rm -fv /etc/lvm/devices/system.devices
+
 %end
 

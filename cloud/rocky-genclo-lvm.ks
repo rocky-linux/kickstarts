@@ -123,6 +123,9 @@ cat /dev/null > /etc/machine-id
 # reorder console entries
 #sed -i 's/console=tty0/console=tty0 console=ttyS0,115200n8/' /boot/grub2/grub.cfg
 
+# LVM Variant Fix, remove system.devices
+rm -fv /etc/lvm/devices/system.devices
+
 true
 
 %end
