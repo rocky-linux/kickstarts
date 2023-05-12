@@ -15,15 +15,15 @@ network  --hostname=localhost.localdomain
 services --disabled="kdump" --enabled="NetworkManager,sshd,rsyslog,chronyd,cloud-init,cloud-init-local,cloud-config,cloud-final,rngd"
 rootpw --iscrypted thereisnopasswordanditslocked
 
-# Partition stuff
-zerombr
-clearpart --all --initlabel --disklabel=gpt
-#reqpart
-part /boot/efi --size=100  --fstype=efi      --asprimary
-part /boot     --size=1000 --fstype=xfs      --label=boot
-part prepboot  --fstype=biosboot --asprimary --onpart=vda3
-part biosboot  --size=1    --fstype=biosboot --asprimary
-part /         --size=8000 --fstype="xfs"    --mkfsoptions "-m bigtime=0,inobtcount=0" --grow
+# Disk partitioning information
+# NOTE(neil): 2023-05-12 NONE of reqpart, clearpart, zerombr can be used. We
+# are creating partitions manually in %pre to ensure proper ordering as
+# Anaconda does NOT ensure the ordering `part` commands.
+part /boot/efi --fstype="efi" --onpart=vda1
+part /boot --fstype="xfs" --label=boot --onpart=vda2
+part prepboot --fstype="prepboot" --onpart=vda3
+part biosboot --fstype="biosboot" --onpart=vda4
+part /         --size=8000 --fstype="xfs"    --mkfsoptions "-m bigtime=0,inobtcount=0" --grow --onpart=vda5
 shutdown
 
 url --url https://download.rockylinux.org/stg/rocky/8/BaseOS/$basearch/os/

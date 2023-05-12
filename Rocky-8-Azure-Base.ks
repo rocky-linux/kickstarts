@@ -27,16 +27,16 @@ selinux --enforcing
 services --disabled="kdump" --enabled="NetworkManager,sshd,rsyslog,chronyd,cloud-init,cloud-init-local,cloud-config,cloud-final,rngd"
 # System bootloader configuration
 bootloader --append="rootdelay=300 console=ttyS0 earlyprintk=ttyS0  no_timer_check crashkernel=auto net.ifnames=0" --location=mbr --timeout=1
-# Clear the Master Boot Record
-#zerombr
-# Partition clearing information
-#clearpart --all --initlabel --disklabel=gpt
+
 # Disk partitioning information
-part /boot/efi --fstype="efi" --size=100
-part /boot --fstype="xfs" --size=1000 --label=boot
-part prepboot  --fstype=biosboot --asprimary --onpart=vda3
-part biosboot --fstype="biosboot" --size=1
-part / --fstype="xfs" --grow --size=8000 --mkfsoptions="-m bigtime=0,inobtcount=0"
+# NOTE(neil): 2023-05-12 NONE of reqpart, clearpart, zerombr can be used. We
+# are creating partitions manually in %pre to ensure proper ordering as
+# Anaconda does NOT ensure the ordering `part` commands.
+part /boot/efi --fstype="efi" --onpart=vda1
+part /boot --fstype="xfs" --label=boot --onpart=vda2
+part prepboot --fstype="prepboot" --onpart=vda3
+part biosboot --fstype="biosboot" --onpart=vda4
+part /         --size=8000 --fstype="xfs"    --mkfsoptions "-m bigtime=0,inobtcount=0" --grow --onpart=vda5
 
 %pre
 # Clear the Master Boot Record
