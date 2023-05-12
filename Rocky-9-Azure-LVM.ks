@@ -28,9 +28,9 @@ services --disabled="kdump,rhsmcertd" --enabled="NetworkManager,sshd,rsyslog,chr
 # System bootloader configuration
 bootloader --append="rootdelay=300 console=ttyS0 earlyprintk=ttyS0  no_timer_check crashkernel=auto net.ifnames=0" --location=mbr --timeout=1
 # Clear the Master Boot Record
-zerombr
+#zerombr
 # Partition clearing information
-clearpart --all --initlabel --disklabel=gpt
+#clearpart --all --initlabel --disklabel=gpt
 # Disk partitioning information
 part /boot/efi --fstype="efi" --onpart=vda1
 part /boot --fstype="xfs" --label=boot --onpart=vda2
