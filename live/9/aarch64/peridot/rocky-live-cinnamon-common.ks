@@ -32,7 +32,7 @@ gstreamer1-plugins-ugly-free
 gvfs-gphoto2
 gvfs-mtp
 gvfs-smb
-hexchat
+#hexchat
 imsettings-systemd
 initial-setup-gui
 lightdm
@@ -64,7 +64,7 @@ parole
 #rhythmbox
 
 libreoffice-calc
-libreoffice-emailmerge
+#libreoffice-emailmerge
 libreoffice-graphicfilter
 libreoffice-impress
 libreoffice-writer
