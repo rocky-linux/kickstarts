@@ -14,17 +14,15 @@ network  --bootproto=dhcp --device=link --activate --onboot=on
 services --disabled="kdump,rhsmcertd" --enabled="NetworkManager,sshd,rsyslog,chronyd,cloud-init,cloud-init-local,cloud-config,cloud-final,rngd"
 rootpw --iscrypted thereisnopasswordanditslocked
 
-# Partition stuff
-zerombr
-clearpart --all --initlabel --disklabel=gpt
-#reqpart
-# This should allow BIOS, UEFI, and PReP booting. Trying to be as universal as
-# possible. This is a similar setup to Fedora without the btrfs.
-part /boot/efi --size=100  --fstype=efi      --asprimary
-part /boot     --size=1000 --fstype=xfs      --label=boot
-part prepboot  --size=4    --fstype=prepboot --asprimary
-part biosboot  --size=1    --fstype=biosboot --asprimary
-part /         --size=8000 --fstype="xfs"    --mkfsoptions "-m bigtime=0,inobtcount=0"
+# Disk partitioning information
+# NOTE(neil): 2023-05-12 NONE of reqpart, clearpart, zerombr can be used. We
+# are creating partitions manually in %pre to ensure proper ordering as
+# Anaconda does NOT ensure the ordering `part` commands.
+part /boot/efi --fstype="efi" --onpart=vda1
+part /boot --fstype="xfs" --label=boot --onpart=vda2
+part prepboot --fstype="prepboot" --onpart=vda3
+part biosboot --fstype="biosboot" --onpart=vda4
+part /         --size=8000 --fstype="xfs"    --mkfsoptions "-m bigtime=0,inobtcount=0" --grow --onpart=vda5
 shutdown
 
 %pre

@@ -33,6 +33,9 @@ services --disabled="kdump,rhsmcertd" --enabled="NetworkManager,sshd,rsyslog,chr
 bootloader --append="console=ttyS0,115200n8 console=tty0 no_timer_check crashkernel=auto net.ifnames=0 LANG=en_US.UTF-8 transparent_hugepage=never rd.luks=0 rd.md=0 rd.dm=0 rd.lvm.vg=rocky rd.lvm.lv=rocky/root rd.net.timeout.dhcp=10 libiscsi.debug_libiscsi_eh=1 netroot=iscsi:169.254.0.2:::1:iqn.2015-02.oracle.boot:uefi ip=dhcp rd.iscsi.bypass rd.iscsi.param=node.session.timeo.replacement_timeout=6000" --location=mbr --timeout=1 --boot-drive=vda
 
 # Disk partitioning information
+# NOTE(neil): 2023-05-12 NONE of reqpart, clearpart, zerombr can be used. We
+# are creating partitions manually in %pre to ensure proper ordering as
+# Anaconda does NOT ensure the ordering `part` commands.
 part /boot/efi --fstype="efi" --onpart=vda1
 part /boot --fstype="xfs" --label=boot --onpart=vda2
 part prepboot --fstype="prepboot" --onpart=vda3
