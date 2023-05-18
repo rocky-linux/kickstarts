@@ -14,7 +14,7 @@ text
 # Network information
 network  --bootproto=dhcp --device=link --activate
 network  --bootproto=dhcp --hostname=localhost.localdomain
-repo --name="oraclelinux-addons" --baseurl=http://yum.oracle.com/repo/OracleLinux/OL8/addons/$basearch/ --includepkgs="oci-utils,python36-oci-sdk" --install
+repo --name="oraclelinux-addons" --baseurl=http://yum.oracle.com/repo/OracleLinux/OL8/addons/$basearch/ --includepkgs="oci-utils,python36-oci-sdk,python3-sdnotify" --install
 # Use network installation
 url --url="https://download.rockylinux.org/stg/rocky/8/BaseOS/$basearch/os/"
 # System authorization information
