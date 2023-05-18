@@ -16,10 +16,10 @@ network  --bootproto=dhcp --device=link --activate
 firewall --enabled --service=mdns
 # Use network installation
 url --url https://download.rockylinux.org/stg/rocky/8/BaseOS/$basearch/os/
-repo --name="BaseOS" --baseurl=http://dl.rockylinux.org/pub/rocky/8.8/BaseOS/$basearch/os/ --cost=200
-repo --name="AppStream" --baseurl=http://dl.rockylinux.org/pub/rocky/8.8/AppStream/$basearch/os/ --cost=200
-repo --name="PowerTools" --baseurl=http://dl.rockylinux.org/pub/rocky/8.8/PowerTools/$basearch/os/ --cost=200
-repo --name="extras" --baseurl=http://dl.rockylinux.org/pub/rocky/8.8/extras/$basearch/os --cost=200
+repo --name="BaseOS" --baseurl=http://dl.rockylinux.org/pub/rocky/8/BaseOS/$basearch/os/ --cost=200
+repo --name="AppStream" --baseurl=http://dl.rockylinux.org/pub/rocky/8/AppStream/$basearch/os/ --cost=200
+repo --name="PowerTools" --baseurl=http://dl.rockylinux.org/pub/rocky/8/PowerTools/$basearch/os/ --cost=200
+repo --name="extras" --baseurl=http://dl.rockylinux.org/pub/rocky/8/extras/$basearch/os --cost=200
 repo --name="epel" --baseurl=https://dl.fedoraproject.org/pub/epel/8/Everything/$basearch/ --cost=200
 # System timezone
 timezone US/Eastern

@@ -21,10 +21,10 @@ selinux --enforcing
 
 # System services
 services --disabled="sshd" --enabled="NetworkManager,ModemManager"
-repo --name="BaseOS" --baseurl=http://dl.rockylinux.org/pub/rocky/8.8/BaseOS/$basearch/os/ --cost=200
-repo --name="AppStream" --baseurl=http://dl.rockylinux.org/pub/rocky/8.8/AppStream/$basearch/os/ --cost=200
-repo --name="PowerTools" --baseurl=http://dl.rockylinux.org/pub/rocky/8.8/PowerTools/$basearch/os/ --cost=200
-repo --name="extras" --baseurl=http://dl.rockylinux.org/pub/rocky/8.8/extras/$basearch/os --cost=200
+repo --name="BaseOS" --baseurl=http://dl.rockylinux.org/pub/rocky/8/BaseOS/$basearch/os/ --cost=200
+repo --name="AppStream" --baseurl=http://dl.rockylinux.org/pub/rocky/8/AppStream/$basearch/os/ --cost=200
+repo --name="PowerTools" --baseurl=http://dl.rockylinux.org/pub/rocky/8/PowerTools/$basearch/os/ --cost=200
+repo --name="extras" --baseurl=http://dl.rockylinux.org/pub/rocky/8/extras/$basearch/os --cost=200
 repo --name="elrepo-kernel" --baseurl=https://elrepo.org/linux/kernel/el8/$basearch/ --cost=200
 # Use network installation
 url --url https://download.rockylinux.org/stg/rocky/8/BaseOS/$basearch/os/
