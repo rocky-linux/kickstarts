@@ -35,7 +35,7 @@ zerombr
 clearpart --all
 # Disk partitioning information
 part / --fstype="ext4" --size=5120
-part / --size=7168
+part / --size=8192
 
 %post
 # FIXME: it'd be better to get this installed from a package
