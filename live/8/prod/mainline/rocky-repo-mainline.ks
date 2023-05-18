@@ -1,14 +1,14 @@
 # These should change based on the major/minor release
 
 # Deps repo, there are some anaconda packages that are *not* available by default
-repo --name=BaseOS --cost=200 --baseurl=http://dl.rockylinux.org/pub/rocky/8.7/BaseOS/$basearch/os/
-repo --name=AppStream --cost=200 --baseurl=http://dl.rockylinux.org/pub/rocky/8.7/AppStream/$basearch/os/
-repo --name=PowerTools --cost=200 --baseurl=http://dl.rockylinux.org/pub/rocky/8.7/PowerTools/$basearch/os/
-repo --name=extras --cost=200 --baseurl=http://dl.rockylinux.org/pub/rocky/8.7/extras/$basearch/os
+repo --name=BaseOS --cost=200 --baseurl=http://dl.rockylinux.org/pub/rocky/8.8/BaseOS/$basearch/os/
+repo --name=AppStream --cost=200 --baseurl=http://dl.rockylinux.org/pub/rocky/8.8/AppStream/$basearch/os/
+repo --name=PowerTools --cost=200 --baseurl=http://dl.rockylinux.org/pub/rocky/8.8/PowerTools/$basearch/os/
+repo --name=extras --cost=200 --baseurl=http://dl.rockylinux.org/pub/rocky/8.8/extras/$basearch/os
 
 # ELRepo
 repo --name="elrepo-kernel" --baseurl=https://elrepo.org/linux/kernel/el8/$basearch/ --cost=200
 
 # URL to the base os repo
-url --url=http://dl.rockylinux.org/pub/rocky/8.7/BaseOS/$basearch/os/
+url --url=http://dl.rockylinux.org/pub/rocky/8.8/BaseOS/$basearch/os/
 #url --url=http://10.100.0.1/pub/deps
