@@ -61,7 +61,7 @@ set it up like so:
 % mock -r rocky-9-x86_64 --shell --isolation=simple --enable-network
 
 # Clone the kickstarts and run an installation
-% git clone https://github.com/rocky-linux/kickstarts
+% git clone https://github.com/rocky-linux/kickstarts -b r9
 % cd kickstarts
 % livemedia-creator --ks Rocky-9-Workstation.ks \
   --no-virt \
