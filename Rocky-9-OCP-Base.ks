@@ -17,8 +17,9 @@ network  --bootproto=dhcp --device=link --activate
 url --url="https://download.rockylinux.org/stg/rocky/9/BaseOS/$basearch/os/"
 repo --name "extras" --baseurl="https://dl.rockylinux.org/stg/rocky/9/extras/$basearch/os/"
 repo --name "crb" --baseurl="https://dl.rockylinux.org/stg/rocky/9/CRB/$basearch/os/"
+repo --name="oraclelinux-addons" --baseurl=http://yum.oracle.com/repo/OracleLinux/OL9/addons/$basearch/ --excludepkgs="kernel,WALinuxAgent" --install
 repo --name "sig-cloud-common" --baseurl="https://yumrepofs.build.resf.org/v1/projects/15016370-1410-4459-a1a2-a1576041fd19/repo/cloud-common/$basearch/" --includepkgs="oci-utils,python3-circuitbreaker,python3-daemon,python3-sdnotify,python39-oci-sdk" --cost=100
-repo --name=epel --cost=200 --baseurl="https://dl.fedoraproject.org/pub/epel/9/Everything/$basearch/"
+repo --name=epel --cost=200 --baseurl="https://dl.fedoraproject.org/pub/epel/9/Everything/$basearch/" --install
 # System authorization information
 auth --enableshadow --passalgo=sha512
 # Firewall configuration
