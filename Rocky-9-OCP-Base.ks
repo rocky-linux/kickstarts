@@ -417,6 +417,7 @@ iscsi-initiator-utils
 kernel
 nfs-utils
 oci-utils
+ovmd
 python3-jsonschema
 qemu-guest-agent
 rng-tools

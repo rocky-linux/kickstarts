@@ -13,6 +13,7 @@ grub2
 kernel
 nfs-utils
 oci-utils
+ovmd
 rsync
 tar
 dnf-utils
