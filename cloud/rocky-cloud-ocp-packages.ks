@@ -7,6 +7,7 @@ cloud-init
 cloud-utils-growpart
 NetworkManager
 dracut-config-generic
+epel-release
 firewalld
 gdisk
 grub2
