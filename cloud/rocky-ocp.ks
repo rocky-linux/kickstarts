@@ -69,6 +69,10 @@ cat > /etc/hosts << EOF
 EOF
 echo .
 
+
+systemctl enable ocid
+systemctl enable ovmd
+
 systemctl mask tmp.mount
 
 cat <<EOL > /etc/sysconfig/kernel
