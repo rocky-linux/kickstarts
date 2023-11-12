@@ -28,6 +28,7 @@ thunderbird
 firewall-config
 #pidgin
 rocky-backgrounds
+rocky-release
 gparted
 #rhythmbox
 

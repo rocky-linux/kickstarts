@@ -519,6 +519,7 @@ pipewire-pulseaudio
 pluma
 pluma-plugins
 rocky-backgrounds
+rocky-release
 seahorse
 seahorse-caja
 setroubleshoot

@@ -35,7 +35,7 @@ zerombr
 clearpart --all
 # Disk partitioning information
 part / --fstype="ext4" --size=5120
-part / --size=6144
+part / --size=7168
 
 %post
 # FIXME: it'd be better to get this installed from a package
@@ -335,62 +335,20 @@ fi
 %end
 
 %post
-# xfce configuration
-
-# create /etc/sysconfig/desktop (needed for installation)
-
-cat > /etc/sysconfig/desktop <<EOF
-PREFERRED=/usr/bin/startxfce4
-DISPLAYMANAGER=/usr/sbin/lightdm
-EOF
+# mate configuration
 
 cat >> /etc/rc.d/init.d/livesys << EOF
-
-mkdir -p /home/liveuser/.config/xfce4
-# ugly stuff, this should give us a default background for now
-#mkdir -p /usr/share/backgrounds/images
-#ln -s /usr/share/backgrounds/f32/default/f32.png \
-#  /usr/share/backgrounds/images/default.png
-
-cat > /home/liveuser/.config/xfce4/helpers.rc << FOE
-MailReader=sylpheed-claws
-FileManager=Thunar
-WebBrowser=firefox
-FOE
-
-# disable screensaver locking (#674410)
-cat >> /home/liveuser/.xscreensaver << FOE
-mode:           off
-lock:           False
-dpmsEnabled:    False
-FOE
-
-# deactivate xfconf-migration (#683161)
-rm -f /etc/xdg/autostart/xfconf-migration-4.6.desktop || :
-
-# deactivate xfce4-panel first-run dialog (#693569)
-mkdir -p /home/liveuser/.config/xfce4/xfconf/xfce-perchannel-xml
-cp /etc/xdg/xfce4/panel/default.xml /home/liveuser/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
-
-# set up lightdm autologin
-sed -i 's/^#autologin-user=.*/autologin-user=liveuser/' /etc/lightdm/lightdm.conf
-sed -i 's/^#autologin-user-timeout=.*/autologin-user-timeout=0/' /etc/lightdm/lightdm.conf
-sed -i 's/^#show-language-selector=.*/show-language-selector=true/' /etc/lightdm/lightdm-gtk-greeter.conf
-
-# set Xfce as default session, otherwise login will fail
-sed -i 's/^#user-session=.*/user-session=xfce/' /etc/lightdm/lightdm.conf
-
-# debrand
-#sed -i "s/Red Hat Enterprise/Rocky/g" /usr/share/anaconda/gnome/fedora-welcome.desktop
-#sed -i "s/RHEL/Rocky Linux/g" /usr/share/anaconda/gnome/fedora-welcome
-#sed -i "s/Red Hat Enterprise/Rocky/g" /usr/share/anaconda/gnome/fedora-welcome
-#sed -i "s/org.fedoraproject.AnacondaInstaller/fedora-logo-icon/g" /usr/share/anaconda/gnome/fedora-welcome
-#sed -i "s/org.fedoraproject.AnacondaInstaller/fedora-logo-icon/g" /usr/share/applications/liveinst.desktop
-
-# Show harddisk install on the desktop
-sed -i -e 's/NoDisplay=true/NoDisplay=false/' /usr/share/applications/liveinst.desktop
+# make the installer show up
+if [ -f /usr/share/applications/liveinst.desktop  ]; then
+  # Show harddisk install in shell dash
+  sed -i -e 's/NoDisplay=true/NoDisplay=false/' /usr/share/applications/liveinst.desktop ""
+fi
 mkdir /home/liveuser/Desktop
-cp /usr/share/applications/liveinst.desktop /home/liveuser/Desktop/
+cp /usr/share/applications/liveinst.desktop /home/liveuser/Desktop
+chmod +x /home/liveuser/Desktop/liveinst.desktop
+
+# move to anaconda - probably not required for MATE.
+mv /usr/share/applications/liveinst.desktop /usr/share/applications/anaconda.desktop
 
 if [ -f /usr/share/anaconda/gnome/fedora-welcome.desktop  ]; then
   mkdir -p ~liveuser/.config/autostart
@@ -398,18 +356,29 @@ if [ -f /usr/share/anaconda/gnome/fedora-welcome.desktop  ]; then
   cp /usr/share/anaconda/gnome/fedora-welcome.desktop ~liveuser/.config/autostart/
 fi
 
-# no updater applet in live environment
+# rebuild schema cache with any overrides we installed
+glib-compile-schemas /usr/share/glib-2.0/schemas
+
+# set up lightdm autologin
+sed -i 's/^#autologin-user=.*/autologin-user=liveuser/' /etc/lightdm/lightdm.conf
+sed -i 's/^#autologin-user-timeout=.*/autologin-user-timeout=0/' /etc/lightdm/lightdm.conf
+sed -i 's/^#show-language-selector=.*/show-language-selector=true/' /etc/lightdm/lightdm-gtk-greeter.conf
+
+# set MATE as default session, otherwise login will fail
+sed -i 's/^#user-session=.*/user-session=mate/' /etc/lightdm/lightdm.conf
+
+# Turn off PackageKit-command-not-found while uninstalled
+if [ -f /etc/PackageKit/CommandNotFound.conf  ]; then
+  sed -i -e 's/^SoftwareSourceSearch=true/SoftwareSourceSearch=false/' /etc/PackageKit/CommandNotFound.conf
+fi
+
+# The updater applet might or might not exist
 rm -f /etc/xdg/autostart/org.mageia.dnfdragora-updater.desktop
 
-# and mark it as executable (new Xfce security feature)
-chmod +x /home/liveuser/Desktop/liveinst.desktop
-
-# move to anaconda - probably not required for XFCE.
-mv /usr/share/applications/liveinst.desktop /usr/share/applications/anaconda.desktop
-
-# this goes at the end after all other changes. 
-chown -R liveuser:liveuser /home/liveuser
-restorecon -R /home/liveuser
+# reset selinux contexts
+chown -R liveuser:liveuser /home/liveuser/
+restorecon -R /home/liveuser/
+restorecon -R /
 
 EOF
 
@@ -432,22 +401,46 @@ dnf config-manager --set-enabled crb
 @input-methods
 @multimedia
 @standard
-@xfce-desktop --nodefaults
+NetworkManager-adsl
+NetworkManager-bluetooth
+NetworkManager-l2tp-gnome
+NetworkManager-libreswan-gnome
+NetworkManager-openconnect-gnome
+NetworkManager-openvpn-gnome
+NetworkManager-ovs
+NetworkManager-ppp
+NetworkManager-pptp-gnome
+NetworkManager-team
+NetworkManager-wifi
+NetworkManager-wwan
 aajohan-comfortaa-fonts
 anaconda
 anaconda-install-env-deps
 anaconda-live
+atril
+atril-caja
+atril-thumbnailer
+caja
+caja-actions
 chkconfig
+dconf-editor
 dracut-live
 efi-filesystem
 efibootmgr
 efivar-libs
+engrampa
+eom
 epel-release
-f35-backgrounds-extras-xfce
-f35-backgrounds-xfce
+f36-backgrounds-extras-mate
+f36-backgrounds-mate
+filezilla
 firefox
+firewall-applet
 firewall-config
 glibc-all-langpacks
+gnome-disk-utility
+gnome-epub-thumbnailer
+gnome-themes-extra
 gparted
 grub2-common
 grub2-efi-*64
@@ -458,58 +451,108 @@ grub2-tools-efi
 grub2-tools-extra
 grub2-tools-minimal
 grubby
+gstreamer1-plugins-ugly-free
+gtk2-engines
+gucharmap
+gvfs-fuse
+gvfs-gphoto2
+gvfs-mtp
+gvfs-smb
+hexchat
+initial-setup-gui
 initscripts
 kernel
 kernel-modules
 kernel-modules-extra
+libmatekbd
+libmatemixer
+libmateweather
+libreoffice-calc
+libreoffice-emailmerge
+libreoffice-graphicfilter
+libreoffice-impress
+libreoffice-writer
+libsecret
 lightdm
+lm_sensors
+marco
+mate-applets
+mate-backgrounds
+mate-calc
+mate-control-center
+mate-desktop
+mate-dictionary
+mate-disk-usage-analyzer
+mate-icon-theme
+mate-media
+mate-menu
+mate-menus
+mate-menus-preferences-category-menu
+mate-notification-daemon
+mate-panel
+mate-polkit
+mate-power-manager
+mate-screensaver
+mate-screenshot
+mate-search-tool
+mate-sensors-applet
+mate-session-manager
+mate-settings-daemon
+mate-system-log
+mate-system-monitor
+mate-terminal
+mate-themes
+mate-user-admin
+mate-user-guide
+mate-utils
 memtest86+
+mozo
 network-manager-applet
-openssh-askpass
+nm-connection-editor
+orca
+p7zip
+p7zip-plugins
+parole
 pavucontrol
-pcp-selinux
+pipewire-alsa
+pipewire-pulseaudio
+pluma
+pluma-plugins
 rocky-backgrounds
-rocky-release
 seahorse
+seahorse-caja
+setroubleshoot
 shim-*64
+slick-greeter-mate
 syslinux
-thunar-archive-plugin
-thunar-volman
 thunderbird
-tumbler
-wget
-xdg-user-dirs
+tigervnc
+usermode-gtk
+vim-enhanced
+wireplumber
 xdg-user-dirs-gtk
-xfce-polkit
-xfce4-about
-xfce4-appfinder
-xfce4-datetime-plugin
-xfce4-netload-plugin
-xfce4-power-manager
-xfce4-screensaver
-xfce4-screenshooter-plugin
-xfce4-smartbookmark-plugin
-xfce4-systemload-plugin
-xfce4-taskmanager
-xfce4-terminal
-xfce4-time-out-plugin
-xfce4-weather-plugin
-xfce4-whiskermenu-plugin
--acpid
--aspell-*
--autofs
--desktop-backgrounds-basic
--gdm
--gimp-help
--gnome-shell
+xmodmap
+xrdb
+yelp
+-@3d-printing
+-@admin-tools
+-audacious
+-brasero
+-evolution-help
+-fedora-icon-theme
+-gnome-icon-theme
+-gnome-icon-theme-symbolic
+-gnome-logs
+-gnome-software
+-gnome-user-docs
 -hplip
 -isdn4k-utils
 -mpage
 -sane-backends
 -shim-unsigned-*64
--xfce4-eyes-plugin
--xfce4-sensors-plugin
+-systemd-oomd-defaults
+-telnet
+-xane-gimp
 -xsane
--xsane-gimp
 
 %end

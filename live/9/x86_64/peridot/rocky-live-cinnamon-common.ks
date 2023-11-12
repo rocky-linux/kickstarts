@@ -1,6 +1,7 @@
 # cinnamon
 %packages
 rocky-backgrounds
+rocky-release
 thunderbird
 firefox
 f36-backgrounds-gnome

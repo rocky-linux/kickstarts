@@ -477,6 +477,7 @@ pipewire-pulseaudio
 powerline
 redshift-gtk
 rocky-backgrounds
+rocky-release
 sane-backends-drivers-scanners
 setroubleshoot
 shim-*64
