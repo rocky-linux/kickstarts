@@ -407,6 +407,10 @@ chmod +x /home/liveuser/Desktop/liveinst.desktop
 # move to anaconda - probably not required for XFCE.
 mv /usr/share/applications/liveinst.desktop /usr/share/applications/anaconda.desktop
 
+cat > ~liveuser/.profile << PROFILE_EOF
+export XDG_DATA_DIRS="\\\${XDG_DATA_DIRS}:\\\${HOME}/Desktop"
+PROFILE_EOF
+
 # this goes at the end after all other changes. 
 chown -R liveuser:liveuser /home/liveuser
 restorecon -R /home/liveuser
