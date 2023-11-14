@@ -451,6 +451,7 @@ f35-backgrounds-extras-xfce
 f35-backgrounds-xfce
 firefox
 firewall-config
+gjs
 glibc-all-langpacks
 gparted
 grub2-common

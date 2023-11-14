@@ -73,6 +73,9 @@ wget
 xdg-user-dirs
 xdg-user-dirs-gtk
 
+# help welcome screen
+gjs
+
 # save some space
 -autofs
 -acpid
