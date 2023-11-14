@@ -76,6 +76,10 @@ rm -f /etc/xdg/autostart/org.mageia.dnfdragora-updater.desktop
 # and mark it as executable (new Xfce security feature)
 chmod +x /home/liveuser/Desktop/liveinst.desktop
 
+cat > ~liveuser/.profile << PROFILE_EOF
+export XDG_DATA_DIRS="\\\${XDG_DATA_DIRS}:\\\${HOME}/Desktop"
+PROFILE_EOF
+
 # move to anaconda - probably not required for XFCE.
 mv /usr/share/applications/liveinst.desktop /usr/share/applications/anaconda.desktop
 
