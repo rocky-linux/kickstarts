@@ -9,7 +9,7 @@
 
 # Libreoffice
 libreoffice-calc
-#libreoffice-emailmerge
+libreoffice-emailmerge
 libreoffice-graphicfilter
 libreoffice-impress
 libreoffice-writer
@@ -64,6 +64,7 @@ fuse
 
 # we need to keep epel-release, otherwise we can't update
 epel-release
+rocky-backgrounds-kde
 
 ### MINIMIZATION ###
 -mpage

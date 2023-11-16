@@ -495,6 +495,7 @@ grub2-tools-extra
 grub2-tools-minimal
 grubby
 shim-*64
+rocky-backgrounds-kde
 -shim-unsigned-*64
 -@admin-tools
 -@input-methods
