@@ -122,4 +122,9 @@ EOF
 systemctl enable --force sddm.service
 dnf config-manager --set-enabled crb
 
+cat > /etc/sddm.conf.d/theme.conf <<THEMEEOF
+[Theme]
+Current=breeze
+THEMEEOF
+
 %end
