@@ -387,6 +387,24 @@ sed -i 's/^#user-session=.*/user-session=xfce/' /etc/lightdm/lightdm.conf
 #sed -i "s/org.fedoraproject.AnacondaInstaller/fedora-logo-icon/g" /usr/share/anaconda/gnome/fedora-welcome
 #sed -i "s/org.fedoraproject.AnacondaInstaller/fedora-logo-icon/g" /usr/share/applications/liveinst.desktop
 
+# set default background
+cat > /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+
+<channel name="xfce4-desktop" version="1.0">
+  <property name="backdrop" type="empty">
+    <property name="screen0" type="empty">
+      <property name="monitor0" type="empty">
+        <property name="color-style" type="int" value="0"/>                                                                                                                                                                  <property name="image-style" type="int" value="5"/>
+        <property name="last-image" type="string" value="/usr/share/backgrounds/rocky-default-9-abstract-2-day.png"/>
+        <property name="last-single-image" type="string" value="/usr/share/backgrounds/rocky-default-9-abstract-2-day.png"/>
+        <property name="image-path" type="string" value="/usr/share/backgrounds/rocky-default-9-abstract-2-day.png"/>
+      </property>
+    </property>
+  </property>
+</channel>
+EOF
+
 # Show harddisk install on the desktop
 sed -i -e 's/NoDisplay=true/NoDisplay=false/' /usr/share/applications/liveinst.desktop
 mkdir /home/liveuser/Desktop
