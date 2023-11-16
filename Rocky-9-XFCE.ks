@@ -447,8 +447,6 @@ efi-filesystem
 efibootmgr
 efivar-libs
 epel-release
-f35-backgrounds-extras-xfce
-f35-backgrounds-xfce
 firefox
 firewall-config
 gjs
@@ -474,6 +472,7 @@ openssh-askpass
 pavucontrol
 pcp-selinux
 rocky-backgrounds
+rocky-backgrounds-compat
 rocky-release
 seahorse
 shim-*64

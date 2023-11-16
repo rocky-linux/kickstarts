@@ -28,17 +28,10 @@ thunderbird
 firewall-config
 #pidgin
 rocky-backgrounds
+rocky-backgrounds-compat
 rocky-release
 gparted
 #rhythmbox
-
-# extras
-f35-backgrounds-xfce
-f35-backgrounds-extras-xfce
-f36-backgrounds-xfce
-f36-backgrounds-extras-xfce
-f37-backgrounds-xfce
-f37-backgrounds-extras-xfce
 
 xfce4-about
 xfce4-taskmanager
@@ -72,6 +65,9 @@ xfce-polkit
 wget
 xdg-user-dirs
 xdg-user-dirs-gtk
+
+# help welcome screen
+gjs
 
 # save some space
 -autofs

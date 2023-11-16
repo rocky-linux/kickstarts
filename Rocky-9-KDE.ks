@@ -496,6 +496,7 @@ grub2-tools-minimal
 grubby
 shim-*64
 rocky-backgrounds-kde
+gjs
 -shim-unsigned-*64
 -@admin-tools
 -@input-methods
