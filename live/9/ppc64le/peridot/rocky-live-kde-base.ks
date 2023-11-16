@@ -17,6 +17,9 @@ cat > /root/.config/gtk-3.0/settings.ini << EOF
 gtk-theme-name = Adwaita
 EOF
 
+rm -f /usr/share/wallpapers/Fedora
+ln -s rocky-abstract-2 /usr/share/wallpapers/Fedora
+
 # add initscript
 cat >> /etc/rc.d/init.d/livesys << EOF
 
