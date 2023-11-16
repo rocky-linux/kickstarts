@@ -437,6 +437,7 @@ filezilla
 firefox
 firewall-applet
 firewall-config
+gjs
 glibc-all-langpacks
 gnome-disk-utility
 gnome-epub-thumbnailer
@@ -519,6 +520,7 @@ pipewire-pulseaudio
 pluma
 pluma-plugins
 rocky-backgrounds
+rocky-backgrounds-compat
 rocky-release
 seahorse
 seahorse-caja

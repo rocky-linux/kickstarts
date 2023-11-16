@@ -8,6 +8,7 @@ f36-backgrounds-gnome
 f36-backgrounds-extras-gnome
 f37-backgrounds-gnome
 f37-backgrounds-extras-gnome
+gjs
 
 NetworkManager-adsl
 NetworkManager-bluetooth

@@ -433,6 +433,7 @@ f37-backgrounds-extras-gnome
 f37-backgrounds-gnome
 firefox
 firewall-config
+gjs
 glibc-all-langpacks
 gnome-calculator
 gnome-disk-utility

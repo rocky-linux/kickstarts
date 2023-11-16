@@ -1,6 +1,7 @@
 # mate
 %packages
 rocky-backgrounds
+rocky-backgrounds-compat
 rocky-release
 thunderbird
 firefox
@@ -8,6 +9,7 @@ f36-backgrounds-mate
 f36-backgrounds-extras-mate
 f37-backgrounds-mate
 f37-backgrounds-extras-mate
+gjs
 
 NetworkManager-adsl
 NetworkManager-bluetooth
