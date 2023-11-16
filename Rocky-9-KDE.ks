@@ -437,6 +437,7 @@ cat > /home/liveuser/.config/autostart/org.kde.kdeconnect.daemon.desktop << KDEC
 [Desktop Entry]
 Hidden=true
 KDECONNECT_EOF
+mkdir -p /home/liveuser/.local/share/dbus-1/services/
 cat > /home/liveuser/.local/share/dbus-1/services/org.kde.kdeconnect.service << DBUS_EOF
 [D-BUS Service]
 Name=org.kde.kdeconnect
