@@ -100,6 +100,17 @@ AutomountOnLogin=false
 AutomountOnPlugin=false
 AUTOMOUNTER_EOF
 
+# disable kdeconnect
+cat > /home/liveuser/.config/autostart/org.kde.kdeconnect.daemon.desktop << KDECONNECT_EOF
+[Desktop Entry]
+Hidden=true
+KDECONNECT_EOF
+cat > /home/liveuser/.local/share/dbus-1/services/org.kde.kdeconnect.service << DBUS_EOF
+[D-BUS Service]
+Name=org.kde.kdeconnect
+Exec=/usr/bin/false
+DBUS_EOF
+
 # make sure to set the right permissions and selinux contexts
 chown -R liveuser:liveuser /home/liveuser/
 restorecon -R /home/liveuser/
