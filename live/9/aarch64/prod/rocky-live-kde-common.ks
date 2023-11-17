@@ -9,7 +9,7 @@
 
 # Libreoffice
 libreoffice-calc
-libreoffice-emailmerge
+#libreoffice-emailmerge
 libreoffice-graphicfilter
 libreoffice-impress
 libreoffice-writer
