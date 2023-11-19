@@ -114,6 +114,7 @@ xdg-user-dirs-gtk
 xmodmap
 xrdb
 yelp
+gjs
 -@3d-printing
 -@admin-tools
 -audacious

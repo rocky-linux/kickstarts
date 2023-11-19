@@ -51,6 +51,7 @@ mariadb-server
 #kdeartwork			# only include some parts of kdeartwork
 fuse
 #mediawriter <-- Not in EL8
+gjs
 
 ### space issues
 

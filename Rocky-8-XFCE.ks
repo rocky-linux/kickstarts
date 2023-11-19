@@ -483,6 +483,7 @@ xfdashboard
 xfdashboard-themes
 xdg-user-dirs
 xdg-user-dirs-gtk
+gjs
 -acpid
 -aspell-*
 -autofs

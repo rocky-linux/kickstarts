@@ -483,6 +483,7 @@ sddm-themes
 sddm-breeze
 sddm-kcm
 syslinux
+gjs
 -@admin-tools
 -@input-methods
 -desktop-backgrounds-basic

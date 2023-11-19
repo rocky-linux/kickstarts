@@ -57,6 +57,7 @@ pavucontrol
 wget
 xdg-user-dirs
 xdg-user-dirs-gtk
+gjs
 
 # save some space
 -autofs
