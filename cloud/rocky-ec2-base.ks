@@ -96,7 +96,7 @@ truncate -c -s 0 /var/log/dnf.log
 echo 'ec2' > /etc/yum/vars/infra
 
 rm -rf /var/log/yum.log
-rm -rf /var/lib/yum/*
+rm -rf "/var/lib/yum/*"
 rm -rf /root/install.log
 rm -rf /root/install.log.syslog
 rm -rf /root/anaconda-ks.cfg
@@ -117,7 +117,11 @@ EOL
 # enable resizing on copied AMIs
 echo 'install_items+=" sgdisk "' > /etc/dracut.conf.d/sgdisk.conf
 
-echo 'add_drivers+=" xen-netfront xen-blkfront "' > /etc/dracut.conf.d/xen.conf
+# Only x86 has xen support at this time
+if [[ "$(arch)" == "x86_64" ]]; then
+  echo 'add_drivers+=" xen-netfront xen-blkfront "' > /etc/dracut.conf.d/xen.conf
+fi
+
 # Rerun dracut for the installed kernel (not the running kernel):
 KERNEL_VERSION=$(rpm -q kernel --qf '%{V}-%{R}.%{arch}\n')
 dracut -f /boot/initramfs-$KERNEL_VERSION.img $KERNEL_VERSION
