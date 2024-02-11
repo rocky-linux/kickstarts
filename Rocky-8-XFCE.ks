@@ -470,6 +470,7 @@ xfce4-appfinder
 xfce4-battery-plugin
 xfce4-datetime-plugin
 xfce4-netload-plugin
+xfce4-notifyd
 xfce4-places-plugin
 xfce4-pulseaudio-plugin
 xfce4-screenshooter-plugin
