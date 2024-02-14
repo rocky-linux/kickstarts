@@ -1,4 +1,4 @@
-# R9 specific kickstarts
+# R10 specific kickstarts
 
 This branch has Rocky Linux 10 specific kickstarts. These kickstarts vary
 between cloud images and live images provided in our repositories and
