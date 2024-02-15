@@ -120,6 +120,9 @@ systemctl disable network
 rm -f /etc/machine-id
 touch /etc/machine-id
 
+# relabel
+/usr/sbin/restorecon -RF /
+
 %end
 %post --nochroot
 # only works on x86_64
