@@ -89,6 +89,16 @@ touch /etc/machine-id
 
 %end
 
+%post --nochroot
+# only works on x86_64
+if [ "unknown" = "i386" -o "unknown" = "x86_64" ]; then
+    # For livecd-creator builds. livemedia-creator is fine.
+    if [ ! -d /LiveOS ]; then mkdir -p /LiveOS ; fi
+    cp /usr/bin/livecd-iso-to-disk /LiveOS
+fi
+
+%end
+
 %post
 
 sed -i 's/^livesys_session=.*/livesys_session="kde"/' /etc/sysconfig/livesys
