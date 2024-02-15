@@ -40,6 +40,7 @@ memtest86+
 anaconda
 anaconda-install-env-deps
 anaconda-live
+livesys-scripts
 @anaconda-tools
 
 # Required for SVG rnotes images

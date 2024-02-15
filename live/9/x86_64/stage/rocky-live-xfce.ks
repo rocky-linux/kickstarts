@@ -16,49 +16,6 @@ PREFERRED=/usr/bin/startxfce4
 DISPLAYMANAGER=/usr/sbin/lightdm
 EOF
 
-cat >> /etc/rc.d/init.d/livesys << EOF
-
-mkdir -p /home/liveuser/.config/xfce4
-# ugly stuff, this should give us a default background for now
-#mkdir -p /usr/share/backgrounds/images
-#ln -s /usr/share/backgrounds/f32/default/f32.png \
-#  /usr/share/backgrounds/images/default.png
-
-cat > /home/liveuser/.config/xfce4/helpers.rc << FOE
-MailReader=sylpheed-claws
-FileManager=Thunar
-WebBrowser=firefox
-FOE
-
-# disable screensaver locking (#674410)
-cat >> /home/liveuser/.xscreensaver << FOE
-mode:           off
-lock:           False
-dpmsEnabled:    False
-FOE
-
-# deactivate xfconf-migration (#683161)
-rm -f /etc/xdg/autostart/xfconf-migration-4.6.desktop || :
-
-# deactivate xfce4-panel first-run dialog (#693569)
-mkdir -p /home/liveuser/.config/xfce4/xfconf/xfce-perchannel-xml
-cp /etc/xdg/xfce4/panel/default.xml /home/liveuser/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
-
-# set up lightdm autologin
-sed -i 's/^#autologin-user=.*/autologin-user=liveuser/' /etc/lightdm/lightdm.conf
-sed -i 's/^#autologin-user-timeout=.*/autologin-user-timeout=0/' /etc/lightdm/lightdm.conf
-sed -i 's/^#show-language-selector=.*/show-language-selector=true/' /etc/lightdm/lightdm-gtk-greeter.conf
-
-# set Xfce as default session, otherwise login will fail
-sed -i 's/^#user-session=.*/user-session=xfce/' /etc/lightdm/lightdm.conf
-
-# debrand
-#sed -i "s/Red Hat Enterprise/Rocky/g" /usr/share/anaconda/gnome/fedora-welcome.desktop
-#sed -i "s/RHEL/Rocky Linux/g" /usr/share/anaconda/gnome/fedora-welcome
-#sed -i "s/Red Hat Enterprise/Rocky/g" /usr/share/anaconda/gnome/fedora-welcome
-#sed -i "s/org.fedoraproject.AnacondaInstaller/fedora-logo-icon/g" /usr/share/anaconda/gnome/fedora-welcome
-#sed -i "s/org.fedoraproject.AnacondaInstaller/fedora-logo-icon/g" /usr/share/applications/liveinst.desktop
-
 # set default background
 cat > /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml <<XFCEEOF
 <?xml version="1.0" encoding="UTF-8"?>
@@ -78,36 +35,7 @@ cat > /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml <<XFCEEOF
 </channel>
 XFCEEOF
 
-# Show harddisk install on the desktop
-sed -i -e 's/NoDisplay=true/NoDisplay=false/' /usr/share/applications/liveinst.desktop
-mkdir /home/liveuser/Desktop
-cp /usr/share/applications/liveinst.desktop /home/liveuser/Desktop/
-
-if [ -f /usr/share/anaconda/gnome/fedora-welcome.desktop  ]; then
-  mkdir -p ~liveuser/.config/autostart
-  cp /usr/share/anaconda/gnome/fedora-welcome.desktop /usr/share/applications/
-  cp /usr/share/anaconda/gnome/fedora-welcome.desktop ~liveuser/.config/autostart/
-fi
-
-# no updater applet in live environment
-rm -f /etc/xdg/autostart/org.mageia.dnfdragora-updater.desktop
-
-# and mark it as executable (new Xfce security feature)
-chmod +x /home/liveuser/Desktop/liveinst.desktop
-
-cat > ~liveuser/.profile << PROFILE_EOF
-export XDG_DATA_DIRS="\\\${XDG_DATA_DIRS}:\\\${HOME}/Desktop"
-PROFILE_EOF
-
-# move to anaconda - probably not required for XFCE.
-mv /usr/share/applications/liveinst.desktop /usr/share/applications/anaconda.desktop
-
-# this goes at the end after all other changes. 
-chown -R liveuser:liveuser /home/liveuser
-restorecon -R /home/liveuser
-restorecon -R /
-
-EOF
+sed -i 's/^livesys_session=.*/livesys_session="xfce"/' /etc/sysconfig/livesys
 
 # this doesn't come up automatically. not sure why.
 systemctl enable --force lightdm.service
