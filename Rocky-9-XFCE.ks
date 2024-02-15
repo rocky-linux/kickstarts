@@ -509,6 +509,7 @@ xfce4-appfinder
 xfce4-datetime-plugin
 xfce4-netload-plugin
 xfce4-notifyd
+xfce4-panel-profiles
 xfce4-power-manager
 xfce4-screensaver
 xfce4-screenshooter-plugin
