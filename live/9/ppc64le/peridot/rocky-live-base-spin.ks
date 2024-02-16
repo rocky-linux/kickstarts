@@ -127,7 +127,8 @@ rm -f /etc/machine-id
 touch /etc/machine-id
 
 # relabel
-/usr/sbin/restorecon -RF /
+#/usr/sbin/restorecon -RF /
+/usr/sbin/fixfiles -R -a restore
 
 %end
 %post --nochroot
