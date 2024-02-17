@@ -311,6 +311,8 @@ rm -f /boot/*-rescue*
 rm -f /etc/machine-id
 touch /etc/machine-id
 
+/usr/sbin/fixfiles -R -a restore
+
 # xfce configuration
 
 # create /etc/sysconfig/desktop (needed for installation)

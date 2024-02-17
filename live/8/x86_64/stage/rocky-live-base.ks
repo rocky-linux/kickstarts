@@ -328,6 +328,8 @@ rm -f /boot/*-rescue*
 rm -f /etc/machine-id
 touch /etc/machine-id
 
+/usr/sbin/fixfiles -R -a restore
+
 %end
 
 

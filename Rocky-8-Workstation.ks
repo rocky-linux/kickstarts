@@ -309,6 +309,8 @@ rm -f /boot/*-rescue*
 rm -f /etc/machine-id
 touch /etc/machine-id
 
+/usr/sbin/fixfiles -R -a restore
+
 cat >> /etc/rc.d/init.d/livesys << EOF
 
 
