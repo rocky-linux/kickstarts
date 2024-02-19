@@ -3,7 +3,7 @@ lang en_US.UTF-8
 keyboard us
 timezone --utc UTC
 # Disk
-auth --enableshadow --passalgo=sha512
+#auth --enableshadow --passalgo=sha512
 selinux --enforcing
 firewall --enabled --service=ssh
 firstboot --disable

@@ -21,7 +21,6 @@ repo --name="oraclelinux-addons" --baseurl=http://yum.oracle.com/repo/OracleLinu
 repo --name "sig-cloud-common" --baseurl="https://yumrepofs.build.resf.org/v1/projects/15016370-1410-4459-a1a2-a1576041fd19/repo/cloud-common/$basearch/" --includepkgs="oci-utils,python3-circuitbreaker,python3-daemon,python3-sdnotify,python39-oci-sdk" --cost=100
 repo --name=epel --cost=200 --baseurl="https://dl.fedoraproject.org/pub/epel/10/Everything/$basearch/" --install
 # System authorization information
-auth --enableshadow --passalgo=sha512
 # Firewall configuration
 firewall --enabled --service=ssh
 firstboot --disable

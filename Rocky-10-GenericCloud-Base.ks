@@ -4,7 +4,6 @@ keyboard us
 timezone --utc UTC
 # Disk
 bootloader --append="console=ttyS0,115200n8 no_timer_check crashkernel=auto net.ifnames=0" --location=mbr --timeout=1
-auth --enableshadow --passalgo=sha512
 selinux --enforcing
 firewall --enabled --service=ssh
 firstboot --disable

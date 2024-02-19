@@ -4,7 +4,6 @@ keyboard us
 timezone UTC --utc
 # Disk
 bootloader --append="console=ttyS0,115200n8 console=tty0 net.ifnames=0 rd.blacklist=nouveau nvme_core.io_timeout=4294967295" --location=mbr --timeout=1
-auth --enableshadow --passalgo=sha512
 selinux --enforcing
 firewall --enabled --service=ssh
 firstboot --disable

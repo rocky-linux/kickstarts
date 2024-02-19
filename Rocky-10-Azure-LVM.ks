@@ -16,7 +16,6 @@ network  --bootproto=dhcp --device=link --activate
 # Use network installation
 url --url="https://download.rockylinux.org/stg/rocky/10/BaseOS/$basearch/os/"
 # System authorization information
-auth --enableshadow --passalgo=sha512
 # Firewall configuration
 firewall --enabled --service=ssh
 firstboot --disable
