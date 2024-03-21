@@ -1,4 +1,4 @@
-url --url https://download.rockylinux.org/stg/rocky/9/BaseOS/$basearch/os/
+url --url https://download.rockylinux.org/stg/rocky/10/BaseOS/$basearch/os/
 
 text
 bootloader --disable

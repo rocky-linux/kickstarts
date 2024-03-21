@@ -13,7 +13,7 @@ repo --name="BaseOS"     --baseurl=http://download.rockylinux.org/stg/rocky/10/B
 repo --name="AppStream"  --baseurl=http://download.rockylinux.org/stg/rocky/10/AppStream/aarch64/os/ --cost=200 --install
 repo --name="CRB" --baseurl=http://download.rockylinux.org/stg/rocky/10/CRB/aarch64/os/ --cost=300 --install
 # Rocky Rpi kernel repo, we need a more permanent place for this:
-repo --name="rockyrpi" --baseurl=https://download.rockylinux.org/stg/sig/9/altarch/aarch64/altarch-rockyrpi/ --cost=20
+repo --name="rockyrpi" --baseurl=https://download.rockylinux.org/stg/sig/10/altarch/aarch64/altarch-rockyrpi/ --cost=20
 repo --name="rockyextras" --baseurl=https://download.rockylinux.org/stg/rocky/10/extras/aarch64/os/  --cost=20
 
 # Install process:

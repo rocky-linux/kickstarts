@@ -2,7 +2,7 @@
 %include rocky-cloud-parts-lvm.ks
 %include rocky-cloud-ocp-packages.ks
 
-repo --name "sig-cloud-common" --baseurl=http://dl.rockylinux.org/stg/sig/9/cloud/$basearch/cloud-common/ --includepkgs="oci-utils,python3-circuitbreaker,python3-daemon,python3-sdnotify,python39-oci-sdk" --cost=100
+repo --name "sig-cloud-common" --baseurl=http://dl.rockylinux.org/stg/sig/10/cloud/$basearch/cloud-common/ --includepkgs="oci-utils,python3-circuitbreaker,python3-daemon,python3-sdnotify,python39-oci-sdk" --cost=100
 repo --name "extras" --baseurl=http://dl.rockylinux.org/stg/rocky/10/extras/$basearch/os/
 repo --name=epel --cost=200 --baseurl=https://dl.fedoraproject.org/pub/epel/10/Everything/$basearch/
 

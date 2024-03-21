@@ -7,8 +7,8 @@ repo --name=CRB --cost=200 --baseurl=http://dl.rockylinux.org/pub/rocky/10/CRB/$
 repo --name=extras --cost=200 --baseurl=http://dl.rockylinux.org/pub/rocky/10/extras/$basearch/os
 
 # EPEL (required for KDE and XFCE)
-repo --name=epel --cost=200 --baseurl=https://dl.fedoraproject.org/pub/epel/9/Everything/$basearch/
-#repo --name=epel-modular --cost=200 --baseurl=https://dl.fedoraproject.org/pub/epel/9/Modular/$basearch/
+repo --name=epel --cost=200 --baseurl=https://dl.fedoraproject.org/pub/epel/10/Everything/$basearch/
+#repo --name=epel-modular --cost=200 --baseurl=https://dl.fedoraproject.org/pub/epel/10/Modular/$basearch/
 
 # URL to the base os repo
 url --url=http://dl.rockylinux.org/pub/rocky/10/BaseOS/$basearch/os/
