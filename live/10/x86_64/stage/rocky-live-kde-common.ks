@@ -8,11 +8,6 @@
 @kde-media
 
 # Libreoffice
-#libreoffice-calc
-#libreoffice-emailmerge
-#libreoffice-graphicfilter
-#libreoffice-impress
-#libreoffice-writer
 
 -@admin-tools
 

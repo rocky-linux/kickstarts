@@ -2,10 +2,10 @@
 %packages
 rocky-backgrounds
 rocky-release
-thunderbird
-firefox
 f40-backgrounds-gnome
 f40-backgrounds-extras-gnome
+f41-backgrounds-gnome
+f41-backgrounds-extras-gnome
 gjs
 
 NetworkManager-adsl
@@ -63,11 +63,7 @@ parole
 #audacious
 #rhythmbox
 
-#libreoffice-calc
 #libreoffice-emailmerge
-#libreoffice-graphicfilter
-#libreoffice-impress
-#libreoffice-writer
 
 -xsane
 -xane-gimp

@@ -17,8 +17,6 @@
 @networkmanager-submodules
 
 # Libreoffice
-#libreoffice-calc
-#libreoffice-writer
 
 # Exclude unwanted packages from @anaconda-tools group
 -gfs2-utils

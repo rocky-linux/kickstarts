@@ -23,8 +23,6 @@ lightdm
 -gnome-shell
 
 # Some stuff might already be here, doesn't hurt to list it.
-firefox
-thunderbird
 firewall-config
 #pidgin
 rocky-backgrounds
@@ -39,6 +37,7 @@ xfce4-taskmanager
 xfce4-datetime-plugin
 xfce4-netload-plugin
 xfce4-notifyd
+xfce4-panel-profiles
 #xfce4-places-plugin
 xfce4-screenshooter-plugin
 xfce4-smartbookmark-plugin

@@ -1,13 +1,10 @@
 # mate
 %packages
 rocky-backgrounds
-rocky-backgrounds-compat
-rocky-release
-thunderbird
-firefox
 f40-backgrounds-mate
 f40-backgrounds-extras-mate
-gjs
+f41-backgrounds-mate
+f41-backgrounds-extras-mate
 
 NetworkManager-adsl
 NetworkManager-bluetooth
@@ -43,7 +40,7 @@ gvfs-fuse
 gvfs-gphoto2
 gvfs-mtp
 gvfs-smb
-hexchat
+#hexchat
 initial-setup-gui
 libmatekbd
 libmatemixer
@@ -108,11 +105,7 @@ mate-utils
 pluma-plugins
 tigervnc
 
-#libreoffice-calc
 #libreoffice-emailmerge
-#libreoffice-graphicfilter
-#libreoffice-impress
-#libreoffice-writer
 
 -@3d-printing
 -@admin-tools

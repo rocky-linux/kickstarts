@@ -3,10 +3,10 @@
 rocky-backgrounds
 rocky-backgrounds-compat
 rocky-release
-thunderbird
-firefox
 f40-backgrounds-mate
 f40-backgrounds-extras-mate
+f41-backgrounds-mate
+f41-backgrounds-extras-mate
 gjs
 
 NetworkManager-adsl
@@ -108,11 +108,6 @@ mate-utils
 pluma-plugins
 tigervnc
 
-#libreoffice-calc
-#libreoffice-emailmerge
-#libreoffice-graphicfilter
-#libreoffice-impress
-#libreoffice-writer
 
 -@3d-printing
 -@admin-tools

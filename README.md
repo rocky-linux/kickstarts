@@ -1,8 +1,7 @@
 # R10 specific kickstarts
 
-This branch has Rocky Linux 10 specific kickstarts. These kickstarts vary
-between cloud images and live images provided in our repositories and
-mirrors.
+This branch has Rocky Linux 10 specific kickstarts. These kickstarts are
+only for live images. These may be superseded by kiwi in the future.
 
 ## Structure
 
@@ -11,9 +10,7 @@ user can pick up, use, or modify to their liking to make their own Rocky
 Linux live images, cloud images, and so on. These kickstarts are generated
 by templates that live in the various directories in this repository.
 
-* `cloud` -> Cloud image templates
 * `live` -> Live image templates
-* `container` -> Container image templates
 
 These kickstarts are generated using `ksflatten`. Changes made to the
 kickstarts generally match between the templates and the full kickstarts
@@ -61,17 +58,17 @@ set it up like so:
 % mock -r rocky-10-x86_64 --shell --isolation=simple --enable-network
 
 # Clone the kickstarts and run an installation
-% git clone https://github.com/rocky-linux/kickstarts -b r9
+% git clone https://github.com/rocky-linux/kickstarts -b r10
 % cd kickstarts
-% livemedia-creator --ks Rocky-9-Workstation.ks \
+% livemedia-creator --ks Rocky-10-Workstation.ks \
   --no-virt \
   --resultdir /var/lmc \
   --project="Rocky Linux" \
   --make-iso \
-  --volid Rocky-Workstation-9 \
+  --volid Rocky-Workstation-10 \
   --iso-only \
-  --iso-name Rocky-Workstation-9-x86_64.iso \
-  --releasever=9 \
+  --iso-name Rocky-Workstation-10-x86_64.iso \
+  --releasever=10 \
   --nomacboot  # This option is important to set, mkfs.hfsplus is not available
 ```
 

@@ -7,7 +7,7 @@
 
 # Make sure to sync any additions / removals done here with
 # workstation-product-environment in comps
-@base-x
+@base-graphical
 @core
 @fonts
 @gnome-desktop
@@ -17,13 +17,6 @@
 @multimedia
 @networkmanager-submodules
 @workstation-product
-
-# Libreoffice
-#libreoffice-calc
-#libreoffice-emailmerge
-#libreoffice-graphicfilter
-#libreoffice-impress
-#libreoffice-writer
 
 # Exclude unwanted packages from @anaconda-tools group
 -gfs2-utils

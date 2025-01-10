@@ -38,6 +38,7 @@ kernel-modules-extra
 anaconda
 anaconda-install-env-deps
 anaconda-live
+livesys-scripts
 @anaconda-tools
 efi-filesystem
 efivar-libs
@@ -53,7 +54,6 @@ grub2-tools-minimal
 grubby
 shim-*64
 -shim-unsigned-*64
--fcoe-utils
 
 # Required for SVG rnotes images
 aajohan-comfortaa-fonts
@@ -65,23 +65,31 @@ dracut-live
 # Anaconda needs all the locales available, just like a DVD installer
 glibc-all-langpacks
 
-# adapted from fedora
-livesys-scripts
+# This isn't in @core anymore, but livesys still needs it
+initscripts
+chkconfig
 %end
 
 %post
 systemctl enable livesys.service
 systemctl enable livesys-late.service
+# Enable tmpfs for /tmp - this is a good idea
 systemctl enable tmp.mount
 
+# make it so that we don't do writing to the overlay for things which
+# are just tmpdirs/caches
+# note https://bugzilla.redhat.com/show_bug.cgi?id=1135475
 cat >> /etc/fstab << EOF
 vartmp   /var/tmp    tmpfs   defaults   0  0
 EOF
 
-# fix packagekit
+# PackageKit likes to play games. Let's fix that.
 rm -f /var/lib/rpm/__db*
+releasever=$(rpm -q --qf '%{version}\n' --whatprovides system-release)
+basearch=$(uname -i)
+rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-Rocky-10
 echo "Packages within this LiveCD"
-rpm -qa --qf '%{size}\t%{name}-%{version}-%{release}.%{arch}\n' |sort -rn
+rpm -qa
 # Note that running rpm recreates the rpm db files which aren't needed or wanted
 rm -f /var/lib/rpm/__db*
 
@@ -96,6 +104,7 @@ rm -f /var/lib/systemd/random-seed
 
 # convince readahead not to collect
 # FIXME: for systemd
+
 echo 'File created by kickstart. See systemd-update-done.service(8).' \
     | tee /etc/.updated >/var/.updated
 
@@ -104,11 +113,15 @@ echo 'File created by kickstart. See systemd-update-done.service(8).' \
 rm -f /boot/*-rescue*
 
 # Disable network service here, as doing it in the services line
-# fails due to RHBZ #1369794
+# fails due to RHBZ #1369794 - the error is expected
 systemctl disable network
 
-# Remove machine-id on pre generated images
+# Remove machine-id on generated images
 rm -f /etc/machine-id
 touch /etc/machine-id
+
+# relabel
+#/usr/sbin/restorecon -RF /
+/usr/sbin/fixfiles -R -a restore
 
 %end
