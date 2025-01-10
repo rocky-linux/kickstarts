@@ -7,6 +7,9 @@ mirrors.
 If you are looking for the kiwi version of these configurations, check
 out [this repo](https://git.resf.org/sig_core/rocky-kiwi-descriptions/src/branch/r9).
 
+Note that most cloud images are not built using these kickstarts, instead
+kiwi is used.
+
 ## Structure
 
 In the root of the repository are the general kickstarts in use that any
