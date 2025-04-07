@@ -34,7 +34,7 @@ zerombr
 clearpart --all
 # Disk partitioning information
 part / --fstype="ext4" --size=5120
-part / --size=7750
+part / --size=8192
 
 %post
 systemctl enable livesys.service
@@ -87,7 +87,8 @@ rm -f /etc/machine-id
 touch /etc/machine-id
 
 # relabel
-/usr/sbin/restorecon -RF /
+#/usr/sbin/restorecon -RF /
+/usr/sbin/fixfiles -R -a restore
 
 %end
 
