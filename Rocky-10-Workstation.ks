@@ -1,0 +1,1 @@
+Rocky-10-Workstation-x86_64.ks
