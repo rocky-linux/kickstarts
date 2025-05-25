@@ -7,7 +7,7 @@
 
 # Make sure to sync any additions / removals done here with
 # workstation-product-environment in comps
-@base-x
+@base-graphical
 @core
 @fonts
 @gnome-desktop

@@ -101,7 +101,6 @@ sed -i 's/^livesys_session=.*/livesys_session="gnome"/' /etc/sysconfig/livesys
 %packages
 @anaconda-tools
 @base-graphical
-@base-x
 @core
 @fonts
 @gnome-desktop
@@ -111,7 +110,6 @@ sed -i 's/^livesys_session=.*/livesys_session="gnome"/' /etc/sysconfig/livesys
 @multimedia
 @networkmanager-submodules
 @workstation-product
-aajohan-comfortaa-fonts
 anaconda
 anaconda-install-env-deps
 anaconda-live

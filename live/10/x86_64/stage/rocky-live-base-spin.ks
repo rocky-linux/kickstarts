@@ -21,7 +21,7 @@ shutdown
 %include rocky-repo-epel.ks
 
 %packages
-@base-x
+@base-graphical
 @guest-desktop-agents
 @standard
 @core
@@ -57,7 +57,6 @@ shim-*64
 -shim-unsigned-*64
 
 # Required for SVG rnotes images
-aajohan-comfortaa-fonts
 
 # RHBZ#1242586 - Required for initramfs creation
 dracut-live
