@@ -26,7 +26,7 @@ selinux --enforcing
 # System services
 services --disabled="kdump" --enabled="NetworkManager,sshd,rsyslog,chronyd,cloud-init,cloud-init-local,cloud-config,cloud-final,rngd"
 # System bootloader configuration
-bootloader --append="rootdelay=300 console=ttyS0 earlyprintk=ttyS0  no_timer_check crashkernel=auto net.ifnames=0" --location=mbr --timeout=1
+bootloader --append="rootdelay=300 console=ttyAMA0 earlyprintk=ttyAMA0 no_timer_check crashkernel=auto net.ifnames=0" --location=mbr --timeout=1
 
 # Disk partitioning information
 # NOTE(neil): 2023-05-12 NONE of reqpart, clearpart, zerombr can be used. We
